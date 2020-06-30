@@ -31,7 +31,8 @@
 
         <div class="col-md-8">
             QUESTION HERE...
-
+            <br>
+            <div id="key"></div>
             <div id="question"></div>
         </div>
     </div>
@@ -68,14 +69,14 @@
     };
 
     ws.onmessage = function(e) {
-        Debug(e.data);
+        //Debug(e.data);
 
         let obj = JSON.parse(e.data);
         Debug(obj);
-
-        if(obj.key === 'joining' && obj.accessCode === acode){
+        Debug(obj[0].access_code);
+        if(obj[0].key === 'joining' && obj[0].access_code === acode){
             let node = document.createElement("li");
-            node.appendChild(document.createTextNode(obj.player));
+            node.appendChild(document.createTextNode(obj[0].player));
             document.getElementById("player-list").appendChild(node);
         }
     };
@@ -90,7 +91,11 @@
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
-                myLoop(JSON.parse(this.responseText));
+                //let jsonData = JSON.parse(this.responseText);
+                let jsonData = JSON.parse(this.responseText);
+               // myLoop(JSON.parse(this.responseText));
+               jsonData.push("");
+               Debug(jsonData);
             }
         };
         xhttp.open("GET", "/quiz/question/ajax/question-by-access-code/" +acode , true);
@@ -99,24 +104,30 @@
     });
 
 
-    // let x = setInterval(function(){
-    //     clearInterval(x);
-    //     Debug('test');
-    // },1000);
-
     function startQuestion(data){
        // let obj = JSON.parse(data);
         Debug(data.length);
     }
 
     var sec = 0;//  set your counter to 1
-    function myLoop(data) {         //  create a loop function
-        setTimeout(function() {   //  call a 3s setTimeout when the loop is called
+    function myLoop(data) {   
+              //  create a loop function
+              
+
+        setTimeout(function() {   //  call a 0s setTimeout when the loop is called
             if (i < data.length) {
+
+                if(i === data.length-1){
+                    //data[i].push("key");
+                }
+    
+                document.getElementById("key").innerHTML = data.length;
                 document.getElementById("question").innerHTML = data[i].question;   //  your code here
-                ws.send(JSON.stringify(data[i])); //send data in websocket
+               // ws.send(JSON.stringify(data[i])); //send data in websocket
+                Debug(data[i]);
                 sec = data[i].set_time;
-                i++;        //  if the counter < 10, call the loop function
+                i++;  
+                //  if the counter < 10, call the loop function
                 myLoop(data);             //  ..  again which will trigger another
             }else{
                 Debug('end');
