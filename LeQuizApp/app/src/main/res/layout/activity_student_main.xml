@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StudentMainActivity"
+    android:layout_marginHorizontal="10dp">
+
+    <TextView
+        android:id="@+id/lblStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30dp"
+        android:text="WELCOME TO LeQuiz"
+        android:fontFamily="sans-serif-medium"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
+        />
+
+
+
+
+    <EditText
+        android:id="@+id/txtAccessCode"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:ems="10"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@id/btnjoinroom"
+        android:hint="Access Code"
+        android:layout_below="@+id/lblStudent"
+        />
+
+
+    <Button
+        android:id="@+id/btnjoinroom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Room"
+       android:layout_alignParentRight="true"
+        android:layout_below="@id/lblStudent"
+        />
+
+
+</RelativeLayout>

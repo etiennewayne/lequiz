@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="10dp"
+    tools:context=".QuizGameActivity">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Score"
+        android:id="@+id/txtScore"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Time"
+        android:layout_below="@+id/txtScore"
+        android:id="@+id/txtTimer"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:hint="Question here"
+        android:layout_below="@id/txtTimer"
+        android:id="@+id/txtQuestion"
+        />
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@id/txtQuestion"
+        android:text="Choices A"
+        android:onClick="clickBtnA"
+        android:id="@+id/btnA"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnA"
+        android:text="Choices B"
+        android:onClick="clickBtnB"
+        android:id="@+id/btnB"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnB"
+        android:text="Choices C"
+        android:onClick="clickBtnC"
+        android:id="@+id/btnC"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnC"
+        android:text="Choices D"
+        android:onClick="clickBtnD"
+        android:id="@+id/btnD"
+        />
+
+</RelativeLayout>

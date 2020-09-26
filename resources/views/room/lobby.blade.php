@@ -1,48 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@extends('layouts.app')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-<!--<script type="text/javascript" src="{{asset('/js/jquery-3.5.1.js')}}"></script>-->
-
-    <link rel="stylesheet" type="text/css" href="{{ asset("/css/bootstrap.min.css") }}">
-<!-- <link rel="stylesheet" type="text/css" href="{{ asset("/css/dataTables.bootstrap4.min.css") }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/jquery-confirm.css') }}">-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
-
-
-</head>
-<body>
-
-<div class="container">
+<div class="container mt-5">
 
     <div class="row">
         <div class="col-md-4">
-            <h3 style="padding-top: 20px;">Waiting for players...</h3>
-
-            <ul id="player-list"></ul>
+            <div class="card">
+                <div class="card-header">
+                  Player List(s)
+                </div>
+                <div class="card-body">
+                    <ul id="player-list"></ul>
+                </div>
+              </div>
         </div>
 
         <div class="col-md-8">
-            QUESTION HERE...
-            <br>
-            <div id="key"></div>
-            <div id="question"></div>
+            <div class="card">
+                <div class="card-header">
+                    QUESTION HERE...
+                </div>
+                <div class="card-body">
+                    <div style="display: none;" id="key"></div>
+                    <div id="question"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-
-
-    <br>
-    <button class="btn btn-primary" id="start-quiz">START QUIZ</button>
+    <button class="btn btn-primary mt-2" id="start-quiz">START QUIZ</button>
 
 </div>
+
+
+
 
 
 
@@ -63,7 +55,7 @@
 
 
 
-    var ws = new WebSocket('ws://192.168.254.5:8080');
+    var ws = new WebSocket('ws://192.168.88.242:8080');
     ws.onopen = function(e) {
         Debug("Connection established!");
     };
@@ -93,7 +85,7 @@
             if (this.readyState == 4 && this.status == 200) {
                 //let jsonData = JSON.parse(this.responseText);
                 let jsonData = JSON.parse(this.responseText);
-               // myLoop(JSON.parse(this.responseText));
+                myLoop(JSON.parse(this.responseText));
                jsonData.push("");
                Debug(jsonData);
             }
@@ -112,18 +104,17 @@
     var sec = 0;//  set your counter to 1
     function myLoop(data) {   
               //  create a loop function
-              
-
+            
         setTimeout(function() {   //  call a 0s setTimeout when the loop is called
             if (i < data.length) {
 
                 if(i === data.length-1){
                     //data[i].push("key");
                 }
-    
+
                 document.getElementById("key").innerHTML = data.length;
-                document.getElementById("question").innerHTML = data[i].question;   //  your code here
-               // ws.send(JSON.stringify(data[i])); //send data in websocket
+                document.getElementById("question").innerHTML = (i+1) + '. ' + data[i].question;   //  your code here
+                ws.send(JSON.stringify(data[i])); //send data in websocket
                 Debug(data[i]);
                 sec = data[i].set_time;
                 i++;  
@@ -140,7 +131,5 @@
 
 </script>
 
+@endsection
 
-
-</body>
-</html>
