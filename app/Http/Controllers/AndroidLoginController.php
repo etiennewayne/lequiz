@@ -19,6 +19,7 @@ class AndroidLoginController extends Controller
         //     return 'login';
         // }
 
+
         $user = User::where('username',$user)
         ->where('apwd', $pwd)->get();
         
@@ -26,6 +27,22 @@ class AndroidLoginController extends Controller
        return $user;
        //return Response::json(['datapack'=>$datapack],200);
   }
+
+
+  public function authenticate(Request $request)
+  {
+      $credentials = $request->only('username', 'password');
+
+      if (Auth::attempt($credentials)) {
+          // Authentication passed...
+          //return redirect()->intended('dashboard');
+        return 'login';
+      }
+      return $credentials;
+  }
+
+
+
 
    // public function androidLogin(Request $req){
 

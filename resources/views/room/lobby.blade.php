@@ -55,7 +55,7 @@
 
 
 
-    var ws = new WebSocket('ws://192.168.88.242:8080');
+    var ws = new WebSocket('ws://192.168.254.10:8080');
     ws.onopen = function(e) {
         Debug("Connection established!");
     };
@@ -121,7 +121,9 @@
                 //  if the counter < 10, call the loop function
                 myLoop(data);             //  ..  again which will trigger another
             }else{
-                Debug('end');
+                Debug(JSON.stringify('end'));
+                ws.send(JSON.stringify({status:"end"}));
+
             }                       //  ..  setTimeout()
         }, sec * 1000)
 

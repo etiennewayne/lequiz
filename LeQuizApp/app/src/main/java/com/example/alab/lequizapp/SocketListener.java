@@ -1,5 +1,6 @@
 package com.example.alab.lequizapp;
 
+import android.content.Intent;
 import android.os.CountDownTimer;
 import android.widget.Toast;
 
@@ -32,7 +33,6 @@ public class SocketListener extends WebSocketListener {
             public void run() {
                 Toast.makeText(activity, "Connection established", Toast.LENGTH_LONG).show();
 
-
                 try {
                     JSONObject connectionJSONObject = new JSONObject();
                     connectionJSONObject.put("key", "joining");
@@ -46,7 +46,7 @@ public class SocketListener extends WebSocketListener {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-            }
+                }
             }
         });
     }
@@ -61,21 +61,30 @@ public class SocketListener extends WebSocketListener {
                 public void run() {
 
                     try {
+                       // Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
 
                         JSONObject obj = new JSONObject(text);
-                        String question = obj.getString("question");
-                        int timer = obj.getInt("set_time");
-                        activity.txtQuestion.setText(question);
-                        //activity.txtTimer.setText(timer);
-                        activity.btnA.setText(obj.getString("opt_a"));
-                        activity.btnB.setText(obj.getString("opt_b"));
-                        activity.btnC.setText(obj.getString("opt_c"));
-                        activity.btnD.setText(obj.getString("opt_d"));
-                        activity.ans = obj.getString("ans");
-                        thisScore = obj.getInt("equiv_score");
-                        setButton(true); //enable button in every question
-                        startTime(timer);
 
+                        if(!obj.has("status")){
+                            String question = obj.getString("question");
+                            int timer = obj.getInt("set_time");
+                            activity.txtQuestion.setText(question);
+                            //activity.txtTimer.setText(timer);
+                            activity.btnA.setText(obj.getString("opt_a"));
+                            activity.btnB.setText(obj.getString("opt_b"));
+                            activity.btnC.setText(obj.getString("opt_c"));
+                            activity.btnD.setText(obj.getString("opt_d"));
+                            activity.ans = obj.getString("ans");
+                            thisScore = obj.getInt("equiv_score");
+                            setButton(true); //enable button in every question
+                            startTime(timer);
+
+                        }else{
+                            Toast.makeText(activity, "Quiz end. Proceed to the result.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(activity, Result.class);
+                            activity.startActivity(intent);
+                            activity.finish();
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -113,7 +122,7 @@ public class SocketListener extends WebSocketListener {
             }
 
             public void onFinish() {
-                activity.txtTimer.setText("Stop!");
+                //activity.txtTimer.setText("0");
             }
         }.start();
     }

@@ -32,6 +32,7 @@ public class QuizGameActivity extends AppCompatActivity {
 
     String user, position, access_code;
     int user_id;
+    String webSocketAddress;
 
     public QuizGameActivity(){
         socketListener = new SocketListener(this);
@@ -58,6 +59,8 @@ public class QuizGameActivity extends AppCompatActivity {
         btnC = findViewById(R.id.btnC);
         btnD = findViewById(R.id.btnD);
 
+        final GlobalClass gClass = (GlobalClass) getApplicationContext();
+        webSocketAddress = gClass.getWebSocketAddress();
 
         score = 0;
         instantiateWebSocket();
@@ -65,8 +68,9 @@ public class QuizGameActivity extends AppCompatActivity {
 
     private void instantiateWebSocket() {
 
+        //Toast.makeText(this, webSocketAddress, Toast.LENGTH_SHORT).show();
         client = new OkHttpClient();
-        request = new Request.Builder().url("ws://192.168.88.242:8080").build();
+        request = new Request.Builder().url(webSocketAddress).build();
         webSocket = client.newWebSocket(request, socketListener);
 
     }

@@ -87,6 +87,7 @@ Route::get('/room/create/ajax/quizzes/cid/{cid}','RoomController@ajaxQuizzes');
 //Route::get('/android/login/{user}{pwd}','AndroidLoginController@checkLogin');
 
 Route::get('/android/login','AndroidLoginController@androidLogin');
+//Route::get('/android/auth','AndroidLoginController@authenticate');
 
 Route::get('/android/quizes/{u}','AndroidQuizController@index');
 

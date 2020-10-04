@@ -29,6 +29,8 @@ public class QuizesActivity extends AppCompatActivity {
     String user, position;
     private RecyclerView rvContacts;
     QuizesAdapter adapter;
+    String ServerIP;
+
 
     ArrayList<Quizes> arrayQuizes;
 
@@ -40,6 +42,10 @@ public class QuizesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user = intent.getStringExtra("user");
         position = intent.getStringExtra("position");
+
+        final GlobalClass gclass = (GlobalClass) getApplicationContext();
+
+        ServerIP = gclass.getIPAddress();
 
         LoadQuizes();
     }
@@ -68,12 +74,10 @@ public class QuizesActivity extends AppCompatActivity {
 
 
         });
-
-
     }
 
     void LoadQuizes(){
-        String url = "http://192.168.15.242/android/quizes/" + user;
+        String url = ServerIP+"/android/quizes/" + user;
 
         RequestQueue queue = Volley.newRequestQueue(this);
 

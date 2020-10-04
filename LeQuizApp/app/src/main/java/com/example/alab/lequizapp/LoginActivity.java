@@ -30,11 +30,14 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     EditText txtuser;
     EditText txtpwd;
-    //Button btnLogin;
+    Button btnLogin;
 
 
     String position = "";
+    String ServerIP="";
 
+
+    GlobalClass gclass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,26 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         txtuser = findViewById(R.id.txtUser);
         txtpwd = findViewById(R.id.txtPwd);
+        btnLogin = findViewById(R.id.btnLogin);
 
+
+
+        gclass = (GlobalClass) getApplicationContext();
+        gclass.setIPAddress("http://192.168.254.10");
+        gclass.setWebSocketAddress("ws://192.168.254.10:8080");
+
+
+        ServerIP = gclass.getIPAddress();
+    }
+
+
+    private Map<String, String> getParams()
+    {
+        Map<String, String>  params = new HashMap<String, String>();
+        params.put("username", txtuser.getText().toString());
+        params.put("password", txtpwd.getText().toString());
+
+        return params;
     }
 
 
@@ -51,7 +73,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //boolean flag=false;
 
-        String url = "http://192.168.88.242/android/login?username="+user+"&password="+pwd;
+        String url = ServerIP+"/android/login?username="+user+"&password="+pwd;
+        //String url = "http://192.168.254.10/android/login";
      //  String postURL = "http://192.168.15.242/android/login";
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -67,9 +90,15 @@ public class LoginActivity extends AppCompatActivity {
                             //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
 
                             if(array.length()>0){
+
                                 JSONObject obj =  array.getJSONObject(0);
                                 position = obj.getString("classification");
-
+                                gclass.setId(obj.getInt("user_id"));
+                                gclass.setUsername(obj.getString("username"));
+                                gclass.setLname(obj.getString("lname"));
+                                gclass.setFname(obj.getString("fname"));
+                                gclass.setMname(obj.getString("mname"));
+                                gclass.setPosition(obj.getString("classification"));
 
                                 if(position.equalsIgnoreCase(("faculty"))){
                                     Intent intent = new Intent(getApplicationContext(), TeacherPanelActivity.class);
@@ -78,6 +107,8 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("position", position);
                                     intent.putExtra("user", obj.getString("username"));
                                     startActivity(intent);
+                                    finish();
+
                                 }
 
                                 if(position.equalsIgnoreCase(("student"))){
@@ -88,10 +119,14 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("user", obj.getString("username"));
                                     intent.putExtra("user_id", obj.getInt("user_id"));
                                     startActivity(intent);
+                                    finish();
                                 }
+
+
 
                             }else{
                                 Toast.makeText(LoginActivity.this, "Username and password error!", Toast.LENGTH_SHORT).show();
+                                btnLogin.setClickable(true);
                             }
 
 
@@ -99,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             e.printStackTrace();
                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            btnLogin.setClickable(true);
                            // flag = false;
                         }
                     }
@@ -108,6 +144,7 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("errlogin", error.getMessage());
                 //flag = fal error.printStackTrace();se;
                 Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                btnLogin.setClickable(true);
 
             }
         });
@@ -117,7 +154,14 @@ public class LoginActivity extends AppCompatActivity {
 
     public void clickLogin(View v){
 
+        if(txtuser.getText().toString().isEmpty() || txtpwd.getText().toString().isEmpty()){
+            Toast.makeText(this, "Please input credentials.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        btnLogin.setClickable(false);
         Auth(txtuser.getText().toString(), txtpwd.getText().toString());
+
 
     }
 

@@ -4,33 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:padding="10dp">
+    tools:context=".Result"
+    android:layout_marginHorizontal="10dp">
+
 
     <EditText
-        android:id="@+id/txtUser"
+        android:id="@+id/resultEditText1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:hint="Username"
-        android:inputType="textPersonName" />
+        android:text="sample"
+        android:layout_marginTop="20dp"
+        ></EditText>
 
-    <EditText
-        android:id="@+id/txtPwd"
+
+    <TextView
+        android:id="@+id/resultTextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:layout_below="@id/resultEditText1"
         android:layout_marginTop="5dp"
-        android:inputType="textPassword"
-        android:layout_below="@id/txtUser"/>
+        />
 
     <Button
-        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SIGN IN"
-        android:onClick="clickLogin"
-        android:layout_below="@id/txtPwd"/>
+        android:text="SAVE RESULT"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>
