@@ -7,7 +7,6 @@ public class StudentAnswer {
     private String question;
 
     private String opt_a;
-
     private String opt_b;
 
     private String opt_c;
@@ -17,6 +16,24 @@ public class StudentAnswer {
     private String ans;
 
     private int equiv_score;
+
+
+    public StudentAnswer(int question_id, String question, String opt_a, String opt_b, String opt_c, String opt_d, String ans, int equiv_score) {
+        this.question_id = question_id;
+        this.question = question;
+        this.opt_a = opt_a;
+        this.opt_b = opt_b;
+        this.opt_c = opt_c;
+        this.opt_d = opt_d;
+        this.ans = ans;
+        this.equiv_score = equiv_score;
+    }
+
+    public StudentAnswer(){
+
+    }
+
+
 
 
 

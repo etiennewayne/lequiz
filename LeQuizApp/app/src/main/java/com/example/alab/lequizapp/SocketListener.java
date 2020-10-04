@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
@@ -18,10 +20,15 @@ public class SocketListener extends WebSocketListener {
 
     int thisScore = 0;
 
+    ArrayList<StudentAnswer> stdAns;
 
     public  SocketListener(QuizGameActivity activity){
         this.activity = activity;
+        stdAns = new ArrayList<>();
+
+
     }
+
 
 
     @Override
@@ -78,6 +85,11 @@ public class SocketListener extends WebSocketListener {
                             thisScore = obj.getInt("equiv_score");
                             setButton(true); //enable button in every question
                             startTime(timer);
+
+//                            stdAns.add(new StudentAnswer(obj.getInt("question_id",
+//                                obj.getString("question"),
+//                                    obj.getString("opt_a")
+//                                )));
 
                         }else{
                             Toast.makeText(activity, "Quiz end. Proceed to the result.", Toast.LENGTH_SHORT).show();
