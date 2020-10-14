@@ -129,7 +129,8 @@ class QuestionController extends Controller
         ->join('quizzes as b', 'a.quiz_id','b.quiz_id')
         ->join('questions as c', 'c.quiz_id','b.quiz_id')
         ->where('a.access_code', $acode)
-        ->select('a.room_id', 'a.room', 'a.room_desc', 'a.access_code', 'a.quiz_id', 'b.quiz_title', 'b.quiz_desc', 'c.question', 'c.opt_a', 'c.opt_b', 'c.opt_c', 'c.opt_d', 'c.ans', 'c.set_time', 'c.equiv_score')
+        ->select('a.room_id', 'a.room', 'a.room_desc', 'a.access_code', 'a.quiz_id', 'b.quiz_title', 'b.quiz_desc', 
+        'c.question_id', 'c.question', 'c.opt_a', 'c.opt_b', 'c.opt_c', 'c.opt_d', 'c.ans', 'c.set_time', 'c.equiv_score')
         ->get();
         //return Quiz::with(['user', 'category'])->get();
         return $data;

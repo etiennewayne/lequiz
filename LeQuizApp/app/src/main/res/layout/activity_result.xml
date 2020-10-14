@@ -8,27 +8,10 @@
     android:layout_marginHorizontal="10dp">
 
 
-    <EditText
-        android:id="@+id/resultEditText1"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/result_recycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="sample"
-        android:layout_marginTop="20dp"
-        ></EditText>
+        android:layout_height="match_parent" />
 
-
-    <TextView
-        android:id="@+id/resultTextView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/resultEditText1"
-        android:layout_marginTop="5dp"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SAVE RESULT"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

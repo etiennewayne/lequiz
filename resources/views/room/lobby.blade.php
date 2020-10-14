@@ -55,7 +55,7 @@
 
 
 
-    var ws = new WebSocket('ws://192.168.254.10:8080');
+    var ws = new WebSocket('ws://192.168.88.229:8080');
     ws.onopen = function(e) {
         Debug("Connection established!");
     };

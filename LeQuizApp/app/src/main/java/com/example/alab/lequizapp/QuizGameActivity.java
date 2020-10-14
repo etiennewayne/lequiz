@@ -12,9 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class QuizGameActivity extends AppCompatActivity {
-
-
 
     WebSocket webSocket;
     OkHttpClient client;
@@ -23,6 +24,8 @@ public class QuizGameActivity extends AppCompatActivity {
 
     TextView txtTimer, txtQuestion, txtSCore;
     Button btnA, btnB, btnC, btnD;
+
+    public String user_answer;
 
     public int totalScore=0;
 
@@ -34,10 +37,13 @@ public class QuizGameActivity extends AppCompatActivity {
     int user_id;
     String webSocketAddress;
 
+
+
+
+
     public QuizGameActivity(){
         socketListener = new SocketListener(this);
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,16 +69,16 @@ public class QuizGameActivity extends AppCompatActivity {
         webSocketAddress = gClass.getWebSocketAddress();
 
         score = 0;
+
+        //list = new ArrayList<StudentAnswer>();
         instantiateWebSocket();
     }
 
     private void instantiateWebSocket() {
 
-        //Toast.makeText(this, webSocketAddress, Toast.LENGTH_SHORT).show();
         client = new OkHttpClient();
         request = new Request.Builder().url(webSocketAddress).build();
         webSocket = client.newWebSocket(request, socketListener);
-
     }
 
 
@@ -81,27 +87,32 @@ public class QuizGameActivity extends AppCompatActivity {
         super.onBackPressed();
         webSocket.send("Byeness");
         webSocket.close(1000,"Disconnected from server.");
-
     }
 
 
     public void clickBtnA(View v){
+        user_answer= "";
         socketListener.evaluatAnswer("A");
+        user_answer = "A";
     }
 
     public void clickBtnB(View v){
+        user_answer= "";
         socketListener.evaluatAnswer("B");
+        user_answer = "B";
     }
 
     public void clickBtnC(View v){
+        user_answer= "";
         socketListener.evaluatAnswer("C");
+        user_answer = "C";
     }
 
     public void clickBtnD(View v){
+        user_answer= "";
         socketListener.evaluatAnswer("D");
+        user_answer = "D";
     }
-
-
 
 
 }

@@ -51,8 +51,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
         gclass = (GlobalClass) getApplicationContext();
-        gclass.setIPAddress("http://192.168.254.10");
-        gclass.setWebSocketAddress("ws://192.168.254.10:8080");
+
+
+//
+//        gclass.setIPAddress("http://192.168.0.10");
+//        gclass.setWebSocketAddress("ws://192.168.0.10:8080");
+
+        gclass.setIPAddress("http://192.168.88.229");
+        gclass.setWebSocketAddress("ws://192.168.88.229:8080");
 
 
         ServerIP = gclass.getIPAddress();
@@ -103,7 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                                 if(position.equalsIgnoreCase(("faculty"))){
                                     Intent intent = new Intent(getApplicationContext(), TeacherPanelActivity.class);
                                     //EditText editText = (EditText) findViewById(R.id.editText);
-
                                     intent.putExtra("position", position);
                                     intent.putExtra("user", obj.getString("username"));
                                     startActivity(intent);

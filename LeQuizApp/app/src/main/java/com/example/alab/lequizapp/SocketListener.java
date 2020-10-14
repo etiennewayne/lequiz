@@ -2,6 +2,8 @@ package com.example.alab.lequizapp;
 
 import android.content.Intent;
 import android.os.CountDownTimer;
+import android.os.Parcelable;
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -9,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Response;
 import okhttp3.WebSocket;
@@ -18,17 +21,23 @@ public class SocketListener extends WebSocketListener {
 
     public QuizGameActivity  activity;
 
+
+
+
     int thisScore = 0;
 
-    ArrayList<StudentAnswer> stdAns;
+
+    List<StudentAnswer> list;
+
+
+    List<String> nString;
 
     public  SocketListener(QuizGameActivity activity){
         this.activity = activity;
-        stdAns = new ArrayList<>();
 
-
+        list = new ArrayList<StudentAnswer>();
+        //nString = new ArrayList<String>();
     }
-
 
 
     @Override
@@ -62,7 +71,6 @@ public class SocketListener extends WebSocketListener {
     public void onMessage(WebSocket webSocket, final String text) {
         super.onMessage(webSocket, text);
 
-
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -91,14 +99,35 @@ public class SocketListener extends WebSocketListener {
 //                                    obj.getString("opt_a")
 //                                )));
 
+
+
+                          list.add(new StudentAnswer(obj.getInt("question_id"),
+                              obj.getString("question"),
+                              obj.getString("opt_a"),
+                              obj.getString("opt_b"),
+                              obj.getString("opt_c"),
+                              obj.getString("opt_d"),
+                              activity.user_answer,
+                              obj.getString("ans"),
+                              obj.getInt("equiv_score")));
+
+                          //nString.add(obj.getString("question"));
+
+
+
                         }else{
-                            Toast.makeText(activity, "Quiz end. Proceed to the result.", Toast.LENGTH_SHORT).show();
+
+                            //Toast.makeText(activity, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(activity, "Quiz end. Proceed to the result.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(activity, Result.class);
+                            intent.putParcelableArrayListExtra("myList", (ArrayList<? extends Parcelable>) list);
                             activity.startActivity(intent);
+
                             activity.finish();
                         }
 
                     } catch (Exception e) {
+                        Log.d("arrayError", e.getMessage());
                         e.printStackTrace();
                     }
 

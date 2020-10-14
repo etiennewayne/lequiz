@@ -98,7 +98,6 @@ public class QuizesActivity extends AppCompatActivity {
                                        obj.getString("quizTitle"),
                                        obj.getString("quizDesc")));
                             }
-                            //Toast.makeText(QuizesActivity.this, "Array Saved" + String.valueOf(arrayQuizes.size()), Toast.LENGTH_SHORT).show();
                             LoadRecyclerViewer();
                         } catch (JSONException e) {
                             e.printStackTrace();
