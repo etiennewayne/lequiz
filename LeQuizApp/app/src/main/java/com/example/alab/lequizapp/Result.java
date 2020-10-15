@@ -36,7 +36,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
         try{
             Intent intent = getIntent();
             myList = intent.getParcelableArrayListExtra("myList");
-            //Toast.makeText(this, String.valueOf(myList.size()), Toast.LENGTH_SHORT).show();
+
 
 
             ResultAdapter adapter = new ResultAdapter(myList, this);
@@ -46,7 +46,6 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(layoutManager);
 
-            //String nArray[] = {"Amparado", "Jomuad", "Basaya"};
 
             // specify an adapter (see also next example)
             mAdapter = new ResultAdapter(myList, this);
@@ -57,14 +56,17 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
         }
 
 
-
-
-
     }
-
 
     @Override
     public void onListItemClick(int position) {
         Toast.makeText(this, myList.get(position).getQuestion(), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        finish();
     }
 }

@@ -18,13 +18,13 @@
             android:id="@+id/txtQuizId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ID here..." />
+            android:text="Question ID :" />
 
         <TextView
             android:id="@+id/txtQuizTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quiz title here..." />
+            android:text="Question" />
 
         <TextView
             android:id="@+id/txtQuizDesc"

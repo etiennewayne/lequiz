@@ -155,7 +155,7 @@ public class StudentAnswer implements Parcelable {
         parcel.writeString(opt_b);
         parcel.writeString(opt_c);
         parcel.writeString(opt_d);
-
+        parcel.writeString(user_ans);
         parcel.writeString(ans);
         parcel.writeInt(equiv_score);
 

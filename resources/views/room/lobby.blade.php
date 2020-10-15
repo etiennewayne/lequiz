@@ -41,6 +41,13 @@
 <script type="text/javascript" src="/js/myjs.js"></script>
 <script type="text/javascript">
 
+//=================set WEBSOCKET ADDRESS==============
+    var websocketAddress = 'ws://192.168.254.20:8080';
+//====================================================
+//====================================================
+//=
+//
+
     var acode = '{{ $accesscode }}';
 
     let txtbox = document.getElementById('msg');
@@ -55,7 +62,7 @@
 
 
 
-    var ws = new WebSocket('ws://192.168.88.229:8080');
+    var ws = new WebSocket(websocketAddress);
     ws.onopen = function(e) {
         Debug("Connection established!");
     };

@@ -26,16 +26,17 @@ public class SocketListener extends WebSocketListener {
 
     int thisScore = 0;
 
+    int question_id;
 
-    List<StudentAnswer> list;
+    String question, opta, optb, optc, optd, user_ans, ans;
 
 
-    List<String> nString;
+  Boolean isSubmitted = false;
 
     public  SocketListener(QuizGameActivity activity){
         this.activity = activity;
 
-        list = new ArrayList<StudentAnswer>();
+
         //nString = new ArrayList<String>();
     }
 
@@ -76,53 +77,52 @@ public class SocketListener extends WebSocketListener {
                 public void run() {
 
                     try {
-                       // Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
 
+                        //WEB SOCKET HERE========>>
+                        //GET THE DATA FROM WEBSOCKET
+                        //RECEIVE AND DATA DAUN INVOKE SOME ACTIONS
                         JSONObject obj = new JSONObject(text);
 
                         if(!obj.has("status")){
-                            String question = obj.getString("question");
+
+                            //!obj.has("status")
+                            //means if JSON file has no status property, still there is incoming question,
+                            //purpose is to identify if the quiz will still continue or end base sa server nga na fetch nga questions
+
+                            activity.question_id =obj.getInt("question_id");
+                            question_id = obj.getInt("question_id");
+                            question = obj.getString("question");
                             int timer = obj.getInt("set_time");
                             activity.txtQuestion.setText(question);
                             //activity.txtTimer.setText(timer);
                             activity.btnA.setText(obj.getString("opt_a"));
+                            opta = obj.getString("opt_a");
+
                             activity.btnB.setText(obj.getString("opt_b"));
                             activity.btnC.setText(obj.getString("opt_c"));
                             activity.btnD.setText(obj.getString("opt_d"));
                             activity.ans = obj.getString("ans");
+
+                            activity.equiv_score = obj.getInt("equiv_score");
                             thisScore = obj.getInt("equiv_score");
+
+                            isSubmitted = false;
+                            activity.addToListArray();
                             setButton(true); //enable button in every question
                             startTime(timer);
 
-//                            stdAns.add(new StudentAnswer(obj.getInt("question_id",
-//                                obj.getString("question"),
-//                                    obj.getString("opt_a")
-//                                )));
-
-
-
-                          list.add(new StudentAnswer(obj.getInt("question_id"),
-                              obj.getString("question"),
-                              obj.getString("opt_a"),
-                              obj.getString("opt_b"),
-                              obj.getString("opt_c"),
-                              obj.getString("opt_d"),
-                              activity.user_answer,
-                              obj.getString("ans"),
-                              obj.getInt("equiv_score")));
-
-                          //nString.add(obj.getString("question"));
-
-
-
                         }else{
+                            //ELSE
+                            //IF NAA STATUS THEN THE QUIZ IS OVER
+                            //CALL THE RESULT ACTIVITY,
+                            //DISPLAY RESULT FROM ListArray<StudentAnswer>
 
-                            //Toast.makeText(activity, String.valueOf(list.size()), Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(activity, "Quiz end. Proceed to the result.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(activity, Result.class);
-                            intent.putParcelableArrayListExtra("myList", (ArrayList<? extends Parcelable>) list);
+                            intent.putParcelableArrayListExtra("myList", (ArrayList<? extends Parcelable>) activity.list);
                             activity.startActivity(intent);
 
+                            //activity finish means, destroy this activity after showing the result
+                            //para dili maka back ang user dere...
                             activity.finish();
                         }
 
@@ -163,37 +163,39 @@ public class SocketListener extends WebSocketListener {
             }
 
             public void onFinish() {
-                //activity.txtTimer.setText("0");
+                //when button click (naka choose nag answer ang user)
+                //after question add these information sa array
+                //para sa result sa last intent sa game
+                //save as history sa game
+//                if(!isSubmitted){
+//                    activity.addToListArray();
+//                    Log.d("addlistarray", "User Answer : (" + activity.user_answer + ") - Question : " + activity.txtQuestion.getText().toString() + " -  Size of Array : " + String.valueOf(activity.list.size()));
+//                }
+//
+//                activity.user_answer = "";
+//                activity.ans = "";
             }
         }.start();
     }
 
 
     public void evaluatAnswer(String choice){
+
         if(activity.ans.equalsIgnoreCase(choice)){
             Toast.makeText(activity, "Your answer is correct.", Toast.LENGTH_SHORT).show();
             activity.totalScore+= thisScore;
-            activity.txtSCore.setText(String.valueOf(activity.totalScore));
+            activity.txtSCore.setText("Score : " + String.valueOf(activity.totalScore));
         }else{
             Toast.makeText(activity, "Your answer is wrong.", Toast.LENGTH_SHORT).show();
         }
         setButton(false);
+
     }
-
-
-
-
-
-
-
 
 
     @Override
     public void onClosing(WebSocket webSocket, int code, String reason) {
         super.onClosing(webSocket, code, reason);
-
-
-
     }
 
     @Override

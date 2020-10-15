@@ -25,24 +25,26 @@ public class QuizGameActivity extends AppCompatActivity {
     TextView txtTimer, txtQuestion, txtSCore;
     Button btnA, btnB, btnC, btnD;
 
-    public String user_answer;
 
-    public int totalScore=0;
+    //public declaration
+    public String user_answer="", ans="";
+    public int question_id, totalScore=0, equiv_score;
 
-    public String ans="";
 
-    int score=0;
 
     String user, position, access_code;
     int user_id;
     String webSocketAddress;
 
 
+    List<StudentAnswer> list;
 
+    StudentAnswer stdans;
 
 
     public QuizGameActivity(){
         socketListener = new SocketListener(this);
+        list = new ArrayList<StudentAnswer>();
     }
 
     @Override
@@ -68,10 +70,14 @@ public class QuizGameActivity extends AppCompatActivity {
         final GlobalClass gClass = (GlobalClass) getApplicationContext();
         webSocketAddress = gClass.getWebSocketAddress();
 
-        score = 0;
+        //score = 0;
 
         //list = new ArrayList<StudentAnswer>();
         instantiateWebSocket();
+
+
+
+
     }
 
     private void instantiateWebSocket() {
@@ -79,6 +85,21 @@ public class QuizGameActivity extends AppCompatActivity {
         client = new OkHttpClient();
         request = new Request.Builder().url(webSocketAddress).build();
         webSocket = client.newWebSocket(request, socketListener);
+    }
+
+
+    public void addToListArray(){
+        stdans = new StudentAnswer(question_id,
+            txtQuestion.getText().toString(),
+            btnA.getText().toString(),
+            btnB.getText().toString(),
+            btnC.getText().toString(),
+            btnD.getText().toString(),
+            "",
+            ans,
+            equiv_score);
+
+        list.add(stdans);
     }
 
 
@@ -93,25 +114,29 @@ public class QuizGameActivity extends AppCompatActivity {
     public void clickBtnA(View v){
         user_answer= "";
         socketListener.evaluatAnswer("A");
-        user_answer = "A";
+        stdans.setUser_ans("A");
+        //list.add(stdans);
     }
 
     public void clickBtnB(View v){
         user_answer= "";
         socketListener.evaluatAnswer("B");
-        user_answer = "B";
+        stdans.setUser_ans("B");
+        //list.add(stdans);
     }
 
     public void clickBtnC(View v){
         user_answer= "";
         socketListener.evaluatAnswer("C");
-        user_answer = "C";
+        stdans.setUser_ans("C");
+        //list.add(stdans);
     }
 
     public void clickBtnD(View v){
         user_answer= "";
         socketListener.evaluatAnswer("D");
-        user_answer = "D";
+        stdans.setUser_ans("D");
+        //list.add(stdans);
     }
 
 

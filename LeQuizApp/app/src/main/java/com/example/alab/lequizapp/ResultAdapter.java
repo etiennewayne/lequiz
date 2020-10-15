@@ -33,14 +33,19 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtQuestion;
-        public Button btnClick;
+        public TextView txtQuestion, txtQuestionId, txtUserAnswer, txtCorrectAns;
+
 
         public ViewHolder(View itemView){
             super(itemView);
 
-            txtQuestion = (TextView)itemView.findViewById(R.id.item_question);
-            btnClick = (Button) itemView.findViewById(R.id.item_btn);
+            txtQuestionId = (TextView)itemView.findViewById(R.id.question_id);
+            txtQuestion = (TextView)itemView.findViewById(R.id.question);
+            txtUserAnswer = (TextView)itemView.findViewById(R.id.user_answer);
+            txtCorrectAns = (TextView)itemView.findViewById(R.id.answer);
+
+
+            //btnClick = (Button) itemView.findViewById(R.id.item);
 
             //adding click listener
             itemView.setOnClickListener(this);
@@ -77,10 +82,20 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
         StudentAnswer stdans= studentAnswers.get(position);
 
         TextView textview = viewHolder.txtQuestion;
-        textview.setText(stdans.getQuestion() + "User answer : " + stdans.getUser_ans());
-        Button button = viewHolder.btnClick;
-        button.setText("View Answer");
-//        button.setEnabled(contact.ismOnline());
+        textview.setText("QUESTION : " + stdans.getQuestion());
+
+        TextView txtvwQuestion_id = viewHolder.txtQuestionId;
+        txtvwQuestion_id.setText("QUESTION ID : " + String.valueOf(stdans.getQuestion_id()));
+
+        TextView txtvwUserAns = viewHolder.txtUserAnswer;
+        txtvwUserAns.setText("YOUR ANSWER : " + stdans.getUser_ans());
+
+
+        TextView txtvwAns = viewHolder.txtCorrectAns;
+        txtvwAns.setText("ANSWER : " + stdans.getAns());
+
+
+
     }
 
     @Override
