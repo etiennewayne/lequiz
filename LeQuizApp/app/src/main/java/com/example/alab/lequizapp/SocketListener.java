@@ -119,6 +119,7 @@ public class SocketListener extends WebSocketListener {
 
                             Intent intent = new Intent(activity, Result.class);
                             intent.putParcelableArrayListExtra("myList", (ArrayList<? extends Parcelable>) activity.list);
+                            intent.putExtra("totalSCore", activity.totalScore);
                             activity.startActivity(intent);
 
                             //activity finish means, destroy this activity after showing the result
@@ -128,7 +129,7 @@ public class SocketListener extends WebSocketListener {
 
                     } catch (Exception e) {
                         Log.d("arrayError", e.getMessage());
-                        e.printStackTrace();
+                       // e.printStackTrace();
                     }
 
 

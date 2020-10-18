@@ -37,41 +37,48 @@
 
 
 
-    <Button
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
         android:layout_below="@id/txtQuestion"
-        android:text="Choices A"
-        android:onClick="clickBtnA"
-        android:id="@+id/btnA"
-        />
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnA"
-        android:text="Choices B"
-        android:onClick="clickBtnB"
-        android:id="@+id/btnB"
-        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/txtQuestion"
+            android:text="Choices A"
+            android:onClick="clickBtnA"
+            android:id="@+id/btnA"
+            />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnB"
-        android:text="Choices C"
-        android:onClick="clickBtnC"
-        android:id="@+id/btnC"
-        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choices B"
+            android:onClick="clickBtnB"
+            android:id="@+id/btnB"
+            />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/btnC"
-        android:text="Choices D"
-        android:onClick="clickBtnD"
-        android:id="@+id/btnD"
-        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choices C"
+            android:onClick="clickBtnC"
+            android:id="@+id/btnC"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Choices D"
+            android:onClick="clickBtnD"
+            android:id="@+id/btnD"
+            />
+
+    </LinearLayout>
+
 
 </RelativeLayout>

@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -24,6 +27,11 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
     ArrayList<StudentAnswer> myList;
 
+    int totalScore=0;
+
+    TextView txtresult_totalScore;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +39,15 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
         setContentView(R.layout.activity_result);
 
         recyclerView = (RecyclerView) findViewById(R.id.result_recycler);
+        txtresult_totalScore = (TextView) findViewById(R.id.result_txtvwTotalScore);
+
 
 
         try{
             Intent intent = getIntent();
             myList = intent.getParcelableArrayListExtra("myList");
-
+            totalScore = intent.getIntExtra("totalSCore", totalScore);
+            txtresult_totalScore.setText("SCORE: " + String.valueOf(totalScore));
 
 
             ResultAdapter adapter = new ResultAdapter(myList, this);
@@ -66,7 +77,18 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
-        finish();
+        //finish();
     }
+
+
+    public void btnBackLobby(View v){
+        getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        finish();
+
+        Intent i = new Intent(this, StudentMainActivity.class);
+        // set the new task and clear flags
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+    }
+
 }

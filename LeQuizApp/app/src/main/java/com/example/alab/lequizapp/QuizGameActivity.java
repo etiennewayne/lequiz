@@ -57,7 +57,10 @@ public class QuizGameActivity extends AppCompatActivity {
         txtSCore = findViewById(R.id.txtScore);
 
         Intent intent = getIntent();
-        user = intent.getStringExtra("user");
+        //user = intent.getStringExtra("user");
+        final GlobalClass gClass = (GlobalClass) getApplicationContext();
+
+        user = gClass.getUsername();
         user_id = intent.getIntExtra("user_id",0);
         position = intent.getStringExtra("position");
         access_code = intent.getStringExtra("access_code");
@@ -67,7 +70,7 @@ public class QuizGameActivity extends AppCompatActivity {
         btnC = findViewById(R.id.btnC);
         btnD = findViewById(R.id.btnD);
 
-        final GlobalClass gClass = (GlobalClass) getApplicationContext();
+
         webSocketAddress = gClass.getWebSocketAddress();
 
         //score = 0;

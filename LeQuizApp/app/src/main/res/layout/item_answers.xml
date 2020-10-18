@@ -6,17 +6,23 @@
 
 
     <TextView
-        android:id="@+id/question_id"
+        android:id="@+id/labelQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:text="QUESTION"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/question_id"
-        />
+        android:textSize="15sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="2dp"
+        android:layout_below="@id/labelQuestion"
+        android:text="QUESTION : THIS IS A QUESTION SAMPLE"/>
 
     <LinearLayout
         android:layout_width="match_parent"

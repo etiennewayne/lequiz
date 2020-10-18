@@ -1,6 +1,8 @@
 package com.example.alab.lequizapp;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,22 +30,19 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     final private ListItemClickListener mOnClickListener;
 
 
-
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView txtQuestion, txtQuestionId, txtUserAnswer, txtCorrectAns;
+        public TextView txtQuestion, txtQuestionId, txtUserAnswer, txtCorrectAns, result_txtvwTotalScore;
 
 
         public ViewHolder(View itemView){
             super(itemView);
 
-            txtQuestionId = (TextView)itemView.findViewById(R.id.question_id);
+           // txtQuestionId = (TextView)itemView.findViewById(R.id.question_id);
             txtQuestion = (TextView)itemView.findViewById(R.id.question);
             txtUserAnswer = (TextView)itemView.findViewById(R.id.user_answer);
             txtCorrectAns = (TextView)itemView.findViewById(R.id.answer);
-
+           // result_txtvwTotalScore = (TextView)itemView.findViewById(R.id.result_txtvwTotalScore);
 
             //btnClick = (Button) itemView.findViewById(R.id.item);
 
@@ -58,7 +57,6 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
             mOnClickListener.onListItemClick(position);
         }
     }
-
 
     public ResultAdapter(List<StudentAnswer> studentAnswers, ListItemClickListener mOnClickListener){
         this.studentAnswers = studentAnswers;
@@ -81,11 +79,16 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
     public void onBindViewHolder(ResultAdapter.ViewHolder viewHolder, int position){
         StudentAnswer stdans= studentAnswers.get(position);
 
-        TextView textview = viewHolder.txtQuestion;
-        textview.setText("QUESTION : " + stdans.getQuestion());
 
-        TextView txtvwQuestion_id = viewHolder.txtQuestionId;
-        txtvwQuestion_id.setText("QUESTION ID : " + String.valueOf(stdans.getQuestion_id()));
+//        TextView resultScore = viewHolder.result_txtvwTotalScore;
+//        resultScore.setText("SCORE: ");
+
+        TextView textview = viewHolder.txtQuestion;
+        textview.setText(stdans.getQuestion());
+        //textview.setTypeface(null, Typeface.BOLD);
+
+//        TextView txtvwQuestion_id = viewHolder.txtQuestionId;
+//        txtvwQuestion_id.setText("QUESTION ID : " + String.valueOf(stdans.getQuestion_id()));
 
         TextView txtvwUserAns = viewHolder.txtUserAnswer;
         txtvwUserAns.setText("YOUR ANSWER : " + stdans.getUser_ans());
@@ -93,6 +96,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
         TextView txtvwAns = viewHolder.txtCorrectAns;
         txtvwAns.setText("ANSWER : " + stdans.getAns());
+        txtvwAns.setTextColor(Color.rgb(138, 235, 146));
 
 
 
