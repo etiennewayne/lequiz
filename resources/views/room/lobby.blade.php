@@ -42,7 +42,7 @@
 <script type="text/javascript">
 
 //=================set WEBSOCKET ADDRESS==============
-    var websocketAddress = 'ws://192.168.254.10:8080';
+    var websocketAddress = 'ws://192.168.88.242:8080';
 //====================================================
 //====================================================
 //=
@@ -109,9 +109,9 @@
     }
 
     var sec = 0;//  set your counter to 1
-    function myLoop(data) {   
+    function myLoop(data) {
               //  create a loop function
-            
+
         setTimeout(function() {   //  call a 0s setTimeout when the loop is called
             if (i < data.length) {
 
@@ -124,10 +124,11 @@
                 ws.send(JSON.stringify(data[i])); //send data in websocket
                 Debug(data[i]);
                 sec = data[i].set_time;
-                i++;  
+                i++;
                 //  if the counter < 10, call the loop function
                 myLoop(data);             //  ..  again which will trigger another
             }else{
+                sec=0;
                 Debug(JSON.stringify('end'));
                 ws.send(JSON.stringify({status:"end"}));
 

@@ -94,3 +94,7 @@ Route::get('/android/quizes/{u}','AndroidQuizController@index');
 Route::get('/android/login','AndroidLoginController@androidLogin');
 
 Route::get('/android/room/join/{accesscode}/{userid}','AndroidRoomController@joinRoom');
+
+//save question in game android
+Route::post('/android/quizgame/store','AndroidQuizGameController@store');
+
