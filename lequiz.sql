@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v12.14 (64 bit)
-MySQL - 10.1.37-MariaDB : Database - lequiz
+MySQL - 10.4.13-MariaDB : Database - lequiz
 *********************************************************************
 */
 
@@ -27,7 +27,7 @@ CREATE TABLE `academicyears` (
   `semester_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `active` tinyint(4) DEFAULT '0',
+  `active` tinyint(4) DEFAULT 0,
   PRIMARY KEY (`academic_year_id`),
   KEY `semesterID` (`semester_id`),
   CONSTRAINT `academicyears_ibfk_1` FOREIGN KEY (`semester_id`) REFERENCES `semesters` (`semester_id`)
@@ -50,24 +50,27 @@ DROP TABLE IF EXISTS `categories`;
 
 CREATE TABLE `categories` (
   `category_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) DEFAULT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
   `category` varchar(100) DEFAULT NULL,
   `category_desc` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  PRIMARY KEY (`category_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
 insert  into `categories`(`category_id`,`user_id`,`category`,`category_desc`,`created_at`,`updated_at`) values 
-(9,NULL,'oop','object oriented','2020-06-06 13:39:39','2020-06-06 13:39:39'),
-(10,NULL,'Programming 1','Programming 1 - C++','2020-06-06 13:47:13','2020-06-06 13:47:13'),
+(9,15,'oop','object oriented','2020-10-20 12:52:52','2020-10-20 12:52:52'),
+(10,15,'Programming 1','Programming 1 - C++','2020-10-20 12:52:53','2020-10-20 12:52:53'),
 (11,15,'test','test','2020-06-24 12:02:18','2020-06-24 12:02:18'),
 (13,17,'test','test','2020-06-24 12:11:20','2020-06-24 12:11:20'),
 (22,17,'test1','test1','2020-06-24 13:06:49','2020-06-24 13:06:49'),
 (23,19,'F1 CATEGORY 1','F1 CATEGORY 1','2020-06-24 21:21:43','2020-06-24 13:21:43'),
-(25,19,'F1 CATEGORY 2','F1 CATEGORY 2','2020-06-24 21:21:46','2020-06-24 13:21:46');
+(25,19,'F1 CATEGORY 2','F1 CATEGORY 2','2020-06-24 21:21:46','2020-06-24 13:21:46'),
+(26,17,'WEB APP','WEB APP','2020-10-04 01:22:40','2020-10-04 01:22:40');
 
 /*Table structure for table `courses` */
 
@@ -97,7 +100,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -147,12 +150,12 @@ CREATE TABLE `questions` (
   `opt_d` varchar(255) DEFAULT '',
   `ans` varchar(255) DEFAULT '',
   `quiz_id` bigint(20) DEFAULT NULL,
-  `set_time` int(11) DEFAULT '10',
-  `equiv_score` int(11) DEFAULT '1',
+  `set_time` int(11) DEFAULT 10,
+  `equiv_score` int(11) DEFAULT 1,
   PRIMARY KEY (`question_id`),
   KEY `quiz_id` (`quiz_id`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 /*Data for the table `questions` */
 
@@ -179,7 +182,11 @@ insert  into `questions`(`question_id`,`question`,`opt_a`,`opt_b`,`opt_c`,`opt_d
 (27,'Which of the following accesses the seventh element stored in an array?','array[6];','array[7];','array(7);','array;','A',24,10,1),
 (28,'qustion 1','a','b','c','d','A',25,10,1),
 (29,'question 2','a','b','c','d','B',25,10,1),
-(30,'question 3','a','b','c','d','C',25,10,1);
+(30,'question 3','a','b','c','d','C',25,10,1),
+(31,'What is CSS','copra style shit','cascading style shit','cascading style sheet','all of the above','C',27,5,1),
+(32,'How to add external CSS','<style>boday{margin:0}</style>','<p style=\"margin:0px\">I am paragraph</p>','<body><div class=\"container\"></div></body>','<link rel=\"stylesheet\" href=\"mystyle.css\">','D',27,5,1),
+(33,'Document extenson of a css','.css','.js','.php','.html','A',27,5,1),
+(34,'I want to add bottom padding. What could be the best syntax I could use?','padding-top: 50px;','padding-right: 30px;','padding-bottom: 50px;','padding-left: 80px;','C',27,5,1);
 
 /*Table structure for table `quizzes` */
 
@@ -191,14 +198,14 @@ CREATE TABLE `quizzes` (
   `category_id` bigint(20) DEFAULT NULL,
   `quiz_title` varchar(50) DEFAULT '',
   `quiz_desc` varchar(100) DEFAULT '',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`quiz_id`),
   KEY `category_id` (`category_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 /*Data for the table `quizzes` */
 
@@ -206,7 +213,8 @@ insert  into `quizzes`(`quiz_id`,`user_id`,`category_id`,`quiz_title`,`quiz_desc
 (23,15,9,'First Quiz - Midterm','Midterm Quiz - Objects','2020-06-06 13:48:09','2020-06-06 13:48:09'),
 (24,15,10,'1st quiz midterm','1st quiz midterm','2020-06-06 13:51:32','2020-06-06 13:51:32'),
 (25,19,23,'F1 QUIZ TITLE 1','F1 QUIZ TITLE 1','2020-06-24 21:57:44','2020-06-24 13:57:44'),
-(26,19,25,'F1 QUIZ TITLE 2','F1 QUIZ TITLE 2','2020-06-24 21:57:51','2020-06-24 13:57:51');
+(26,19,25,'F1 QUIZ TITLE 2','F1 QUIZ TITLE 2','2020-06-24 21:57:51','2020-06-24 13:57:51'),
+(27,17,26,'CSS','CSS','2020-10-04 01:22:56','2020-10-04 01:22:56');
 
 /*Table structure for table `room_students` */
 
@@ -216,8 +224,8 @@ CREATE TABLE `room_students` (
   `room_student_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `room_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`room_student_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
@@ -237,20 +245,22 @@ CREATE TABLE `rooms` (
   `room_desc` varchar(255) DEFAULT NULL,
   `access_code` varchar(10) DEFAULT '',
   `quiz_id` bigint(11) NOT NULL,
-  `isStart` tinyint(4) DEFAULT '0',
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `isStart` tinyint(4) DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`room_id`),
+  UNIQUE KEY `room` (`room`),
   KEY `quiz_id` (`quiz_id`),
   CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 /*Data for the table `rooms` */
 
 insert  into `rooms`(`room_id`,`room`,`room_desc`,`access_code`,`quiz_id`,`isStart`,`created_at`,`updated_at`) values 
 (7,'001','test room','e412ef',23,1,'2020-06-06 15:29:04','2020-06-07 15:27:46'),
 (8,'002','002','83d8e3',24,0,'2020-06-14 06:18:02','2020-06-14 14:23:43'),
-(10,'F1 QUIZ 1 ROOM 1','F1 QUIZ 1 ROOM 1','1bbb2a',25,0,'2020-06-24 13:58:34','2020-06-24 13:58:34');
+(10,'F1 QUIZ 1 ROOM 1','F1 QUIZ 1 ROOM 1','1bbb2a',25,0,'2020-06-24 13:58:34','2020-06-24 13:58:34'),
+(11,'QUIZ CSS 1','QUIZ CSS 1','2e117e',27,0,'2020-10-04 01:31:10','2020-10-04 01:31:10');
 
 /*Table structure for table `semesters` */
 
@@ -269,6 +279,43 @@ insert  into `semesters`(`semester_id`,`semester`) values
 (2,'2ND SEMESTER'),
 (3,'SUMMER');
 
+/*Table structure for table `student_ans` */
+
+DROP TABLE IF EXISTS `student_ans`;
+
+CREATE TABLE `student_ans` (
+  `student_ans_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `student_quiz_id` bigint(20) DEFAULT NULL,
+  `question_id` bigint(20) DEFAULT NULL,
+  `student_ans` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`student_ans_id`),
+  KEY `student_quiz_id` (`student_quiz_id`),
+  CONSTRAINT `student_ans_ibfk_1` FOREIGN KEY (`student_quiz_id`) REFERENCES `student_quizzes` (`student_quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `student_ans` */
+
+/*Table structure for table `student_quizzes` */
+
+DROP TABLE IF EXISTS `student_quizzes`;
+
+CREATE TABLE `student_quizzes` (
+  `student_quiz_id` bigint(11) NOT NULL AUTO_INCREMENT,
+  `academic_year_id` int(11) DEFAULT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `access_code` varchar(10) DEFAULT NULL,
+  `total_score` int(11) DEFAULT NULL,
+  PRIMARY KEY (`student_quiz_id`),
+  KEY `academic_year_id` (`academic_year_id`),
+  KEY `user_id` (`user_id`),
+  KEY `quiz_id` (`access_code`),
+  CONSTRAINT `student_quizzes_ibfk_1` FOREIGN KEY (`academic_year_id`) REFERENCES `academicyears` (`academic_year_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_quizzes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `student_quizzes` */
+
 /*Table structure for table `users` */
 
 DROP TABLE IF EXISTS `users`;
@@ -285,7 +332,7 @@ CREATE TABLE `users` (
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
   `apwd` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT '',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_email_unique` (`email`)
