@@ -12,6 +12,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
@@ -27,10 +37,15 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
     ArrayList<StudentAnswer> myList;
 
+    GlobalClass g;
+
     int totalScore=0;
 
     TextView txtresult_totalScore;
 
+    public Result(){
+       //
+    }
 
 
     @Override
@@ -41,7 +56,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
         recyclerView = (RecyclerView) findViewById(R.id.result_recycler);
         txtresult_totalScore = (TextView) findViewById(R.id.result_txtvwTotalScore);
 
-
+        g = (GlobalClass) getApplicationContext();
 
         try{
             Intent intent = getIntent();
@@ -82,13 +97,65 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
 
     public void btnBackLobby(View v){
-        getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        finish();
+//
 
-        Intent i = new Intent(this, StudentMainActivity.class);
-        // set the new task and clear flags
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(i);
+        SubmitResult();
     }
+
+    void SubmitResult(){
+
+        try {
+
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = g.getIPAddress() + "/android/quizgame/store";
+            //String url = "";
+
+            JSONObject jsonBody = new JSONObject();
+            jsonBody.put("user_id", g.getId());
+            jsonBody.put("room_id", g.getRoomId());
+            jsonBody.put("total_score", totalScore);
+
+
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        //Log.d("responvolley", response.toString());
+                        try {
+                            String status = response.getString("status");
+                            if(status.equalsIgnoreCase("saved")){
+                                getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                finish();
+
+                                Intent i = new Intent(getApplicationContext(), StudentMainActivity.class);
+                                // set the new task and clear flags
+                                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(i);
+                            }
+
+                        } catch (JSONException e) {
+                            Log.d("resultVolleyError", e.getMessage());
+                        }
+                    }
+
+                }, new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error){
+                    Log.d("resultVolleyError", error.getMessage());
+                }
+            });
+
+            queue.add(jsonObjectRequest);
+        } catch (Exception e) {
+            Log.d("submitResult", e.getMessage());
+        }
+
+
+
+    }
+
 
 }

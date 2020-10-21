@@ -91,12 +91,22 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 //        txtvwQuestion_id.setText("QUESTION ID : " + String.valueOf(stdans.getQuestion_id()));
 
         TextView txtvwUserAns = viewHolder.txtUserAnswer;
-        txtvwUserAns.setText("YOUR ANSWER : " + stdans.getUser_ans());
+        String userans = stdans.getUser_ans();
+        String ans = stdans.getAns();
+
+        txtvwUserAns.setText("YOUR ANSWER : " + userans);
+        if(userans.equalsIgnoreCase(ans)){
+            txtvwUserAns.setBackgroundColor(Color.rgb(138, 235, 146));
+        }else{
+            txtvwUserAns.setBackgroundColor(Color.rgb(245, 112, 98));
+        }
+
+
 
 
         TextView txtvwAns = viewHolder.txtCorrectAns;
-        txtvwAns.setText("ANSWER : " + stdans.getAns());
-        txtvwAns.setTextColor(Color.rgb(138, 235, 146));
+        txtvwAns.setText("ANSWER : " + ans);
+        txtvwAns.setBackgroundColor(Color.rgb(88, 245, 135));
 
 
 

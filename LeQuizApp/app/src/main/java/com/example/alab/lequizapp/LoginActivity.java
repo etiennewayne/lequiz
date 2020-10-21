@@ -48,15 +48,15 @@ public class LoginActivity extends AppCompatActivity {
         txtpwd = findViewById(R.id.txtPwd);
         btnLogin = findViewById(R.id.btnLogin);
 
-        txtuser.setText("s");
+        txtuser.setText("f");
         txtpwd.setText("a");
 
         gclass = (GlobalClass) getApplicationContext();
 
 
 //
-        gclass.setIPAddress("http://192.168.254.10");
-        gclass.setWebSocketAddress("ws://192.168.254.10:8080");
+        gclass.setIPAddress("http://192.168.88.242");
+        gclass.setWebSocketAddress("ws://192.168.88.242:8080");
 
 //        gclass.setIPAddress("http://192.168.88.229");
 //        gclass.setWebSocketAddress("ws://192.168.88.229:8080");
@@ -106,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                                 gclass.setFname(obj.getString("fname"));
                                 gclass.setMname(obj.getString("mname"));
                                 gclass.setPosition(obj.getString("classification"));
+
 
                                 if(position.equalsIgnoreCase(("faculty"))){
                                     Intent intent = new Intent(getApplicationContext(), TeacherPanelActivity.class);
