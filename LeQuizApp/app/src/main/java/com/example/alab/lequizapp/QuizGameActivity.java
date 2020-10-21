@@ -71,6 +71,12 @@ public class QuizGameActivity extends AppCompatActivity {
         btnD = findViewById(R.id.btnD);
 
 
+        btnA.setText("WAITING...");
+        btnB.setText("WAITING...");
+        btnC.setText("WAITING...");
+        btnD.setText("WAITING...");
+
+
         webSocketAddress = gClass.getWebSocketAddress();
 
         //score = 0;

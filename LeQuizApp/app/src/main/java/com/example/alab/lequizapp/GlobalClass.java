@@ -12,8 +12,15 @@ public class GlobalClass extends Application{
     private String mname;
     private String position;
 
+    private String accessCode;
+
+
     private String IPAddress;
     private String WebSocketAddress;
+
+    private int roomId;
+
+
 
 
     public int getId(){
@@ -59,6 +66,10 @@ public class GlobalClass extends Application{
         this.position=position;
     }
 
+    public String getAccessCode(){return this.accessCode;}
+    public void setAccessCode(String accessCode){
+        this.accessCode  = accessCode;
+    }
 
 
     //IPAddress of the Server
@@ -75,6 +86,14 @@ public class GlobalClass extends Application{
     }
     public  void setWebSocketAddress(String webSocketAddress){
         this.WebSocketAddress = webSocketAddress;
+    }
+
+
+    public void setRoomId(int roomId){
+        this.roomId = roomId;
+    }
+    public int getRoomId(){
+        return this.roomId;
     }
 
 }

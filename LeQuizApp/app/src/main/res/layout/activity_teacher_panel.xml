@@ -6,16 +6,31 @@
     android:layout_height="match_parent"
     tools:context=".TeacherPanelActivity">
 
+
+    <Button
+        android:id="@+id/btnCategory"
+        android:layout_width="111dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="76dp"
+        android:onClick="clickCategory"
+        android:text="Categories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
     <Button
         android:id="@+id/btnQuiz"
         android:layout_width="111dp"
         android:layout_height="93dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="60dp"
-        android:text="My Quize(s)"
+        android:layout_marginTop="76dp"
+        android:layout_marginEnd="64dp"
         android:onClick="clickQuizes"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="My Quize(s)"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

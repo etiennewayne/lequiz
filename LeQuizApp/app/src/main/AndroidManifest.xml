@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Result"></activity>
+        <activity android:name=".CategoryAddUpdate"></activity>
+        <activity android:name=".CategoryMain" />
+        <activity android:name=".Result" />
         <activity android:name=".QuizGameActivity" />
         <activity android:name=".StudentMainActivity" />
         <activity android:name=".QuizesActivity" />
