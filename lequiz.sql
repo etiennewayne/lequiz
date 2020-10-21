@@ -37,12 +37,12 @@ CREATE TABLE `academicyears` (
 
 insert  into `academicyears`(`academic_year_id`,`ay_code`,`ay`,`semester_id`,`created_at`,`updated_at`,`active`) values 
 (1,'191','2019-2020',1,'2019-10-11 05:01:26','2019-10-11 02:55:18',0),
-(2,'192','2019-2020',2,'2019-10-11 05:03:01','2019-10-11 02:55:28',0),
-(4,'181','2018-2019',1,'2019-10-11 03:03:46','2019-10-11 03:03:46',1),
+(2,'192','2019-2020',2,'2019-10-11 05:03:01','2019-10-11 02:55:28',1),
+(4,'181','2018-2019',1,'2019-10-11 03:03:46','2019-10-11 03:03:46',0),
 (5,'182','2018-2019',2,'2019-10-11 03:04:04','2019-10-11 03:04:04',0),
 (6,'173','2017-2018',3,'2019-10-11 03:04:04','2020-05-10 14:33:59',0),
-(7,NULL,'test',NULL,'2020-05-10 14:37:25','2020-05-10 14:37:25',0),
-(8,NULL,'test',NULL,'2020-05-10 14:38:05','2020-05-10 14:38:05',0);
+(7,'test','test',NULL,'2020-05-10 14:37:25','2020-05-10 14:37:25',0),
+(8,'test','test',NULL,'2020-05-10 14:38:05','2020-05-10 14:38:05',0);
 
 /*Table structure for table `categories` */
 
@@ -51,26 +51,29 @@ DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `category_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
+  `academic_year_id` int(11) DEFAULT NULL,
   `category` varchar(100) DEFAULT NULL,
   `category_desc` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`category_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `academic_year_id` (`academic_year_id`),
+  CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`academic_year_id`) REFERENCES `academicyears` (`academic_year_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`category_id`,`user_id`,`category`,`category_desc`,`created_at`,`updated_at`) values 
-(9,15,'oop','object oriented','2020-10-20 12:52:52','2020-10-20 12:52:52'),
-(10,15,'Programming 1','Programming 1 - C++','2020-10-20 12:52:53','2020-10-20 12:52:53'),
-(11,15,'test','test','2020-06-24 12:02:18','2020-06-24 12:02:18'),
-(13,17,'test','test','2020-06-24 12:11:20','2020-06-24 12:11:20'),
-(22,17,'test1','test1','2020-06-24 13:06:49','2020-06-24 13:06:49'),
-(23,19,'F1 CATEGORY 1','F1 CATEGORY 1','2020-06-24 21:21:43','2020-06-24 13:21:43'),
-(25,19,'F1 CATEGORY 2','F1 CATEGORY 2','2020-06-24 21:21:46','2020-06-24 13:21:46'),
-(26,17,'WEB APP','WEB APP','2020-10-04 01:22:40','2020-10-04 01:22:40');
+insert  into `categories`(`category_id`,`user_id`,`academic_year_id`,`category`,`category_desc`,`created_at`,`updated_at`) values 
+(9,15,2,'oop','object oriented','2020-10-21 10:54:46','2020-10-21 10:54:46'),
+(10,15,2,'Programming 1','Programming 1 - C++','2020-10-21 10:54:48','2020-10-21 10:54:48'),
+(11,15,2,'test','test','2020-10-21 10:54:48','2020-10-21 10:54:48'),
+(13,17,2,'test','test','2020-10-21 10:54:49','2020-10-21 10:54:49'),
+(22,17,2,'test1','test1','2020-10-21 10:54:50','2020-10-21 10:54:50'),
+(23,19,2,'F1 CATEGORY 1','F1 CATEGORY 1','2020-10-21 10:54:50','2020-10-21 10:54:50'),
+(25,19,2,'F1 CATEGORY 2','F1 CATEGORY 2','2020-10-21 10:54:51','2020-10-21 10:54:51'),
+(26,17,2,'WEB APP','WEB APP','2020-10-21 10:54:51','2020-10-21 10:54:51');
 
 /*Table structure for table `courses` */
 
@@ -240,7 +243,7 @@ insert  into `room_students`(`room_student_id`,`room_id`,`user_id`,`created_at`,
 DROP TABLE IF EXISTS `rooms`;
 
 CREATE TABLE `rooms` (
-  `room_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `room_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `room` varchar(50) DEFAULT NULL,
   `room_desc` varchar(255) DEFAULT NULL,
   `access_code` varchar(10) DEFAULT '',
@@ -301,20 +304,24 @@ DROP TABLE IF EXISTS `student_quizzes`;
 
 CREATE TABLE `student_quizzes` (
   `student_quiz_id` bigint(11) NOT NULL AUTO_INCREMENT,
-  `academic_year_id` int(11) DEFAULT NULL,
   `user_id` bigint(20) unsigned NOT NULL,
-  `access_code` varchar(10) DEFAULT NULL,
+  `room_id` bigint(20) unsigned NOT NULL,
   `total_score` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`student_quiz_id`),
-  KEY `academic_year_id` (`academic_year_id`),
   KEY `user_id` (`user_id`),
-  KEY `quiz_id` (`access_code`),
-  CONSTRAINT `student_quizzes_ibfk_1` FOREIGN KEY (`academic_year_id`) REFERENCES `academicyears` (`academic_year_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  KEY `room_id` (`room_id`),
   CONSTRAINT `student_quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `student_quizzes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `student_quizzes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_quizzes_ibfk_4` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `student_quizzes` */
+
+insert  into `student_quizzes`(`student_quiz_id`,`user_id`,`room_id`,`total_score`,`created_at`) values 
+(10,18,11,2,'2020-10-21 13:24:28'),
+(11,18,11,2,'2020-10-21 13:24:28'),
+(12,18,11,4,'2020-10-21 13:24:44');
 
 /*Table structure for table `users` */
 
