@@ -10,6 +10,16 @@ class AndroidRoomController extends Controller
 {
     //
 
+    public function validateCode(Request $req){
+        $data = \DB::table('rooms')
+        ->where('access_code', $req->access_code)
+        ->get()
+        ->take(1);
+
+        return $data;
+    }
+
+
     public function joinRoom($access_code, $user_id){
     	
 

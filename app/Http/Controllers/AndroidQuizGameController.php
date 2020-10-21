@@ -9,7 +9,13 @@ class AndroidQuizGameController extends Controller
     //
 
     public function store(Request $req){
-
-        return $req;
+    	\DB::table('student_quizzes')
+    	->insert([
+    		'user_id' => $req->user_id,
+    		'room_id' => $req->room_id,
+    		'total_score' => $req->total_score
+    	]);
+        return ['status' => 'saved'];
     }
+    
 }
