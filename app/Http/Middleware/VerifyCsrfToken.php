@@ -23,6 +23,9 @@ class VerifyCsrfToken extends Middleware
         //'/android/auth',
         '/android/quizgame/store',
         '/android/validate/code',
+
+        '/android/category/store',
+        '/android/category/update',
         
 
     ];

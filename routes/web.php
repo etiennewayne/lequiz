@@ -100,6 +100,12 @@ Route::get('/android/room/join/{accesscode}/{userid}','AndroidRoomController@joi
 
 Route::get('/android/ay','AndroidAcademicYear@getAY');
 
+
+
+Route::post('/android/category/store','AndroidCategoryController@store');
+Route::get('/android/category','AndroidCategoryController@getCategories');
+
+
 //save question in game android
 Route::post('/android/quizgame/store','AndroidQuizGameController@store');
 
