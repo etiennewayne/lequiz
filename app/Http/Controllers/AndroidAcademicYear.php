@@ -12,7 +12,8 @@ class AndroidAcademicYear extends Controller
     	return \DB::table('academicyears')
     	->orderBy('ay_code', 'desc')
     	->get();
-
-
     }
+
+
+    
 }

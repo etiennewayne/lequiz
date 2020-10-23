@@ -72,9 +72,6 @@ Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionContr
 
 
 
-
-
-
 //Room route
 Route::resource('/room','RoomController');
 Route::get('/room/ajax/rooms','RoomController@rooms');
@@ -99,6 +96,15 @@ Route::get('/android/room/join/{accesscode}/{userid}','AndroidRoomController@joi
 
 
 Route::get('/android/ay','AndroidAcademicYear@getAY');
+
+
+
+Route::post('/android/category/store','AndroidCategoryController@store');
+Route::get('/android/category/{uid}','AndroidCategoryController@getCategories');
+Route::post('/android/category/delete','AndroidCategoryController@delete');
+Route::get('/android/category/{catid}/edit','AndroidCategoryController@edit');
+Route::post('/android/category/update','AndroidCategoryController@update');
+
 
 //save question in game android
 Route::post('/android/quizgame/store','AndroidQuizGameController@store');
