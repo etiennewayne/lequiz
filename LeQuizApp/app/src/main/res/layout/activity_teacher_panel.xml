@@ -25,16 +25,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="clickCategory"
-            android:text="Categories"
+            android:text="MANAGE CATEGORY"
             android:layout_marginTop="50dp"/>
 
         <Button
-            android:id="@+id/btnQuiz"
+        android:id="@+id/btnQuiz"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="clickQuizes"
+        android:text="MANAGE QUIZ"
+        android:layout_below="@+id/btnCategory"/>
+
+
+        <Button
+            android:id="@+id/btnStudentQuiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="clickQuizes"
-            android:text="My Quize(s)"
-            android:layout_below="@+id/btnCategory"/>
+            android:onClick="clickStudentQuiz"
+            android:text="STUDENT QUIZ"
+            android:layout_below="@+id/btnQuiz"/>
 
     </RelativeLayout>
 

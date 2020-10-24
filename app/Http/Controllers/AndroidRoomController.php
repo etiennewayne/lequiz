@@ -42,5 +42,10 @@ class AndroidRoomController extends Controller
     	//return $data;
     }
 
+    public function rooms(Request $req){
+        $data = \DB::select('call proc_room_by_ay(?, ?)', array($req->aycode, $req->userid));
+        return $data;
+    }
+
 
 }

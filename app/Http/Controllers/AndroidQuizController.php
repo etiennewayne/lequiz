@@ -31,6 +31,7 @@ class AndroidQuizController extends Controller
 
         $data = \DB::table('categories')
         ->where('category', $req->category)
+        ->where('user_id', $req->user_id)
         ->first();
 
         $cat_id = $data->category_id;
@@ -52,6 +53,7 @@ class AndroidQuizController extends Controller
 
         $data = \DB::table('categories')
         ->where('category', $req->category)
+         ->where('user_id', $req->user_id)
         ->first();
         $cat_id = $data->category_id;
 

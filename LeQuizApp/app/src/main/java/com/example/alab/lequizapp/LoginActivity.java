@@ -61,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 //
-        gclass.setIPAddress("http://192.168.88.242");
-        gclass.setWebSocketAddress("ws://192.168.88.242:8080");
+        gclass.setIPAddress("http://192.168.254.15");
+        gclass.setWebSocketAddress("ws://192.168.254.15:8080");
 
 //        gclass.setIPAddress("http://192.168.88.229");
 //        gclass.setWebSocketAddress("ws://192.168.88.229:8080");

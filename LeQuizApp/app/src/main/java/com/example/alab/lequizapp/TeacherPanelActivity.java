@@ -47,11 +47,11 @@ public class TeacherPanelActivity extends AppCompatActivity {
         g.setUsername(user);
         g.setPosition(position);
         //TextView txtvw = findViewById(R.id.textView);
-       // txtvw.setText(user);
+        // txtvw.setText(user);
     }
 
 
-    public void clickQuizes(View view){
+    public void clickQuizes(View view) {
         Intent intent = new Intent(getApplicationContext(), QuizesActivity.class);
         //EditText editText = (EditText) findViewById(R.id.editText);
 
@@ -60,8 +60,15 @@ public class TeacherPanelActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void clickCategory(View v){
+    public void clickCategory(View v) {
         Intent intent = new Intent(getApplicationContext(), CategoryMain.class);
         startActivity(intent);
     }
+
+    public void clickStudentQuiz(View v) {
+        Intent intent = new Intent(getApplicationContext(), RoomMain.class);
+        startActivity(intent);
+    }
+
+
 }

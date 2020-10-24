@@ -59,7 +59,7 @@ CREATE TABLE `categories` (
   KEY `academic_year_id` (`academic_year_id`),
   CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`academic_year_id`) REFERENCES `academicyears` (`academic_year_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
@@ -70,7 +70,8 @@ insert  into `categories`(`category_id`,`user_id`,`academic_year_id`,`category`,
 (23,19,2,'F1 CATEGORY 1','F1 CATEGORY 1','2020-10-21 10:54:50','2020-10-21 10:54:50'),
 (25,19,2,'F1 CATEGORY 2','F1 CATEGORY 2','2020-10-21 10:54:51','2020-10-21 10:54:51'),
 (26,17,2,'WEB APP','WEB APP','2020-10-21 10:54:51','2020-10-21 10:54:51'),
-(44,17,2,'SAMPLE CATEGORY','HAHAHAHA','2020-10-23 18:31:38',NULL);
+(44,17,2,'SAMPLE CATEGORY','HAHAHAHA','2020-10-23 18:31:38',NULL),
+(45,17,2,'OOP','OOP','2020-10-24 18:10:43',NULL);
 
 /*Table structure for table `courses` */
 
@@ -155,7 +156,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`question_id`),
   KEY `quiz_id` (`quiz_id`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 /*Data for the table `questions` */
 
@@ -186,7 +187,8 @@ insert  into `questions`(`question_id`,`question`,`opt_a`,`opt_b`,`opt_c`,`opt_d
 (31,'What is CSS?','copra style shit','cascading style shit','cascading style sheet','all of the above','C',27,5,1),
 (32,'How to add external CSS','<style>boday{margin:0}</style>','<p style=\"margin:0px\">I am paragraph</p>','<body><div class=\"container\"></div></body>','<link rel=\"stylesheet\" href=\"mystyle.css\">','D',27,5,1),
 (33,'Document extenson of a css','.css','.js','.php','.html','A',27,5,1),
-(34,'I want to add bottom padding. What could be the best syntax I could use?','padding-top: 50px;','padding-right: 30px;','padding-bottom: 50px;','padding-left: 80px;','C',27,5,1);
+(34,'I want to add bottom padding. What could be the best syntax I could use?','padding-top: 50px;','padding-right: 30px;','padding-bottom: 50px;','padding-left: 80px;','C',27,5,1),
+(37,'what is object?','butang','ambut','amaw','ka','a',38,5,5);
 
 /*Table structure for table `quizzes` */
 
@@ -205,7 +207,7 @@ CREATE TABLE `quizzes` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=latin1;
 
 /*Data for the table `quizzes` */
 
@@ -215,7 +217,8 @@ insert  into `quizzes`(`quiz_id`,`user_id`,`category_id`,`quiz_title`,`quiz_desc
 (25,19,23,'F1 QUIZ TITLE 1','F1 QUIZ TITLE 1','2020-06-24 21:57:44','2020-06-24 13:57:44'),
 (27,17,26,'CSS','CSS','2020-10-04 01:22:56','2020-10-04 01:22:56'),
 (28,17,26,'1ST QUIZ','1ST QUIZ','2020-10-24 11:21:52',NULL),
-(32,17,26,'MID TERM QUIZ 1','MID TERM QUIZ 1','2020-10-24 11:30:30',NULL);
+(32,17,26,'MID TERM QUIZ 1','MID TERM QUIZ 1','2020-10-24 11:30:30',NULL),
+(38,17,45,'1ST QUIZ OOP','nnnn','2020-10-24 19:07:45','2020-10-24 11:07:45');
 
 /*Table structure for table `room_students` */
 
@@ -253,7 +256,7 @@ CREATE TABLE `rooms` (
   UNIQUE KEY `room` (`room`),
   KEY `quiz_id` (`quiz_id`),
   CONSTRAINT `rooms_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `rooms` */
 
@@ -261,7 +264,8 @@ insert  into `rooms`(`room_id`,`room`,`room_desc`,`access_code`,`quiz_id`,`isSta
 (7,'001','test room','e412ef',23,1,'2020-06-06 15:29:04','2020-06-07 15:27:46'),
 (8,'002','002','83d8e3',24,0,'2020-06-14 06:18:02','2020-06-14 14:23:43'),
 (10,'F1 QUIZ 1 ROOM 1','F1 QUIZ 1 ROOM 1','1bbb2a',25,0,'2020-06-24 13:58:34','2020-06-24 13:58:34'),
-(11,'QUIZ CSS 1','QUIZ CSS 1','2e117e',27,0,'2020-10-04 01:31:10','2020-10-04 01:31:10');
+(11,'QUIZ CSS 1','QUIZ CSS 1','2e117e',27,0,'2020-10-04 01:31:10','2020-10-04 01:31:10'),
+(12,'ROOM 102','QUIZ BLOCK 1','c24866',38,0,'2020-10-24 11:08:36','2020-10-24 11:08:36');
 
 /*Table structure for table `semesters` */
 
@@ -312,14 +316,12 @@ CREATE TABLE `student_quizzes` (
   CONSTRAINT `student_quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_quizzes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_quizzes_ibfk_4` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 /*Data for the table `student_quizzes` */
 
 insert  into `student_quizzes`(`student_quiz_id`,`user_id`,`room_id`,`total_score`,`created_at`) values 
-(10,18,11,2,'2020-10-21 13:24:28'),
-(11,18,11,2,'2020-10-21 13:24:28'),
-(12,18,11,4,'2020-10-21 13:24:44');
+(13,18,11,2,'2020-10-24 19:14:19');
 
 /*Table structure for table `users` */
 
@@ -327,6 +329,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `user_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `student_id` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `fname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -345,12 +348,36 @@ CREATE TABLE `users` (
 
 /*Data for the table `users` */
 
-insert  into `users`(`user_id`,`username`,`lname`,`fname`,`mname`,`email`,`classification`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`,`apwd`) values 
-(15,'admin','Administrator','Administrator','Administrator','admin@yahoo.com','ADMINISTRATOR',NULL,'$2y$10$YjaJIEK15ouZFJCAOONZa.sRBl0jg6w5S9AyX68TInfNsuebCR/Tm',NULL,'2019-10-26 16:41:35','2019-10-26 16:41:35','admin'),
-(17,'f','Amparado','Etienne','','et88@yahoo.com','FACULTY',NULL,'$2y$10$wWJB2EsF3o/463.JpOyKtuL0ReSob/Y8.M4iauDNGawgwJtnJyp8O',NULL,'2020-05-03 06:18:11','2020-10-24 11:37:11','a'),
-(18,'s','amparado','etienne','','etiennewayne@gmail.com','STUDENT',NULL,'$2y$10$gh3ziHDEuIpcAoEttTMjxuY5r.taDww39vzy/zUcLICXhZ4GIQsae',NULL,'2020-05-30 15:55:34','2020-10-24 11:37:12','a'),
-(19,'f1','f1','f1','f1','f1@gmail.com','FACULTY',NULL,'$2y$10$mhSA9WsuhuETFmxwCuCbpOrv4m9Z7tI6u7mc5I2e0.e4CryChPLha',NULL,'2020-06-24 13:07:12','2020-06-24 13:07:12','a'),
-(20,'test','test','test','test','test@gmail.com','STUDENT',NULL,'$2y$10$kRO3S72i3ckxUGGhfSha.uer9/lXreubGITJnRfVpbLcUGRCGE9IK',NULL,'2020-06-24 14:03:39','2020-06-24 14:41:22','a');
+insert  into `users`(`user_id`,`student_id`,`username`,`lname`,`fname`,`mname`,`email`,`classification`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`,`apwd`) values 
+(15,'','admin','Administrator','Administrator','Administrator','admin@yahoo.com','ADMINISTRATOR',NULL,'$2y$10$YjaJIEK15ouZFJCAOONZa.sRBl0jg6w5S9AyX68TInfNsuebCR/Tm',NULL,'2019-10-26 16:41:35','2019-10-26 16:41:35','admin'),
+(17,'','f','Amparado','Etienne','','et88@yahoo.com','FACULTY',NULL,'$2y$10$wWJB2EsF3o/463.JpOyKtuL0ReSob/Y8.M4iauDNGawgwJtnJyp8O',NULL,'2020-05-03 06:18:11','2020-10-24 11:37:11','a'),
+(18,'','s','amparado','etienne','','etiennewayne@gmail.com','STUDENT',NULL,'$2y$10$gh3ziHDEuIpcAoEttTMjxuY5r.taDww39vzy/zUcLICXhZ4GIQsae',NULL,'2020-05-30 15:55:34','2020-10-24 11:37:12','a'),
+(19,'','f1','f1','f1','f1','f1@gmail.com','FACULTY',NULL,'$2y$10$mhSA9WsuhuETFmxwCuCbpOrv4m9Z7tI6u7mc5I2e0.e4CryChPLha',NULL,'2020-06-24 13:07:12','2020-06-24 13:07:12','a'),
+(20,'','test','test','test','test','test@gmail.com','STUDENT',NULL,'$2y$10$kRO3S72i3ckxUGGhfSha.uer9/lXreubGITJnRfVpbLcUGRCGE9IK',NULL,'2020-06-24 14:03:39','2020-06-24 14:41:22','a');
+
+/* Procedure structure for procedure `proc_room_by_ay` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `proc_room_by_ay` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `proc_room_by_ay`(vaycode varchar(10), vuser_id int)
+BEGIN
+    
+    SELECT
+	a.room_id, a.room, a.room_desc, a.access_code, a.quiz_id,
+	b.user_id, e.lname, e.fname, e.mname, e.email,
+	b.category_id, b.quiz_title, b.quiz_desc,
+	c.category, c.academic_year_id, d.ay_code, d.ay, d.active
+	FROM
+	rooms a
+	JOIN quizzes b ON a.quiz_id = b.quiz_id
+	JOIN categories c ON b.category_id = c.category_id
+	JOIN academicyears d ON c.academic_year_id = d.academic_year_id
+	JOIN users e ON b.user_id = e.user_id
+	where d.ay_code = vaycode and b.user_id = vuser_id;
+    END */$$
+DELIMITER ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
