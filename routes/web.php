@@ -114,7 +114,13 @@ Route::post('/android/quiz/update','AndroidQuizController@update');
 
 
 
-
+Route::get('/android/question','AndroidQuestionController@questions');
+Route::get('/android/question/{qid}/edit','AndroidQuestionController@edit');
+Route::post('/android/question/update','AndroidQuestionController@update');
+Route::post('/android/question/store','AndroidQuestionController@store');
+Route::post('/android/question/delete','AndroidQuestionController@delete');
 //save question in game android
+
+
 Route::post('/android/quizgame/store','AndroidQuizGameController@store');
 
