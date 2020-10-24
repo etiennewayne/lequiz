@@ -6,15 +6,20 @@ public class Quizes {
 
 
     private int quizID;
-    private String username, quizTitle, quizDesc;
+    private int userId;
+
+    private int categoryId;
+    private  String quizTitle, quizDesc, category;
 
     public Quizes(){
 
     }
 
-    public Quizes(int quizID, String username, String quizTitle, String quizDesc) {
+    public Quizes(int quizID, int userId, int categoryId, String category, String quizTitle, String quizDesc) {
         this.quizID = quizID;
-        this.username = username;
+        this.userId = userId;
+        this.categoryId = categoryId;
+        this.category = category;
         this.quizTitle = quizTitle;
         this.quizDesc = quizDesc;
     }
@@ -27,12 +32,31 @@ public class Quizes {
         this.quizID = quizID;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+
+
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getQuizTitle() {

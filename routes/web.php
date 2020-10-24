@@ -83,12 +83,12 @@ Route::get('/room/create/ajax/quizzes/cid/{cid}','RoomController@ajaxQuizzes');
 //Route::get('/android/login/{u}/{p}','AndroidLoginController@checkLogin');
 //Route::get('/android/login/{user}{pwd}','AndroidLoginController@checkLogin');
 
-Route::get('/android/login','AndroidLoginController@androidLogin');
+//Route::get('/android/login','AndroidLoginController@androidLogin');
 //Route::get('/android/auth','AndroidLoginController@authenticate');
 
-Route::get('/android/quizes/{u}','AndroidQuizController@index');
+//Route::get('/android/quizes/{u}','AndroidQuizController@index');
 
-Route::get('/android/login','AndroidLoginController@androidLogin');
+Route::post('/android/login','AndroidLoginController@androidLogin');
 
 Route::post('/android/validate/code', 'AndroidRoomController@validateCode');
 
@@ -104,6 +104,15 @@ Route::get('/android/category/{uid}','AndroidCategoryController@getCategories');
 Route::post('/android/category/delete','AndroidCategoryController@delete');
 Route::get('/android/category/{catid}/edit','AndroidCategoryController@edit');
 Route::post('/android/category/update','AndroidCategoryController@update');
+
+
+Route::get('/android/quiz/{uid}','AndroidQuizController@quizzes');
+Route::post('/android/quiz/store','AndroidQuizController@store');
+Route::post('/android/quiz/delete','AndroidQuizController@delete');
+Route::get('/android/quiz/{quiz_id}/edit','AndroidQuizController@edit');
+Route::post('/android/quiz/update','AndroidQuizController@update');
+
+
 
 
 //save question in game android

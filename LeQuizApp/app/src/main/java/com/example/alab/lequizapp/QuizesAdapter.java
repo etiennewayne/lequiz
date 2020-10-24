@@ -15,23 +15,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolder>{
 
-    private OnItemClickListener listener;
+    List<Quizes> listQuizzes;
 
-    public interface OnItemClickListener {
-        void onItemClick(View itemView, int position);
+    public interface ButtonsClickListener {
+        void editClick(View v, int position);
+
+        void deleteClick(View v, int position);
+
+        void questionClick(View v, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
+
+    final private ButtonsClickListener mOnClickListener;
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        public TextView txtViewID, txtViewTitle, txtViewDesc;
-        public Button btnEdit, btnDelete;
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private Context context;
+        public TextView txtvwQuizTitle, txtvwCategory, txtvwQuizDesc;
+        public Button btnEdit, btnDelete, btnQuestion;
+
+
 
         public ViewHolder(final View itemView){
             super(itemView);
@@ -39,52 +43,43 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
            // nameTextView = (TextView)itemView.findViewById(R.id.contact_name);
            // messageButton = (Button) itemView.findViewById(R.id.message_button);
 
-            txtViewID = (TextView)itemView.findViewById(R.id.txtQuizId);
-            txtViewTitle = (TextView)itemView.findViewById(R.id.txtQuizTitle);
-            txtViewDesc = (TextView)itemView.findViewById(R.id.txtQuizDesc);
+            txtvwQuizTitle = (TextView)itemView.findViewById(R.id.item_quiz_lbltitle);
+            txtvwCategory = (TextView)itemView.findViewById(R.id.item_quiz_lblcategory);
+            txtvwQuizDesc = (TextView)itemView.findViewById(R.id.item_quiz_lbldesc);
 
-            btnEdit = (Button)itemView.findViewById((R.id.btnQuizEdit));
-            btnDelete = (Button)itemView.findViewById(R.id.btnQuizDelete);
+            btnEdit = (Button)itemView.findViewById((R.id.btn_quiz_edit));
+            btnDelete = (Button)itemView.findViewById(R.id.btn_quiz_delete);
+            btnQuestion = (Button)itemView.findViewById(R.id.btn_quiz_question);
 
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    // Triggers click upwards to the adapter on click
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(itemView, position);
-                        }
-                    }
+                public void onClick(View view) {
+                    mOnClickListener.editClick(view, getAdapterPosition());
                 }
             });
 
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    // Triggers click upwards to the adapter on click
-                    if (listener != null) {
-                        int position = getAdapterPosition();
-                        if (position != RecyclerView.NO_POSITION) {
-                            listener.onItemClick(itemView, position);
-                        }
-                    }
+                public void onClick(View view) {
+                    mOnClickListener.deleteClick(view, getAdapterPosition());
+                }
+            });
+
+            btnQuestion.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnClickListener.questionClick(view, getAdapterPosition());
                 }
             });
 
         }
 
-
-        @Override
-        public void onClick(View v) {
-            //Toast.makeText(context, "Edit was click", Toast.LENGTH_SHORT).show();
-        }
     }
 
-    private List<Quizes> listQuizes;
 
-    public QuizesAdapter(List<Quizes> listQuizes){
-        this.listQuizes = listQuizes;
+    public QuizesAdapter(List<Quizes> listQuizzes, ButtonsClickListener mOnClickListener){
+        this.listQuizzes = listQuizzes;
+        this.mOnClickListener = mOnClickListener;
     }
 
     @Override
@@ -92,30 +87,30 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
-        View contactView = inflater.inflate(R.layout.item_quizes, parent, false);
+        View quizView = inflater.inflate(R.layout.item_quizes, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(contactView);
+        ViewHolder viewHolder = new ViewHolder(quizView);
         return viewHolder;
     }
 
 
     @Override
     public void onBindViewHolder(QuizesAdapter.ViewHolder viewHolder, int position){
-        Quizes quizes = listQuizes.get(position);
+        Quizes quizzes = listQuizzes.get(position);
 
-        TextView txtViewID = viewHolder.txtViewID;
-        TextView txtViewTitle = viewHolder.txtViewTitle;
-        TextView txtDesc = viewHolder.txtViewDesc;
+        TextView vwTitle = viewHolder.txtvwQuizTitle;
+        TextView vwCategory = viewHolder.txtvwCategory;
+        TextView vwDesc = viewHolder.txtvwQuizDesc;
 
-        txtViewID.setText("QUIZ ID : " + String.valueOf(quizes.getQuizID()));
-        txtViewTitle.setText("QUIZ TITLE : " + quizes.getQuizTitle());
-        txtDesc.setText("QUIZ DESCRIPTION : " + quizes.getQuizDesc());
+        vwTitle.setText(quizzes.getQuizTitle());
+        vwCategory.setText(quizzes.getCategory());
+        vwDesc.setText(quizzes.getQuizDesc());
 
     }
 
     @Override
     public  int getItemCount(){
-        return listQuizes.size();
+        return listQuizzes.size();
     }
 
 

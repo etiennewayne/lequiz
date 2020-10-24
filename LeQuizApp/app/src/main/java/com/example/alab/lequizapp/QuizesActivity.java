@@ -1,19 +1,27 @@
 package com.example.alab.lequizapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -23,61 +31,72 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class QuizesActivity extends AppCompatActivity {
 
     String user, position;
-    private RecyclerView rvContacts;
+    private RecyclerView recyclerView;
+    private RecyclerView.LayoutManager layoutManager;
+
     QuizesAdapter adapter;
     String ServerIP;
+    GlobalClass gclass;
 
 
-    ArrayList<Quizes> arrayQuizes;
+    List<Quizes> listQuizzes = new ArrayList<Quizes>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quizes);
 
-        Intent intent = getIntent();
-        user = intent.getStringExtra("user");
-        position = intent.getStringExtra("position");
-
-        final GlobalClass gclass = (GlobalClass) getApplicationContext();
+        gclass = (GlobalClass) getApplicationContext();
+        recyclerView = (RecyclerView) findViewById(R.id.recycleView_Quizzes);
 
         ServerIP = gclass.getIPAddress();
 
         LoadQuizes();
     }
 
-    void LoadRecyclerViewer(){
-        rvContacts = (RecyclerView) findViewById(R.id.recyclerView);
-
-        Log.d("Asize", String.valueOf(arrayQuizes.size()));
-
-        adapter = new QuizesAdapter(arrayQuizes);
-
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        rvContacts.addItemDecoration(itemDecoration);
-        rvContacts.setAdapter(adapter);
-
-         rvContacts.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter.setOnItemClickListener(new QuizesAdapter.OnItemClickListener() {
+    void bindRecyclerView(){
+        QuizesAdapter adapter = new QuizesAdapter(listQuizzes, new QuizesAdapter.ButtonsClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                String id = String.valueOf(arrayQuizes.get(position).getQuizID());
-                Toast.makeText(QuizesActivity.this, id + " was clicked!", Toast.LENGTH_SHORT).show();
-                //Toast.makeText(this, "sample", Toast.LENGTH_SHORT).show();
+            public void editClick(View v, int position) {
+
             }
 
+            @Override
+            public void deleteClick(View v, int position) {
+                int itemId = listQuizzes.get(position).getCategoryId();
+                alertDelete(itemId);
+            }
 
+            @Override
+            public void questionClick(View v, int position) {
+
+            }
         });
+
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+
+    }
+
+
+
+    public void clickQuizNew(View v){
+        Intent intent = new Intent(this, QuizAddUpdate.class);
+        startActivity(intent);
     }
 
     void LoadQuizes(){
-        String url = ServerIP+"/android/quizes/" + user;
+        String url = ServerIP+"/android/quiz/" + gclass.getId();
 
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -85,32 +104,115 @@ public class QuizesActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("quiz", "Register Response: " + response.toString());
 
                         try {
-                            JSONArray array = new JSONArray(response);
-                            arrayQuizes = new ArrayList<Quizes>();
-                            for(int i=0; i < array.length(); i++){
-                                JSONObject obj =  array.getJSONObject(i);
-                                arrayQuizes.add(new Quizes(obj.getInt("quizID"),
-                                       obj.getString("username"),
-                                       obj.getString("quizTitle"),
-                                       obj.getString("quizDesc")));
+                            JSONArray jsonArray = new JSONArray(response);
+                            JSONObject obj;
+
+                            if(jsonArray.length() > 0){
+
+                                for(int i=0; i < jsonArray.length(); i++){
+                                    obj =  jsonArray.getJSONObject(i);
+                                    listQuizzes.add(new Quizes(obj.getInt("quiz_id"),
+                                        obj.getInt("user_id"),
+                                        obj.getInt("category_id"),
+                                        obj.getString("category"),
+                                        obj.getString("quiz_title"),
+                                        obj.getString("quiz_desc")));
+                                }
+
+                                bindRecyclerView();
+
+                            }else{
+                                Toast.makeText(getApplicationContext(), "No Quizzes found.", Toast.LENGTH_SHORT).show();
                             }
-                            LoadRecyclerViewer();
                         } catch (JSONException e) {
-                            e.printStackTrace();
-                            // flag = false;
+                            Log.d("jsonerror", e.getMessage());
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
+                Log.d("errorResponse", error.getMessage());
             }
         });
 
         queue.add(stringRequest);
     }
+
+    private void delete(final int itemId){
+        String url = gclass.getIPAddress()+"/android/quiz/delete";
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("response", response);
+                    try {
+
+                        JSONObject obj = new JSONObject(response);
+
+                        if(obj.has("status")){
+                            if(obj.getString("status").equalsIgnoreCase("deleted")){
+
+                                Toast.makeText(getApplicationContext(), "Successfully deleted. ", Toast.LENGTH_SHORT).show();
+                                listQuizzes.clear();
+                                LoadQuizes();
+                            }
+                        }
+                    } catch (JSONException e) {
+                        Log.d("json-error", e.getMessage());
+                    }
+                }
+
+
+            }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof AuthFailureError) {
+                    //TODO
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(getApplicationContext(),"No response from the server. Server error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof NetworkError) {
+                    //TODO
+                    Toast.makeText(getApplicationContext(),"No response from the server. Network error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ParseError) {
+                    //TODO
+                }
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("quiz_id", String.valueOf(itemId));
+                return params;
+            }
+        };
+        queue.add(stringRequest);
+    }
+
+    void alertDelete(final int id){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("DELETE QUIZ?");
+        alert.setMessage("Are you sure you want to delete this quiz?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                delete(id);
+            }
+        });
+
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
+    }
+
+
 }

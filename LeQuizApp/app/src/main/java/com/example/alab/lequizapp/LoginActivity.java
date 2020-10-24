@@ -11,9 +11,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -55,8 +61,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
 //
-        gclass.setIPAddress("http://192.168.88.242");
-        gclass.setWebSocketAddress("ws://192.168.88.242:8080");
+        gclass.setIPAddress("http://192.168.254.10");
+        gclass.setWebSocketAddress("ws://192.168.254.10:8080");
 
 //        gclass.setIPAddress("http://192.168.88.229");
 //        gclass.setWebSocketAddress("ws://192.168.88.229:8080");
@@ -66,14 +72,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private Map<String, String> getParams()
-    {
-        Map<String, String>  params = new HashMap<String, String>();
-        params.put("username", txtuser.getText().toString());
-        params.put("password", txtpwd.getText().toString());
-
-        return params;
-    }
+//    private Map<String, String> getParams()
+//    {
+//        Map<String, String>  params = new HashMap<String, String>();
+//        params.put("username", txtuser.getText().toString());
+//        params.put("password", txtpwd.getText().toString());
+//
+//        return params;
+//    }
 
 
     void Auth(String user, String pwd){
@@ -85,19 +91,18 @@ public class LoginActivity extends AppCompatActivity {
      //  String postURL = "http://192.168.15.242/android/login";
         RequestQueue queue = Volley.newRequestQueue(this);
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        Log.d("response", "Register Response: " + response.toString());
+                        if(response == null){
+                            Toast.makeText(getApplicationContext(), "Server response empty.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 
                         try {
                             JSONArray array = new JSONArray(response);
-                            //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-
                             if(array.length()>0){
-
                                 JSONObject obj =  array.getJSONObject(0);
                                 position = obj.getString("classification");
                                 gclass.setId(obj.getInt("user_id"));
@@ -138,8 +143,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
                         } catch (Exception e) {
-
-                            e.printStackTrace();
+                            Log.d("errlogin", e.getMessage());
                             Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                             btnLogin.setClickable(true);
                            // flag = false;
@@ -148,13 +152,31 @@ public class LoginActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                    Log.d("errlogin", error.getMessage());
-                //flag = fal error.printStackTrace();se;
-                Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                 btnLogin.setClickable(true);
 
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof AuthFailureError) {
+                    //TODO
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(getApplicationContext(),"No response from the server. Server error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof NetworkError) {
+                    //TODO
+                    Toast.makeText(getApplicationContext(),"No response from the server. Network error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ParseError) {
+                    //TODO
+                }
+
             }
-        });
+        }){
+            @Override
+            protected Map<String, String> getParams(){
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", txtuser.getText().toString());
+                params.put("password", txtpwd.getText().toString());
+                return params;
+            }
+        };
 
         queue.add(stringRequest);
     }
@@ -167,14 +189,15 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         btnLogin.setClickable(false);
-        Auth(txtuser.getText().toString(), txtpwd.getText().toString());
+        try{
+            Auth(txtuser.getText().toString(), txtpwd.getText().toString());
+        }catch (Exception err){
+            Toast.makeText(this, "Cannot contact server.", Toast.LENGTH_SHORT).show();
+        }
 
 
     }
 
-//    @Override
-//    public void onBackPressed(){
-//       // LoginActivity.this.finish();
-//    }
+
 
 }

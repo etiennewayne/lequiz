@@ -21,6 +21,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         //
         //'/android/auth',
+        '/android/login',
         '/android/quizgame/store',
         '/android/validate/code',
 

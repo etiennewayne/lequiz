@@ -101,8 +101,6 @@ public class CategoryMain extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
-//        mAdapter = new CategoryRecyclerAdapter(categoryList, this);
-//        recyclerView.setAdapter(mAdapter);
     }
 
 
@@ -161,11 +159,10 @@ public class CategoryMain extends AppCompatActivity {
                             }else{
                                 Toast.makeText(getApplicationContext(), "No categories found.", Toast.LENGTH_SHORT).show();
                             }
-                            Log.d("category", String.valueOf(categoryList.size()));
+
                         } catch (JSONException e) {
                             Log.d("sma_josnresponse", e.getMessage());
                         }
-
                     }
 
                 }, new Response.ErrorListener(){
@@ -226,34 +223,6 @@ public class CategoryMain extends AppCompatActivity {
         };
         queue.add(stringRequest);
     }
-
-    void invokeDelete(){
-
-    }
-
-
-//    boolean alert(String title, String msg){
-//        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-//        alert.setTitle(title);
-//        alert.setMessage(msg);
-//        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                confirmDelete = true;
-//            }
-//        });
-//
-//        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        alert.show();
-//    }
 
 
 }

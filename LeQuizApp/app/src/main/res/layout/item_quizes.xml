@@ -2,58 +2,75 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:padding="15dp"
+    android:background="@drawable/card_bg"
+    android:layout_margin="10dp">
 
+
+    <TextView
+        android:id="@+id/item_quiz_lbltitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="QUIZ TITLE"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/item_quiz_lblcategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="CATEGORY"
+        android:layout_below="@+id/item_quiz_lbltitle"
+        android:textSize="15sp"
+        android:textStyle="bold"/>
+
+
+
+
+    <TextView
+        android:id="@+id/item_quiz_lbldesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textStyle="italic"
+        android:paddingLeft="2dp"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@id/item_quiz_lblcategory"
+        android:text="Quiz Description"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@id/linearButton"
-        android:orientation="vertical"
-        android:padding="5dp">
-
-        <TextView
-            android:id="@+id/txtQuizId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Question ID :" />
-
-        <TextView
-            android:id="@+id/txtQuizTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Question" />
-
-        <TextView
-            android:id="@+id/txtQuizDesc"
-            android:layout_width="match_parent"
-            android:layout_height="46dp"
-            android:text="Quiz Description here..." />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_below="@+id/item_quiz_lbldesc"
+        android:layout_marginTop="10dp"
+        android:padding="15dp">
 
         <Button
-            android:id="@+id/btnQuizEdit"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_quiz_edit"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="clickQuizEdit"
-            android:text="EDIT" />
+            android:text="EDIT"
+            android:layout_weight="1"
+            />
 
         <Button
-            android:id="@+id/btnQuizDelete"
-            android:layout_width="wrap_content"
+            android:id="@+id/btn_quiz_delete"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="clickQuizDelete"
-            android:text="DELETE" />
+            android:layout_weight="1"
+            android:text="DELETE"/>
+
+        <Button
+            android:id="@+id/btn_quiz_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="QUESTIONS"/>
+
     </LinearLayout>
 
 

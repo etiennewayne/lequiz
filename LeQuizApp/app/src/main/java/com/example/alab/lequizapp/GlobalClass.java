@@ -6,13 +6,13 @@ import android.app.Application;
 
 public class GlobalClass extends Application{
     private int id;
-    private String username;
-    private String lname;
-    private String fname;
-    private String mname;
-    private String position;
+    private String username = "";
+    private String lname = "";
+    private String fname = "";
+    private String mname = "";
+    private String position = "";
 
-    private String accessCode;
+    private String accessCode = "";
 
 
     private String IPAddress;

@@ -62,11 +62,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
             //itemView.setOnClickListener(this);
         }
 
-//        @Override
-//        public void onClick(View v){
-//            int position = getAdapterPosition();
-//            mOnClickListener.onListItemClick(position);
-//        }
+
     }
 
 
