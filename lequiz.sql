@@ -40,9 +40,7 @@ insert  into `academicyears`(`academic_year_id`,`ay_code`,`ay`,`semester_id`,`cr
 (2,'192','2019-2020',2,'2019-10-11 05:03:01','2019-10-11 02:55:28',1),
 (4,'181','2018-2019',1,'2019-10-11 03:03:46','2019-10-11 03:03:46',0),
 (5,'182','2018-2019',2,'2019-10-11 03:04:04','2019-10-11 03:04:04',0),
-(6,'173','2017-2018',3,'2019-10-11 03:04:04','2020-05-10 14:33:59',0),
-(7,'test','test',NULL,'2020-05-10 14:37:25','2020-05-10 14:37:25',0),
-(8,'test','test',NULL,'2020-05-10 14:38:05','2020-05-10 14:38:05',0);
+(6,'173','2017-2018',3,'2019-10-11 03:04:04','2020-05-10 14:33:59',0);
 
 /*Table structure for table `categories` */
 
@@ -61,7 +59,7 @@ CREATE TABLE `categories` (
   KEY `academic_year_id` (`academic_year_id`),
   CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`academic_year_id`) REFERENCES `academicyears` (`academic_year_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
@@ -69,11 +67,10 @@ insert  into `categories`(`category_id`,`user_id`,`academic_year_id`,`category`,
 (9,15,2,'oop','object oriented','2020-10-21 10:54:46','2020-10-21 10:54:46'),
 (10,15,2,'Programming 1','Programming 1 - C++','2020-10-21 10:54:48','2020-10-21 10:54:48'),
 (11,15,2,'test','test','2020-10-21 10:54:48','2020-10-21 10:54:48'),
-(13,17,2,'test','test','2020-10-21 10:54:49','2020-10-21 10:54:49'),
-(22,17,2,'test1','test1','2020-10-21 10:54:50','2020-10-21 10:54:50'),
 (23,19,2,'F1 CATEGORY 1','F1 CATEGORY 1','2020-10-21 10:54:50','2020-10-21 10:54:50'),
 (25,19,2,'F1 CATEGORY 2','F1 CATEGORY 2','2020-10-21 10:54:51','2020-10-21 10:54:51'),
-(26,17,2,'WEB APP','WEB APP','2020-10-21 10:54:51','2020-10-21 10:54:51');
+(26,17,2,'WEB APP','WEB APP','2020-10-21 10:54:51','2020-10-21 10:54:51'),
+(44,17,2,'SAMPLE CATEGORY','HAHAHAHA','2020-10-23 18:31:38',NULL);
 
 /*Table structure for table `courses` */
 
@@ -158,7 +155,7 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`question_id`),
   KEY `quiz_id` (`quiz_id`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 /*Data for the table `questions` */
 
@@ -186,7 +183,7 @@ insert  into `questions`(`question_id`,`question`,`opt_a`,`opt_b`,`opt_c`,`opt_d
 (28,'qustion 1','a','b','c','d','A',25,10,1),
 (29,'question 2','a','b','c','d','B',25,10,1),
 (30,'question 3','a','b','c','d','C',25,10,1),
-(31,'What is CSS','copra style shit','cascading style shit','cascading style sheet','all of the above','C',27,5,1),
+(31,'What is CSS?','copra style shit','cascading style shit','cascading style sheet','all of the above','C',27,5,1),
 (32,'How to add external CSS','<style>boday{margin:0}</style>','<p style=\"margin:0px\">I am paragraph</p>','<body><div class=\"container\"></div></body>','<link rel=\"stylesheet\" href=\"mystyle.css\">','D',27,5,1),
 (33,'Document extenson of a css','.css','.js','.php','.html','A',27,5,1),
 (34,'I want to add bottom padding. What could be the best syntax I could use?','padding-top: 50px;','padding-right: 30px;','padding-bottom: 50px;','padding-left: 80px;','C',27,5,1);
@@ -208,7 +205,7 @@ CREATE TABLE `quizzes` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 /*Data for the table `quizzes` */
 
@@ -216,8 +213,9 @@ insert  into `quizzes`(`quiz_id`,`user_id`,`category_id`,`quiz_title`,`quiz_desc
 (23,15,9,'First Quiz - Midterm','Midterm Quiz - Objects','2020-06-06 13:48:09','2020-06-06 13:48:09'),
 (24,15,10,'1st quiz midterm','1st quiz midterm','2020-06-06 13:51:32','2020-06-06 13:51:32'),
 (25,19,23,'F1 QUIZ TITLE 1','F1 QUIZ TITLE 1','2020-06-24 21:57:44','2020-06-24 13:57:44'),
-(26,19,25,'F1 QUIZ TITLE 2','F1 QUIZ TITLE 2','2020-06-24 21:57:51','2020-06-24 13:57:51'),
-(27,17,26,'CSS','CSS','2020-10-04 01:22:56','2020-10-04 01:22:56');
+(27,17,26,'CSS','CSS','2020-10-04 01:22:56','2020-10-04 01:22:56'),
+(28,17,26,'1ST QUIZ','1ST QUIZ','2020-10-24 11:21:52',NULL),
+(32,17,26,'MID TERM QUIZ 1','MID TERM QUIZ 1','2020-10-24 11:30:30',NULL);
 
 /*Table structure for table `room_students` */
 
@@ -330,9 +328,9 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `lname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `fname` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `mname` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `classification` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT '',
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -349,8 +347,8 @@ CREATE TABLE `users` (
 
 insert  into `users`(`user_id`,`username`,`lname`,`fname`,`mname`,`email`,`classification`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`,`apwd`) values 
 (15,'admin','Administrator','Administrator','Administrator','admin@yahoo.com','ADMINISTRATOR',NULL,'$2y$10$YjaJIEK15ouZFJCAOONZa.sRBl0jg6w5S9AyX68TInfNsuebCR/Tm',NULL,'2019-10-26 16:41:35','2019-10-26 16:41:35','admin'),
-(17,'f','Amparado','Etienne',NULL,'et88@yahoo.com','FACULTY',NULL,'$2y$10$wWJB2EsF3o/463.JpOyKtuL0ReSob/Y8.M4iauDNGawgwJtnJyp8O',NULL,'2020-05-03 06:18:11','2020-06-24 20:04:51','a'),
-(18,'s','amparado','etienne',NULL,'etiennewayne@gmail.com','STUDENT',NULL,'$2y$10$gh3ziHDEuIpcAoEttTMjxuY5r.taDww39vzy/zUcLICXhZ4GIQsae',NULL,'2020-05-30 15:55:34','2020-06-24 20:04:53','a'),
+(17,'f','Amparado','Etienne','','et88@yahoo.com','FACULTY',NULL,'$2y$10$wWJB2EsF3o/463.JpOyKtuL0ReSob/Y8.M4iauDNGawgwJtnJyp8O',NULL,'2020-05-03 06:18:11','2020-10-24 11:37:11','a'),
+(18,'s','amparado','etienne','','etiennewayne@gmail.com','STUDENT',NULL,'$2y$10$gh3ziHDEuIpcAoEttTMjxuY5r.taDww39vzy/zUcLICXhZ4GIQsae',NULL,'2020-05-30 15:55:34','2020-10-24 11:37:12','a'),
 (19,'f1','f1','f1','f1','f1@gmail.com','FACULTY',NULL,'$2y$10$mhSA9WsuhuETFmxwCuCbpOrv4m9Z7tI6u7mc5I2e0.e4CryChPLha',NULL,'2020-06-24 13:07:12','2020-06-24 13:07:12','a'),
 (20,'test','test','test','test','test@gmail.com','STUDENT',NULL,'$2y$10$kRO3S72i3ckxUGGhfSha.uer9/lXreubGITJnRfVpbLcUGRCGE9IK',NULL,'2020-06-24 14:03:39','2020-06-24 14:41:22','a');
 

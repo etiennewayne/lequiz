@@ -59,25 +59,41 @@ public class QuizesActivity extends AppCompatActivity {
 
         ServerIP = gclass.getIPAddress();
 
+
+    }
+
+    @Override
+    public void onResume()
+    {  // After a pause OR at startup
+        super.onResume();
+        //Refresh your stuff here
+        listQuizzes.clear();
         LoadQuizes();
     }
+
+
 
     void bindRecyclerView(){
         QuizesAdapter adapter = new QuizesAdapter(listQuizzes, new QuizesAdapter.ButtonsClickListener() {
             @Override
             public void editClick(View v, int position) {
-
+                Intent intent = new  Intent(getApplicationContext(), QuizAddUpdate.class);
+                intent.putExtra("id", listQuizzes.get(position).getQuizID());
+                startActivity(intent);
             }
 
             @Override
             public void deleteClick(View v, int position) {
-                int itemId = listQuizzes.get(position).getCategoryId();
+                int itemId = listQuizzes.get(position).getQuizID();
                 alertDelete(itemId);
             }
 
             @Override
             public void questionClick(View v, int position) {
-
+                int quiz_id = listQuizzes.get(position).getQuizID();
+                Intent intent = new Intent(getApplicationContext(), QuestionMain.class);
+                intent.putExtra("quiz_id", quiz_id);
+                startActivity(intent);
             }
         });
 

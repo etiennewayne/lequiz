@@ -66,5 +66,15 @@
             />
 
 
+        <Button
+
+            android:id="@+id/btnCategorySave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SAVE"
+            android:onClick="clickSaveQuiz"
+            android:layout_alignParentBottom="true"/>
+
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".QuestionAddUpdate"
+    android:layout_margin="15dp">
+
+
+    <TextView
+        android:id="@+id/lbl_question"
+        android:layout_width="wrap_content"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:text="ENTER QUESTION:"
+        android:textStyle="bold"
+        />
+
+    <EditText
+        android:id="@+id/txt_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_question"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:spinnerMode="dropdown" />
+
+
+
+    <TextView
+        android:id="@+id/lbl_opta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_question"
+        android:textSize="16sp"
+        android:text="OPTION A:"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        />
+
+    <EditText
+        android:id="@+id/txt_opta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_opta"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        android:id="@+id/lbl_optb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/txt_opta"
+        android:layout_marginTop="5dp"
+        android:text="OPTION B:"/>
+
+
+    <EditText
+        android:id="@+id/txt_optb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_optb"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/lbl_optc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/txt_optb"
+        android:layout_marginTop="5dp"
+        android:text="OPTION C:"/>
+
+
+    <EditText
+        android:id="@+id/txt_optc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_optc"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/lbl_optd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/txt_optc"
+        android:layout_marginTop="5dp"
+        android:text="OPTION D:"/>
+
+
+    <EditText
+        android:id="@+id/txt_optd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lbl_optd"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+
+
+    <LinearLayout
+        android:id="@+id/linearContainer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_optd"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="ANSWER: "/>
+
+        <EditText
+            android:id="@+id/txt_ans"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearMainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearContainer1"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:id="@+id/linearContainer2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearContainer1"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/lbl_settime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SET TIME: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_settime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/lbl_settime"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearContainer3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearContainer2"
+            android:layout_weight="1"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/lbl_equivscore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EQUIV SCORE: "
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/txt_equivscore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/lbl_settime"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+    <Button
+        android:id="@+id/btnQuestionSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SAVE"
+        android:onClick="clickQuestionSave"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

@@ -5,14 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,33 +29,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CategoryMain extends AppCompatActivity {
-
-
+public class QuestionMain extends AppCompatActivity {
 
     GlobalClass g;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
-    List<Category> categoryList = new ArrayList<Category>();
 
+
+    List<Question> questionList = new ArrayList<Question>();
+
+    public int quiz_id = 0;
+
+    TextView txtvwQuestionContent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category_main);
+        setContentView(R.layout.activity_question_main);
+
 
         g = (GlobalClass) getApplicationContext();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycleView_category);
+        recyclerView = (RecyclerView) findViewById(R.id.recycleView_questions);
+
+        Intent intent = getIntent();
+        quiz_id = intent.getIntExtra("quiz_id", 0);
 
 
     }
 
-
-    public void clickNewUpdate(View v){
-        Intent intent = new Intent(this, CategoryAddUpdate.class);
+    public void clickQuestionNew(View v){
+        Intent intent = new Intent(getApplicationContext(), QuestionAddUpdate.class);
         intent.putExtra("id", 0);
+        intent.putExtra("quiz_id", quiz_id);
         startActivity(intent);
     }
 
@@ -66,71 +71,21 @@ public class CategoryMain extends AppCompatActivity {
     {  // After a pause OR at startup
         super.onResume();
         //Refresh your stuff here
-        categoryList.clear();
-        getCategories();
-    }
-
-    void bindRecyclerView(){
-        CategoryRecyclerAdapter adapter = new CategoryRecyclerAdapter(categoryList, new CategoryRecyclerAdapter.ButtonsClickListener() {
-            @Override
-            public void editClick(View v, int position) {
-                int id = categoryList.get(position).getCategoryId();
-                //Log.d("categoryid", String.valueOf(id));
-                Intent intent = new Intent(getApplicationContext(), CategoryAddUpdate.class);
-                intent.putExtra("id", id);
-                startActivity(intent);
-            }
-
-            @Override
-            public void deleteClick(View v, int position) {
-
-                int itemId = categoryList.get(position).getCategoryId();
-                alertDelete(itemId);
-
-            }
-        });
-
-        layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-
-
+        questionList.clear();
+        loadData();
     }
 
 
-    void alertDelete(final int id){
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("DELETE CATEGORY?");
-        alert.setMessage("Are you sure you want to delete this category?");
-        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                delete(id);
-            }
-        });
-
-        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        alert.show();
-    }
-
-
-
-    private void getCategories(){
+    private void loadData(){
         try{
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = g.getIPAddress() + "/android/category/" + g.getId();
+            String url = g.getIPAddress() + "/android/question?user_id=" + g.getId()+"&quiz_id="+quiz_id;
 
             StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("category", response);
+
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(response);
@@ -139,19 +94,23 @@ public class CategoryMain extends AppCompatActivity {
                             if(jsonArray.length() > 0){
                                 for(int i=0;i < jsonArray.length(); i++){
                                     obj  = jsonArray.getJSONObject(i);
-                                    Log.d("category", obj.getString("category"));
-                                    categoryList.add(new Category(obj.getInt("category_id"),
-                                        obj.getInt("user_id"),
-                                        obj.getInt("academic_year_id"),
-                                        obj.getString("ay_code"),
-                                        obj.getString("category"),
-                                        obj.getString("category_desc")));
+
+                                    questionList.add(new Question(obj.getInt("question_id"),
+                                        obj.getInt("quiz_id"),
+                                        obj.getString("question"),
+                                        obj.getString("opt_a"),
+                                        obj.getString("opt_b"),
+                                        obj.getString("opt_c"),
+                                        obj.getString("opt_d"),
+                                        obj.getString("ans"),
+                                        obj.getInt("set_time"),
+                                        obj.getInt("equiv_score")));
                                 }
 
                                 bindRecyclerView();
 
                             }else{
-                                Toast.makeText(getApplicationContext(), "No categories found.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "No questions found.", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -175,14 +134,64 @@ public class CategoryMain extends AppCompatActivity {
 
 
 
+
+    void bindRecyclerView(){
+        QuestionRecyclerAdapter adapter = new QuestionRecyclerAdapter(questionList, new QuestionRecyclerAdapter.ButtonsClickListener() {
+            @Override
+            public void editClick(View v, int position) {
+                int id = questionList.get(position).getQuestionId();
+                //Log.d("categoryid", String.valueOf(id));
+                Intent intent = new Intent(getApplicationContext(), QuestionAddUpdate.class);
+                intent.putExtra("id", id);
+                intent.putExtra("quiz_id", quiz_id);
+                startActivity(intent);
+            }
+
+            @Override
+            public void deleteClick(View v, int position) {
+
+                int itemId = questionList.get(position).getQuestionId();
+                alertDelete(itemId);
+
+            }
+        });
+
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+
+
+    }
+
+    void alertDelete(final int id){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("DELETE CATEGORY?");
+        alert.setMessage("Are you sure you want to delete this category?");
+        alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                delete(id);
+            }
+        });
+
+        alert.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
+    }
+
     private void delete(final int itemId){
-        String url = g.getIPAddress()+"/android/category/delete";
+        String url = g.getIPAddress()+"/android/question/delete";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
             new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    //Log.d("response", response);
+                    Log.d("response", response);
                     try {
 
                         JSONObject obj = new JSONObject(response);
@@ -191,8 +200,8 @@ public class CategoryMain extends AppCompatActivity {
                             if(obj.getString("status").equalsIgnoreCase("deleted")){
 
                                 Toast.makeText(getApplicationContext(), "Successfully deleted. ", Toast.LENGTH_SHORT).show();
-                                categoryList.clear();
-                                getCategories();
+                                questionList.clear();
+                                loadData();
                             }
                         }
 
@@ -211,12 +220,24 @@ public class CategoryMain extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams(){
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("category_id", String.valueOf(itemId));
+                params.put("question_id", String.valueOf(itemId));
                 return params;
             }
         };
         queue.add(stringRequest);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

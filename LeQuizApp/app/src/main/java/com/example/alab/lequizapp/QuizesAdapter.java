@@ -102,8 +102,8 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
         TextView vwCategory = viewHolder.txtvwCategory;
         TextView vwDesc = viewHolder.txtvwQuizDesc;
 
-        vwTitle.setText(quizzes.getQuizTitle());
-        vwCategory.setText(quizzes.getCategory());
+        vwTitle.setText("QUIZ TITLE : " + quizzes.getQuizTitle());
+        vwCategory.setText("CATEGORY : " + quizzes.getCategory());
         vwDesc.setText(quizzes.getQuizDesc());
 
     }

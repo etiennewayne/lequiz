@@ -86,8 +86,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
     @Override
     public void onBindViewHolder(CategoryRecyclerAdapter.ViewHolder holder, int position) {
-
-
         Category category = categoryList.get(position);
 
         TextView txtvwAY = holder.lblAY;
