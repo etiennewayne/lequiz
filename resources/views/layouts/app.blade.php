@@ -76,7 +76,7 @@
 
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="">
                     {{ config('app.name', 'Laravel') }}
                 </a>
 

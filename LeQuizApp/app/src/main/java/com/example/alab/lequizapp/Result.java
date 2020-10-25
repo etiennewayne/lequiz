@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
     TextView lblTxt1;
     EditText txtbox1;
 
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -42,6 +44,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
     int totalScore=0;
 
     TextView txtresult_totalScore;
+    Button btn_BackLobby;
 
     public Result(){
        //
@@ -55,6 +58,8 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
         recyclerView = (RecyclerView) findViewById(R.id.result_recycler);
         txtresult_totalScore = (TextView) findViewById(R.id.result_txtvwTotalScore);
+        btn_BackLobby = findViewById(R.id.btn_BackLobby);
+       // btn_BackLobby
 
         g = (GlobalClass) getApplicationContext();
 
@@ -62,7 +67,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
             Intent intent = getIntent();
             myList = intent.getParcelableArrayListExtra("myList");
             totalScore = intent.getIntExtra("totalSCore", totalScore);
-            txtresult_totalScore.setText("SCORE: " + String.valueOf(totalScore));
+            txtresult_totalScore.setText("SCORE: " + totalScore);
 
 
             ResultAdapter adapter = new ResultAdapter(myList, this);
@@ -86,7 +91,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
     @Override
     public void onListItemClick(int position) {
-        Toast.makeText(this, myList.get(position).getQuestion(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, myList.get(position).getQuestion(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -98,7 +103,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
     public void btnBackLobby(View v){
 //
-
+        btn_BackLobby.setEnabled(false);
         SubmitResult();
     }
 
@@ -127,6 +132,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
                         try {
                             String status = response.getString("status");
                             if(status.equalsIgnoreCase("saved")){
+                                btn_BackLobby.setEnabled(true);
                                 getIntent().addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 finish();
 

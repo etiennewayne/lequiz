@@ -5,6 +5,8 @@ import android.app.Application;
 
 
 public class GlobalClass extends Application{
+
+
     private int id;
     private String username = "";
     private String lname = "";
@@ -14,14 +16,23 @@ public class GlobalClass extends Application{
 
     private String accessCode = "";
 
+    String ip = "192.168.0.10";
 
-    private String IPAddress;
+
+//ws://
+
+    String protocol = "http:";
+    String protocolWs = "ws:";
+
+    private String IPAddress ;
     private String WebSocketAddress;
 
     private int roomId;
 
-
-
+    public void setSetting(){
+        this.IPAddress = protocol + "//" + ip;
+        this.WebSocketAddress = protocolWs+ "//" + ip + ":8080";
+    }
 
     public int getId(){
         return id;

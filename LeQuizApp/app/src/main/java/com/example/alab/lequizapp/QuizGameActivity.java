@@ -7,13 +7,20 @@ import okhttp3.WebSocket;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QuizGameActivity extends AppCompatActivity {
 
@@ -22,13 +29,16 @@ public class QuizGameActivity extends AppCompatActivity {
     SocketListener socketListener;
     Request request;
 
-    TextView txtTimer, txtQuestion, txtSCore;
+    TextView txtTimer, txtQuestion, txtSCore, lblequivscore;
     Button btnA, btnB, btnC, btnD;
 
 
     //public declaration
     public String user_answer="", ans="";
     public int question_id, totalScore=0, equiv_score;
+
+
+    GlobalClass g;
 
 
 
@@ -55,12 +65,15 @@ public class QuizGameActivity extends AppCompatActivity {
         txtTimer = findViewById(R.id.txtTimer);
         txtQuestion = findViewById(R.id.txtQuestion);
         txtSCore = findViewById(R.id.txtScore);
+        lblequivscore = findViewById(R.id.lblequivscore);
+
+        g = (GlobalClass) getApplicationContext();
 
         Intent intent = getIntent();
         //user = intent.getStringExtra("user");
-        final GlobalClass gClass = (GlobalClass) getApplicationContext();
+       g = (GlobalClass) getApplicationContext();
 
-        user = gClass.getUsername();
+        user = g.getUsername();
         user_id = intent.getIntExtra("user_id",0);
         position = intent.getStringExtra("position");
         access_code = intent.getStringExtra("access_code");
@@ -75,17 +88,11 @@ public class QuizGameActivity extends AppCompatActivity {
         btnB.setText("WAITING...");
         btnC.setText("WAITING...");
         btnD.setText("WAITING...");
+        lblequivscore.setText("EQUIV SCORE: ");
 
+        webSocketAddress = g.getWebSocketAddress();
 
-        webSocketAddress = gClass.getWebSocketAddress();
-
-        //score = 0;
-
-        //list = new ArrayList<StudentAnswer>();
         instantiateWebSocket();
-
-
-
 
     }
 
@@ -115,8 +122,35 @@ public class QuizGameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        webSocket.send("Byeness");
-        webSocket.close(1000,"Disconnected from server.");
+
+        disconnectWebSocket();
+    }
+
+//    @Override
+//    public void onDestroy(){
+//        super.onDestroy();
+//        disconnectWebSocket();
+//    }
+
+
+
+    public void disconnectWebSocket(){
+
+        JSONObject connectionJSONObject = new JSONObject();
+        try {
+            connectionJSONObject.put("key", "exit");
+            connectionJSONObject.put("player", g.getUsername());
+
+            JSONArray connectionJSONArray = new JSONArray();
+            connectionJSONArray.put(connectionJSONObject);
+
+            webSocket.send(connectionJSONArray.toString());
+            webSocket.close(1000,"close connection");
+
+        } catch (JSONException e) {
+            Log.d("error", e.getMessage());
+        }
+
     }
 
 

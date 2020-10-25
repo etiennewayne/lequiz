@@ -54,15 +54,14 @@ public class LoginActivity extends AppCompatActivity {
         txtpwd = findViewById(R.id.txtPwd);
         btnLogin = findViewById(R.id.btnLogin);
 
-        txtuser.setText("f");
-        txtpwd.setText("a");
+        txtuser.setText("halgadipe");
+        txtpwd.setText("1234");
 
         gclass = (GlobalClass) getApplicationContext();
-
+        gclass.setSetting();
 
 //
-        gclass.setIPAddress("http://192.168.254.15");
-        gclass.setWebSocketAddress("ws://192.168.254.15:8080");
+
 
 //        gclass.setIPAddress("http://192.168.88.229");
 //        gclass.setWebSocketAddress("ws://192.168.88.229:8080");

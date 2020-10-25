@@ -6,6 +6,13 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -104,6 +111,7 @@ public class SocketListener extends WebSocketListener {
                             activity.ans = obj.getString("ans");
 
                             activity.equiv_score = obj.getInt("equiv_score");
+                            activity.lblequivscore.setText("EQUIV SCORE: " + String.valueOf(obj.getInt("equiv_score")));
                             thisScore = obj.getInt("equiv_score");
 
                             isSubmitted = false;
@@ -116,7 +124,7 @@ public class SocketListener extends WebSocketListener {
                             //IF NAA STATUS THEN THE QUIZ IS OVER
                             //CALL THE RESULT ACTIVITY,
                             //DISPLAY RESULT FROM ListArray<StudentAnswer>
-
+                            activity.disconnectWebSocket();
                             Intent intent = new Intent(activity, Result.class);
                             intent.putParcelableArrayListExtra("myList", (ArrayList<? extends Parcelable>) activity.list);
                             intent.putExtra("totalSCore", activity.totalScore);
@@ -127,8 +135,25 @@ public class SocketListener extends WebSocketListener {
                             activity.finish();
                         }
 
-                    } catch (Exception e) {
-                        Log.d("arrayError", e.getMessage());
+                    } catch (Exception error) {
+
+
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                            Toast.makeText(activity.getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();
+                        } else if (error instanceof AuthFailureError) {
+                            //TODO
+                        } else if (error instanceof ServerError) {
+                            Toast.makeText(activity.getApplicationContext(),"No response from the server. Server error.",Toast.LENGTH_SHORT).show();
+                        } else if (error instanceof NetworkError) {
+                            //TODO
+                            Toast.makeText(activity.getApplicationContext(),"No response from the server. Network error.",Toast.LENGTH_SHORT).show();
+                        } else if (error instanceof ParseError) {
+                            //TODO
+                        }
+
+
+
+                        Log.d("arrayError", error.getMessage());
                        // e.printStackTrace();
                     }
 
@@ -185,7 +210,7 @@ public class SocketListener extends WebSocketListener {
         if(activity.ans.equalsIgnoreCase(choice)){
             Toast.makeText(activity, "Your answer is correct.", Toast.LENGTH_SHORT).show();
             activity.totalScore+= thisScore;
-            activity.txtSCore.setText("Score : " + String.valueOf(activity.totalScore));
+            activity.txtSCore.setText("Score : " + activity.totalScore);
         }else{
             Toast.makeText(activity, "Your answer is wrong.", Toast.LENGTH_SHORT).show();
         }

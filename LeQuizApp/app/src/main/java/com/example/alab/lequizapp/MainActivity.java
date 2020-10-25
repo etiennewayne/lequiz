@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONObject obj =  array.getJSONObject(i);
                                 //
 
-                                textView.setText("Response is: " + String.valueOf(obj.getString("username")));
+                                textView.setText("Response is: " + obj.getString("username"));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

@@ -42,6 +42,7 @@
                     <thead>
                     <tr>
                         <th>User ID</th>
+
                         <th>Username</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
@@ -57,6 +58,7 @@
                     <tfoot>
                     <tr>
                         <th>User ID</th>
+
                         <th>Username</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
@@ -95,7 +97,7 @@
                     { data: 'email' },
                     { data: 'classification' },
                     {
-                        defaultContent: '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button>'
+                        defaultContent: '<div style="display:block;"><button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button><button class="btn btn-success btn-sm" id="rpwd">Reset Password</button></div>'
                     },
 
                 ],
@@ -153,6 +155,18 @@
                     }
                 });//confirm box
             });//criteria click delete
+
+
+
+            $('#accounts tbody').on( 'click', '#rpwd', function () {
+                let data = table.row( $(this).parents('tr') ).data();
+
+                let id = data['user_id'];
+                alert('reset password');
+
+            });//reset password click edit
+
+
 
 
         });

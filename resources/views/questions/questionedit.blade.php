@@ -97,6 +97,23 @@
                             </div>
                         </div>
 
+
+                    <div class="form-group row">
+                        <label for="equiv_score" class="col-md-4 col-form-label text-md-right">{{ __('Set Score') }}</label>
+
+                        <div class="col-md-6">
+                            <input id="equiv_score" type="number" class="form-control @error('equiv_score') is-invalid @enderror" name="equiv_score" value="{{ $question->equiv_score }}" required autocomplete="off" autofocus>
+
+                            @error('equiv_score')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                        </div>
+                    </div>
+
+
+
                         <!-- Choices of answer -->
                         <div class="form-group row">
                             <label for="ans" class="col-md-4 col-form-label text-md-right">{{ __('Answer') }}</label>
@@ -137,6 +154,7 @@
                                 <a class="btn btn-danger" style="color:white;" href="{{ url()->previous() }}">Back</a>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>

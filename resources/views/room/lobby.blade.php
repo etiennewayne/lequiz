@@ -2,36 +2,43 @@
 
 @section('content')
 
-<div class="container mt-5">
+<div id="app">
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                  Player List(s)
-                </div>
-                <div class="card-body">
-                    <ul id="player-list"></ul>
-                </div>
-              </div>
-        </div>
+    <div class="container mt-5">
 
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    QUESTION HERE...
-                </div>
-                <div class="card-body">
-                    <div style="display: none;" id="key"></div>
-                    <div id="question"></div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                      Player List(s)
+                    </div>
+                    <div class="card-body">
+                        <ul id="player-list"></ul>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        QUESTION HERE...
+                    </div>
+                    <div class="card-body">
+                        <div style="display: none;" id="key"></div>
+                        <div id="question"></div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <button class="btn btn-primary mt-2" id="start-quiz">START QUIZ</button>
+
     </div>
 
-    <button class="btn btn-primary mt-2" id="start-quiz">START QUIZ</button>
+</div><!--close id VUE-->
 
-</div>
+
+
 
 
 
@@ -39,10 +46,35 @@
 
 
 <script type="text/javascript" src="/js/myjs.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+<!--
+<script>
+    var app = new Vue({
+      el: '#app',
+      
+      data: {
+        message: 'Hello Vue!'
+      },
+
+      mounted(){
+        
+      },
+
+      methods: {
+      
+      }
+    })
+
+
+
+</script>-->
+
+
 <script type="text/javascript">
 
+
 //=================set WEBSOCKET ADDRESS==============
-    var websocketAddress = 'ws://192.168.254.10:8080';
+    var websocketAddress = 'ws://192.168.0.10:8080';
 //====================================================
 //====================================================
 //=
@@ -68,15 +100,43 @@
     };
 
     ws.onmessage = function(e) {
-        //Debug(e.data);
+        const li = document.querySelectorAll('ul li');
 
+   
         let obj = JSON.parse(e.data);
         Debug(obj);
-        Debug(obj[0].access_code);
+
+
+        //Debug(obj[0].access_code);
         if(obj[0].key === 'joining' && obj[0].access_code === acode){
             let node = document.createElement("li");
+
+            for (let i = 0; i < li.length; i++) {
+                // it is the same as equal to
+                if (li[i].textContent !== obj[0].player) {
+                    //console.log('I am the <li> you want', li[i]);
+                    li[i].parentNode.removeChild(li[i]);
+                }
+
+            }
+
+
             node.appendChild(document.createTextNode(obj[0].player));
             document.getElementById("player-list").appendChild(node);
+        }
+
+        if(obj[0].key === 'exit'){
+
+            Debug('exit' + obj[0].player);
+
+            for (let i = 0; i < li.length; i++) {
+                // it is the same as equal to
+                if (li[i].textContent === obj[0].player) {
+                    //console.log('I am the <li> you want', li[i]);
+                    li[i].parentNode.removeChild(li[i]);
+                }
+
+            }
         }
     };
 

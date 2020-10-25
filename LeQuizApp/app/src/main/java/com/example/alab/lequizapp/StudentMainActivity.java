@@ -51,7 +51,6 @@ public class StudentMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
 
-
         g = (GlobalClass) getApplicationContext();
 
         try {
@@ -79,7 +78,12 @@ public class StudentMainActivity extends AppCompatActivity {
         btnJoinRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                validateAccessCode();
+                if(g.getUsername() != null){
+                    btnJoinRoom.setEnabled(false);
+                    validateAccessCode();
+                }else{
+                    Toast.makeText(getBaseContext(), "App error. Please restart the application.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -136,7 +140,7 @@ public class StudentMainActivity extends AppCompatActivity {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        btnJoinRoom.setEnabled(true);
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(response);
@@ -162,6 +166,7 @@ public class StudentMainActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
+                            btnJoinRoom.setEnabled(true);
                             Log.d("sma_josnresponse", e.getMessage());
                         }
 

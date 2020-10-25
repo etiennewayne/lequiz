@@ -11,6 +11,7 @@
                     <form method="POST" action="/account">
                         @csrf
 
+
                         <div class="form-group row">
                             <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Lastname') }}</label>
 
@@ -73,7 +74,7 @@
                             <div class="col-md-6">
                                 <select name="classification" class="form-control">
                                     <option>FACULTY</option>
-                                    <option>STUDENT</option>                            
+                                    <option>STUDENT</option>
                                 </select>
                             </div>
                         </div>

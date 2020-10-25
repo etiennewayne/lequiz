@@ -62,11 +62,16 @@ Route::resource('/quiz','QuizController');
 Route::get('/quiz/ajax/quizzes','QuizController@quizzes');
 
 Route::resource('/quiz/{quizid}/question', 'QuestionController');
+Route::get('/quiz/question/uploader/{quizid}', 'QuestionController@uploader')->name('question.uploader');
+
+
+
 Route::get('/quiz/question/ajax/{quizid}', 'QuestionController@questions');
 Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionController@questionsByAccessCode');
 
 
 
+Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionController@questionsByAccessCode');
 
 
 

@@ -28,14 +28,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnBackLobby"
+        app:layout_constraintBottom_toTopOf="@+id/btn_BackLobby"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/result_txtvwTotalScore" />
 
     <Button
-        android:id="@+id/btnBackLobby"
+        android:id="@+id/btn_BackLobby"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lobby"

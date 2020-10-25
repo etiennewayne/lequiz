@@ -136,4 +136,16 @@ class QuestionController extends Controller
         return $data;
     }
 
+
+
+   public function uploader($quizid){
+       
+        return view('questions.question-uploader');
+
+    }
+ 
+
+
+
+
 }

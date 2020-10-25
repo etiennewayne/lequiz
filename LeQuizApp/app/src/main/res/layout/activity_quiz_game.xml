@@ -9,40 +9,73 @@
 
 
 
-    <TextView
+
+    <LinearLayout
+        android:id="@+id/container1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Score"
-        android:id="@+id/txtScore"
-        />
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="SCORE"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/txtScore"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="TIME"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:layout_below="@+id/txtScore"
+            android:id="@+id/txtTimer"
+            />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/lblequivscore"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="EQUIV SCORE"
+        android:textStyle="bold"
+        android:layout_below="@id/container1"
+       />
+
+
+
+
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:hint="Time"
-        android:layout_below="@+id/txtScore"
-        android:id="@+id/txtTimer"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:hint="Question here"
-        android:layout_below="@id/txtTimer"
+        android:textSize="20sp"
+        android:hint="QUESTIONS"
+        android:layout_margin="25dp"
+        android:layout_below="@id/lblequivscore"
         android:id="@+id/txtQuestion"
         />
 
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:layout_below="@id/txtQuestion"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:foregroundGravity="bottom">
 
         <Button
             android:layout_width="match_parent"

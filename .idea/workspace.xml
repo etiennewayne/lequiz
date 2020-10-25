@@ -2,7 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="64083816-10c9-4ccf-8a8d-c31c2c5b42b4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/lequiz.sql" beforeDir="false" afterPath="$PROJECT_DIR$/lequiz.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/GlobalClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/GlobalClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/LoginActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/QuizGameActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/QuizGameActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/SocketListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/java/com/example/alab/lequizapp/SocketListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/res/layout/activity_quiz_game.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/res/layout/activity_quiz_game.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LeQuizApp/app/src/main/res/layout/activity_result.xml" beforeDir="false" afterPath="$PROJECT_DIR$/LeQuizApp/app/src/main/res/layout/activity_result.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AndroidRoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AndroidRoomController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/account/account.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/account/account.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/account/accountcreate.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/account/accountcreate.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/questions/questionedit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/questions/questionedit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/room/lobby.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room/lobby.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,6 +186,8 @@
       <workItem from="1593005952064" duration="5263000" />
       <workItem from="1593171953890" duration="85000" />
       <workItem from="1603166466668" duration="5374000" />
+      <workItem from="1603606506997" duration="2359000" />
+      <workItem from="1603634409032" duration="253000" />
     </task>
     <servers />
   </component>
@@ -177,9 +195,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1823" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1603183158454">
-      <screen x="1440" y="0" width="1440" height="860" />
+    <state x="511" y="219" width="896" height="820" key="search.everywhere.popup" timestamp="1603610470159">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="511" y="219" width="896" height="820" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1603610470159" />
     <state x="1823" y="181" width="672" height="678" key="search.everywhere.popup/1440.0.1440.860/0.0.1440.860@1440.0.1440.860" timestamp="1603183158454" />
   </component>
 </project>
