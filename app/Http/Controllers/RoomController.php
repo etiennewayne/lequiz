@@ -53,10 +53,24 @@ class RoomController extends Controller
 
     public function edit($id){
 
+        $room = Room::find($id);
+
+       return view('room.roomedit')
+           ->with('room', $room);
     }
 
     public function update(Request $req, $id){
 
+        $validate = $req->validate([
+            'room' => ['required', 'string', 'max:50', 'unique:rooms'],
+        ]);
+
+        $data = Room::find($id);
+        $data->room = $req->room;
+        $data->room_desc = $req->room_desc;
+        $data->save();
+
+        return redirect('/room')->with('success','Room successfully updated.');
     }
 
     public function rooms(){

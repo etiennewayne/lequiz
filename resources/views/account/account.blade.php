@@ -81,7 +81,11 @@
 
 @section('extrascript')
     <script type="text/javascript">
+
         $(document).ready(function() {
+
+            var token = $("meta[name=csrf-token]").attr('content');
+
             var table = $('#accounts').DataTable({
                 processing: true,
                 ajax: {
@@ -119,7 +123,7 @@
                 let id = data['user_id'];
                 let contentText = data['username'];
 
-                let token = $("meta[name=csrf-token]").attr('content');
+
                 let method = $("input[name=_method]").val();
 
 
@@ -162,7 +166,22 @@
                 let data = table.row( $(this).parents('tr') ).data();
 
                 let id = data['user_id'];
-                alert('reset password');
+
+
+                $.post('/account/reset-password/' +id,
+                    {
+                        _token : token,
+                    },
+
+                    function(data, status){
+                        if(data[0].status=="success"){
+                            $.alert('Your new password is : ' +data[0].newpwd);
+                        }else{
+                            $.alert('An error occured. ERROR : ' +status);
+                        }
+
+                    });
+
 
             });//reset password click edit
 

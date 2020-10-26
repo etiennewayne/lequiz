@@ -22,7 +22,7 @@
 
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
 
-     <script type="text/javascript" src="{{asset('/js/jquery-3.5.1.js')}}"></script>
+    <script type="text/javascript" src="{{asset('/js/jquery-3.5.1.js')}}"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ asset("/css/bootstrap.min.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("/css/dataTables.bootstrap4.min.css") }}">

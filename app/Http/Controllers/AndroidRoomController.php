@@ -21,7 +21,7 @@ class AndroidRoomController extends Controller
 
 
     public function joinRoom($access_code, $user_id){
-    	
+
 
     	$data = \DB::table('rooms')
     	->where('access_code', $access_code)
@@ -48,7 +48,9 @@ class AndroidRoomController extends Controller
     }
 
 
-    
+
+
+
 
 
 }

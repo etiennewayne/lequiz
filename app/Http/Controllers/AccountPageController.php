@@ -97,4 +97,15 @@ class AccountPageController extends Controller
         return $data;
     }
 
+    public function reset($id){
+        $value = md5(date("Y-m-d H:i:s"));
+        $result = substr($value, 0, 5);
+
+        $data = User::find($id);
+        $data->password = Hash::make($result);
+        $data->save();
+
+        return [['status' => 'success', 'newpwd'=> $result]];
+    }
+
 }

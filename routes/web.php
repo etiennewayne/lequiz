@@ -38,6 +38,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //Route::get('/main', 'MainPageController@index');
 
 Route::resource('/account','AccountPageController');
+Route::post('/account/reset-password/{id}','AccountPageController@reset');
+
 Route::get('/account/ajax/users','AccountPageController@data_users');
 
 Route::get('/academicyear/{academicyear}/markactive','AcademicYearController@markactive');
