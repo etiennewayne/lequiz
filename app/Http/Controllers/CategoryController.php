@@ -9,6 +9,12 @@ class CategoryController extends Controller
 {
     //
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('faculty');
+    }
+
     public function index(){
         return view('category.category');
     }
