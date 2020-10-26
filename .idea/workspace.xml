@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="64083816-10c9-4ccf-8a8d-c31c2c5b42b4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AccountPageController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AccountPageController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AndroidRoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AndroidRoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/RoomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/RoomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/account/account.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/account/account.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/auth/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/auth/login.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/app.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/room/roomedit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/room/roomedit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +176,7 @@
       <workItem from="1603166466668" duration="5374000" />
       <workItem from="1603606506997" duration="2359000" />
       <workItem from="1603634409032" duration="253000" />
-      <workItem from="1603674976296" duration="5761000" />
+      <workItem from="1603674976296" duration="6348000" />
     </task>
     <servers />
   </component>
@@ -191,6 +184,10 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1765" y="60" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1603685364558">
+      <screen x="1440" y="0" width="1440" height="860" />
+    </state>
+    <state x="1765" y="60" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1440.0.1440.860/0.0.1440.860@1440.0.1440.860" timestamp="1603685364558" />
     <state x="1816" y="205" key="run.anything.popup" timestamp="1603681792704">
       <screen x="1440" y="0" width="1440" height="860" />
     </state>

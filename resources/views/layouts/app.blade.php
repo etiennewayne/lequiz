@@ -104,58 +104,51 @@
                             @endif --}}
                         @else
 
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/home') }}">Home</a>
-                            </li>
+                            @if(Auth::user()->classification == 'FACULTY')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                                </li>
 
-                            <li>
-                                <a class="nav-link" href="{{ url('/academicyear') }}">Academic Year</a>
-                            </li>
+                                <li>
+                                    <a class="nav-link" href="{{ url('/category') }}">Category</a>
+                                </li>
 
-                            <li>
-                                <a class="nav-link" href="{{ url('/category') }}">Category</a>
-                            </li>
+                                <li>
+                                    <a class="nav-link" href="{{ url('/quiz') }}">Quiz</a>
+                                </li>
 
-                            <li>
-                                <a class="nav-link" href="{{ url('/quiz') }}">Quiz</a>
-                            </li>
+                                <li>
+                                    <a class="nav-link" href="{{ url('/room') }}">Room</a>
+                                </li>
+                            @endif
 
-                            <li>
-                                <a class="nav-link" href="{{ url('/room') }}">Room</a>
-                            </li>
+                            @if(Auth::user()->classification == 'ADMINISTRATOR')
 
-{{--                            <li>--}}
-{{--                                <a class="nav-link" href="{{ url('/academicyear') }}">Academic Year</a>--}}
-{{--                            </li>--}}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ url('/home') }}">Home</a>
+                                    </li>
 
-                            <li>
-                                <a class="nav-link" href="{{ url('/account') }}">Account</a>
-                            </li>
+                                    <li>
+                                        <a class="nav-link" href="{{ url('/academicyear') }}">Academic Year</a>
+                                    </li>
 
-                            <li class="nav-item dropdown">
-
-
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ ucfirst(Auth::user()->username) }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="{{ url('/course') }}">Courses</a>
+                                    <li>
+                                        <a class="nav-link" href="{{ url('/account') }}">Account</a>
+                                    </li>
 
 
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                                @endif
+
+
+
+                                <a class="nav-link" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                    {{ __('Logout') }}
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                         @endguest
                     </ul>
                 </div>
