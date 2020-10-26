@@ -109,6 +109,10 @@
                             </li>
 
                             <li>
+                                <a class="nav-link" href="{{ url('/academicyear') }}">Academic Year</a>
+                            </li>
+
+                            <li>
                                 <a class="nav-link" href="{{ url('/category') }}">Category</a>
                             </li>
 
