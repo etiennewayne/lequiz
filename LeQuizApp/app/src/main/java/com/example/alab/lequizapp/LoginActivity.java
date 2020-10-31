@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,19 +55,14 @@ public class LoginActivity extends AppCompatActivity {
         txtpwd = findViewById(R.id.txtPwd);
         btnLogin = findViewById(R.id.btnLogin);
 
-        txtuser.setText("halgadipe");
+        txtuser.setText("jrey");
         txtpwd.setText("1234");
 
         gclass = (GlobalClass) getApplicationContext();
         gclass.setSetting();
-
 //
-
-
 //        gclass.setIPAddress("http://192.168.88.229");
 //        gclass.setWebSocketAddress("ws://192.168.88.229:8080");
-
-
         ServerIP = gclass.getIPAddress();
     }
 
@@ -193,9 +189,16 @@ public class LoginActivity extends AppCompatActivity {
         }catch (Exception err){
             Toast.makeText(this, "Cannot contact server.", Toast.LENGTH_SHORT).show();
         }
-
-
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
 
 
 

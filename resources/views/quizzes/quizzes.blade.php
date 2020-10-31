@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <div class="container">
-
+    <div class="container mt-5">
 
         <div class="row">
             @if(session('success'))

@@ -4,7 +4,7 @@
 
 <div class="container">
     
-   <div class="row justify-content-center">
+   <div class="row justify-content-center mt-5">
        <div class="col-md-6">
             <div class="card">
                 <cdiv class="card-header">
@@ -16,6 +16,21 @@
 
                     <div class="card-body">
                         
+                         <div class="form-group">
+                            <label for="ay">Academic Year</label>
+                            <select class="form-control" name="ay" id="ay">
+                                @foreach($academicyear as $ay)
+                                    @if($ay->academic_year_id == $category->academic_year_id)
+                                        <option selected value="{{ $ay->academic_year_id}}">{{ $ay->ay_code }}</option>
+                                    @else
+                                        <option value="{{ $ay->academic_year_id}}">{{ $ay->ay_code }}</option>
+                                    @endif
+                                    
+                                @endforeach
+                            </select>
+                        </div>
+
+
                         <div class="form-group">
                             <label for="category">Category</label>
                             <input id="category" class="form-control @error('category') is-invalid @enderror" type="text" name="category" value="{{ $category->category }}" placeholder="Category" required autocomplete="off">

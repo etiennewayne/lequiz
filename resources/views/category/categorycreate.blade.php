@@ -2,18 +2,28 @@
 
 @section('content')
 
-<div class="container">
+<div class="container mt-5">
     
    <div class="row justify-content-center">
        <div class="col-md-6">
             <div class="card">
-                <cdiv class="card-header">
+                <div class="card-header">
                     <h3>Category Information</h3>
-                </cdiv>
+                </div>
                 <form action="/category" method="post">
                     @csrf
+
+
                     <div class="card-body">
                         
+                        <div class="form-group">
+                            <label for="ay">Academic Year</label>
+                            <select class="form-control" name="ay" id="ay">
+                                @foreach($academicyear as $ay)
+                                     <option value="{{ $ay->academic_year_id}}">{{ $ay->ay_code }}</option>
+                                @endforeach
+                            </select>
+                        </div>
         
                         <div class="form-group">
                             <label for="category">Category</label>

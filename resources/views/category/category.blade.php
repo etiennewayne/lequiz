@@ -2,7 +2,8 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container mt-5">
+        
         <div class="row">
             <div class="col">
                 @if(session('success'))
@@ -49,6 +50,7 @@
                     <thead>
                     <tr>
                         <th>ID</th>
+                        <th>AY</th>
                         <th>Category</th>
                         <th>Category Description</th>
                         <th>Action</th>
@@ -57,6 +59,7 @@
                     <tfoot>
                     <tr>
                         <th>ID</th>
+                        <th>AY</th>
                         <th>Category</th>
                         <th>Category Description</th>
                         <th>Action</th>
@@ -82,6 +85,7 @@
                 },
                 columns: [
                     { data: 'category_id' },
+                    { data: 'ay_code' },
                     { data: 'category' },
                     { data: 'category_desc' },
                     {

@@ -72,13 +72,16 @@
 
 <script type="text/javascript">
 
+ var servername = '<?php echo $_SERVER['SERVER_NAME']; ?>';
 
 //=================set WEBSOCKET ADDRESS==============
-    var websocketAddress = 'ws://192.168.0.10:8080';
+    var websocketAddress = 'ws://'+ servername + ':8080';
 //====================================================
 //====================================================
 //=
 //
+
+
 
     var acode = '{{ $accesscode }}';
 

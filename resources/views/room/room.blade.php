@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row justify-content-center">
             @if(session('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

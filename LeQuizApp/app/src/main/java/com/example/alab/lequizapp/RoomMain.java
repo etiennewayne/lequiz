@@ -54,15 +54,17 @@ public class RoomMain extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleView_Rooms);
         spinnerAY = findViewById(R.id.spinnerAY);
 
+    }
 
+
+    void LoadSpinner(){
         spinnerAY.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-               // Toast.makeText(getApplicationContext(), spinnerAY.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getApplicationContext(), spinnerAY.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 aycode = spinnerAY.getSelectedItem().toString();
                 roomList.clear();
                 LoadData();
-
             }
 
             @Override
@@ -77,14 +79,15 @@ public class RoomMain extends AppCompatActivity {
     {  // After a pause OR at startup
         super.onResume();
         //Refresh your stuff here
-        roomList.clear();
+
         getAY();
-        LoadData();
+
     }
 
+    RoomRecyclerAdapter adapter;
 
     void bindRecyclerView(){
-        RoomRecyclerAdapter adapter = new RoomRecyclerAdapter(roomList, new RoomRecyclerAdapter.ButtonsClickListener() {
+        adapter = new RoomRecyclerAdapter(roomList, new RoomRecyclerAdapter.ButtonsClickListener() {
 
             @Override
             public void stdQuizzesClick(View v, int position) {
@@ -95,12 +98,14 @@ public class RoomMain extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
     }
 
 
     private void LoadData(){
         try{
+            roomList.clear();
+            recyclerView.setAdapter(adapter);
+
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = g.getIPAddress() + "/android/room/getroom-ay?aycode="+aycode+"&userid="+g.getId();
 
@@ -175,6 +180,7 @@ public class RoomMain extends AppCompatActivity {
                         ayAdapater = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arr);
                         spinnerAY.setAdapter(ayAdapater);
 
+                        LoadSpinner();
 
                     } catch (JSONException e) {
                         Log.d("err", "JSON ERROR " + e.getMessage());
