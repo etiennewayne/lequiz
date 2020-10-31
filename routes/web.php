@@ -101,7 +101,7 @@ Route::post('/android/validate/code', 'AndroidRoomController@validateCode');
 
 Route::get('/android/room/join/{accesscode}/{userid}','AndroidRoomController@joinRoom');
 Route::get('/android/room/getroom-ay','AndroidRoomController@rooms');
-
+Route::get('/android/room/student-list/{roomid}','AndroidRoomController@studentList');
 
 Route::get('/android/ay','AndroidAcademicYear@getAY');
 

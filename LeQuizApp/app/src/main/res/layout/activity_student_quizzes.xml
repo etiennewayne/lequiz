@@ -4,6 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="3dp"
     tools:context=".StudentQuizzesActivity">
+
+
+    <TextView
+        android:id="@+id/lblstudentlist_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:text="STUDENT LISTS"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView_studentQuizzes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblstudentlist_header"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

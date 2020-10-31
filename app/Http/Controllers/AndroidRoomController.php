@@ -48,6 +48,23 @@ class AndroidRoomController extends Controller
     }
 
 
+    public function studentList($roomid){
+        $data = \DB::table('student_quizzes as a')
+        ->join('users as b', 'a.user_id', 'b.user_id')
+        ->join('rooms as c', 'a.room_id', 'c.room_id')
+        ->join('quizzes as d', 'c.quiz_id', 'd.quiz_id')
+        ->select('a.student_quiz_id', 'a.user_id',
+            'b.username', 'b.lname', 'b.fname', 'b.mname',
+            'a.room_id', 'c.room', 'c.room_desc', 'c.access_code', 'c.quiz_id',
+            'd.quiz_title', 'd.quiz_desc',
+            'a.total_score'
+        )
+        ->where('a.room_id', $roomid)
+        ->get();
+
+        return $data;
+    }
+
 
 
 

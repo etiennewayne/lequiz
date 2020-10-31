@@ -91,7 +91,12 @@ public class RoomMain extends AppCompatActivity {
 
             @Override
             public void stdQuizzesClick(View v, int position) {
+                Room room = roomList.get(position);
+                int room_id = room.getRoomId();
 
+                Intent intent = new Intent(getBaseContext(), StudentQuizzesActivity.class);
+                intent.putExtra("room_id", room_id);
+                startActivity(intent);
             }
         });
 
