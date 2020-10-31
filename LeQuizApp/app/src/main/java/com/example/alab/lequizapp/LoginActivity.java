@@ -55,8 +55,8 @@ public class LoginActivity extends AppCompatActivity {
         txtpwd = findViewById(R.id.txtPwd);
         btnLogin = findViewById(R.id.btnLogin);
 
-        txtuser.setText("jrey");
-        txtpwd.setText("1234");
+        txtuser.setText("");
+        txtpwd.setText("");
 
         gclass = (GlobalClass) getApplicationContext();
         gclass.setSetting();

@@ -14,14 +14,25 @@
         android:layout_centerVertical="true"
         android:layout_margin="10dp">
 
+        <TextView
+            android:id="@+id/lblWelcome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WELCOME TO LE QUIZ"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"/>
+
 
         <EditText
             android:id="@+id/txtUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginTop="10dp"
             android:textAlignment="center"
             android:hint="Username"
+            android:layout_below="@+id/lblWelcome"
             android:inputType="textPersonName" />
 
         <EditText

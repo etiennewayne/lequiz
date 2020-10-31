@@ -67,7 +67,7 @@ public class StudentMainActivity extends AppCompatActivity {
             user_id = intent.getIntExtra("user_id",0);
             position = intent.getStringExtra("position");
 
-            txtRoomName.setText("2e117e");
+            txtRoomName.setText("");
             g.setAccessCode(txtRoomName.getText().toString());
 
           //  lblStudent.setText("Enter ACCESS CODE to join the room.");
@@ -81,6 +81,11 @@ public class StudentMainActivity extends AppCompatActivity {
         btnJoinRoom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(txtRoomName.getText().toString() == ""){
+                    Toast.makeText(getBaseContext(), "Access code is required.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(g.getUsername() != null){
                     btnJoinRoom.setEnabled(false);
                     validateAccessCode();
