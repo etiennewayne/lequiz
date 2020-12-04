@@ -16,7 +16,7 @@ public class GlobalClass extends Application{
 
     private String accessCode = "";
 
-    String ip = "192.168.88.242";
+    //String ip = "192.168.0.10";
 
 
 //ws://
@@ -30,8 +30,10 @@ public class GlobalClass extends Application{
     private int roomId;
 
     public void setSetting(){
-        this.IPAddress = protocol + "//" + ip;
-        this.WebSocketAddress = protocolWs+ "//" + ip + ":8080";
+        if(getIPAddress() != null){
+            this.IPAddress = protocol + "//" + getIPAddress();
+            this.WebSocketAddress = protocolWs+ "//" + getIPAddress() + ":8080";
+        }
     }
 
     public int getId(){

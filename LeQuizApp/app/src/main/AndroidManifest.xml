@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".myquizzes.MyQuizzesActivity"></activity>
+        <activity android:name=".IPAddressActivity"></activity>
+        <activity android:name=".myquizzes.MyQuizzesActivity" />
         <activity android:name=".StudentQuizzesActivity" />
         <activity android:name=".RoomMain" />
         <activity android:name=".QuestionAddUpdate" />

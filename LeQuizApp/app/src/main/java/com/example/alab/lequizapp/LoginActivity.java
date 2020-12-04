@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         txtuser = findViewById(R.id.txtUser);
         txtpwd = findViewById(R.id.txtPwd);
         btnLogin = findViewById(R.id.btnLogin);
@@ -58,24 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         txtuser.setText("");
         txtpwd.setText("");
 
+
         gclass = (GlobalClass) getApplicationContext();
-        gclass.setSetting();
-//
-//        gclass.setIPAddress("http://192.168.88.229");
-//        gclass.setWebSocketAddress("ws://192.168.88.229:8080");
-        ServerIP = gclass.getIPAddress();
+        //gclass.setIPAddress("");
+
+
     }
-
-
-//    private Map<String, String> getParams()
-//    {
-//        Map<String, String>  params = new HashMap<String, String>();
-//        params.put("username", txtuser.getText().toString());
-//        params.put("password", txtpwd.getText().toString());
-//
-//        return params;
-//    }
-
 
     void Auth(String user, String pwd){
 
@@ -178,6 +169,17 @@ public class LoginActivity extends AppCompatActivity {
 
     public void clickLogin(View v){
 
+        gclass.setSetting();
+        ServerIP = gclass.getIPAddress();
+
+        //Toast.makeText(this, gclass.getIPAddress(), Toast.LENGTH_SHORT).show();
+
+
+        if(gclass.getIPAddress() == null){
+            Toast.makeText(this, "Please set server ip address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(txtuser.getText().toString().isEmpty() || txtpwd.getText().toString().isEmpty()){
             Toast.makeText(this, "Please input credentials.", Toast.LENGTH_SHORT).show();
             return;
@@ -197,6 +199,19 @@ public class LoginActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.ip_setting:
+                Intent intent = new Intent(this, IPAddressActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

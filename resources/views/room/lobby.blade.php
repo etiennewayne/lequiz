@@ -134,9 +134,10 @@
 
             for (let i = 0; i < li.length; i++) {
                 // it is the same as equal to
+                console.log(li[i].textContent);
                 if (li[i].textContent === obj[0].player) {
                     //console.log('I am the <li> you want', li[i]);
-                    li[i].parentNode.removeChild(li[i]);
+                    //li[i].parentNode.removeChild(li[i]);
                 }
 
             }
