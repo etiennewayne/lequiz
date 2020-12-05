@@ -71,7 +71,6 @@ public class QuizGameActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         //user = intent.getStringExtra("user");
-       g = (GlobalClass) getApplicationContext();
 
         user = g.getUsername();
         user_id = intent.getIntExtra("user_id",0);
@@ -89,6 +88,7 @@ public class QuizGameActivity extends AppCompatActivity {
         btnC.setText("WAITING...");
         btnD.setText("WAITING...");
         lblequivscore.setText("EQUIV SCORE: ");
+
 
         webSocketAddress = g.getWebSocketAddress();
 

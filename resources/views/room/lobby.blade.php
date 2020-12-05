@@ -51,17 +51,17 @@
 <script>
     var app = new Vue({
       el: '#app',
-      
+
       data: {
         message: 'Hello Vue!'
       },
 
       mounted(){
-        
+
       },
 
       methods: {
-      
+
       }
     })
 
@@ -105,43 +105,9 @@
     ws.onmessage = function(e) {
         const li = document.querySelectorAll('ul li');
 
-   
-        let obj = JSON.parse(e.data);
-        Debug(obj);
 
-
-        //Debug(obj[0].access_code);
-        if(obj[0].key === 'joining' && obj[0].access_code === acode){
-            let node = document.createElement("li");
-
-            for (let i = 0; i < li.length; i++) {
-                // it is the same as equal to
-                if (li[i].textContent !== obj[0].player) {
-                    //console.log('I am the <li> you want', li[i]);
-                    li[i].parentNode.removeChild(li[i]);
-                }
-
-            }
-
-
-            node.appendChild(document.createTextNode(obj[0].player));
-            document.getElementById("player-list").appendChild(node);
-        }
-
-        if(obj[0].key === 'exit'){
-
-            Debug('exit' + obj[0].player);
-
-            for (let i = 0; i < li.length; i++) {
-                // it is the same as equal to
-                console.log(li[i].textContent);
-                if (li[i].textContent === obj[0].player) {
-                    //console.log('I am the <li> you want', li[i]);
-                    //li[i].parentNode.removeChild(li[i]);
-                }
-
-            }
-        }
+        appendPlayerInList(e);
+        removePlayerInList(e);
     };
 
     ws.onclose = function(e){
@@ -195,9 +161,51 @@
                 sec=0;
                 Debug(JSON.stringify('end'));
                 ws.send(JSON.stringify({status:"end"}));
-
             }                       //  ..  setTimeout()
         }, sec * 1000)
+
+    }
+
+
+
+    function appendPlayerInList(e){
+        let li = document.querySelectorAll('ul li');
+
+        let obj = JSON.parse(e.data);
+        //Debug(obj[0].player);
+        if(obj[0].key === 'joining' && obj[0].access_code === acode){
+            let node = document.createElement("li");
+
+            // for (let i = 0; i < li.length; i++) {
+            //     // it is the same as equal to
+            //     if (li[i].textContent !== obj[0].player) {
+            //         //console.log(li[i].textContent);
+            //         li[i].parentNode.removeChild(li[i]);
+            //     }
+            // }
+
+            node.appendChild(document.createTextNode(obj[0].player));
+            document.getElementById("player-list").appendChild(node);
+        }
+    }
+
+    function removePlayerInList(e){
+        let li = document.querySelectorAll('ul li');
+        let obj = JSON.parse(e.data);
+
+        if(obj[0].key === 'exit'){
+            Debug('exit' + obj[0].player);
+            for (let i = 0; i < li.length; i++) {
+                // it is the same as equal to
+               // console.log(li[i].textContent);
+                if (li[i].textContent === obj[0].player) {
+                    // console.log('list player name --> ' + li[i].textContent);
+                    // console.log('I am the <li> you want', li[i]);
+                    li[i].parentNode.removeChild(li[i]);
+                }
+
+            }
+        }
 
     }
 

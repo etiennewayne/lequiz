@@ -18,13 +18,21 @@ public class IPAddressActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_i_p_address);
 
+        g = (GlobalClass) getApplicationContext();
+
         txtIPAddress = findViewById(R.id.txtIPAddress);
+
+        if(g.getIPAddress() != null){
+            txtIPAddress.setText(g.getIPAddress());
+        }else{
+            txtIPAddress.setText("192.168.0.10");
+        }
 
 
     }
 
     public void clickSaveIPAddress(View V){
-        g = (GlobalClass) getApplicationContext();
+
         g.setIPAddress(txtIPAddress.getText().toString());
         finish();
     }

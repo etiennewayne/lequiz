@@ -25,14 +25,19 @@ public class GlobalClass extends Application{
     String protocolWs = "ws:";
 
     private String IPAddress ;
+
+    //hold the IP Address kay e overwrite nia ang IP Address for new Setting
+    private String tempIPAddress;
+
     private String WebSocketAddress;
 
     private int roomId;
 
     public void setSetting(){
         if(getIPAddress() != null){
-            this.IPAddress = protocol + "//" + getIPAddress();
-            this.WebSocketAddress = protocolWs+ "//" + getIPAddress() + ":8080";
+            this.tempIPAddress = getIPAddress();
+            this.IPAddress = protocol + "//" + tempIPAddress;
+            this.WebSocketAddress = protocolWs+ "//" + tempIPAddress + ":8080";
         }
     }
 

@@ -58,8 +58,15 @@ public class LoginActivity extends AppCompatActivity {
         txtpwd = findViewById(R.id.txtPwd);
         btnLogin = findViewById(R.id.btnLogin);
 
+
+        //for debugging purpose
+       // txtuser.setText("halgadipe");
+       // txtpwd.setText("1234");
+
+
         txtuser.setText("");
         txtpwd.setText("");
+
 
 
         gclass = (GlobalClass) getApplicationContext();
@@ -69,11 +76,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void Auth(String user, String pwd){
-
+        btnLogin.setClickable(false);
         //boolean flag=false;
 
-        String url = ServerIP+"/android/login?username="+user+"&password="+pwd;
-        //String url = "http://192.168.254.10/android/login";
+        //String url = ServerIP+"/android/login?username="+user+"&password="+pwd;
+        String url = ServerIP + "/android/login";
      //  String postURL = "http://192.168.15.242/android/login";
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -81,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        btnLogin.setClickable(true);
                         if(response == null){
                             Toast.makeText(getApplicationContext(), "Server response empty.", Toast.LENGTH_SHORT).show();
                             return;
@@ -139,6 +147,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 btnLogin.setClickable(true);
+
+                Log.d("error", error.getMessage());
 
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
                     Toast.makeText(getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();

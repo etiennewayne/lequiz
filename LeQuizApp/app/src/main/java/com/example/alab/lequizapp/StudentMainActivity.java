@@ -67,11 +67,14 @@ public class StudentMainActivity extends AppCompatActivity {
             user_id = intent.getIntExtra("user_id",0);
             position = intent.getStringExtra("position");
 
+            //for debugging purpose only==============
+            //txtRoomName.setText("c1acc0");
+            //=============================
             txtRoomName.setText("");
+
             g.setAccessCode(txtRoomName.getText().toString());
 
           //  lblStudent.setText("Enter ACCESS CODE to join the room.");
-
            // instantiateWebSocket();
 
         }catch (Exception e){
@@ -88,6 +91,7 @@ public class StudentMainActivity extends AppCompatActivity {
 
                 if(g.getUsername() != null){
                     btnJoinRoom.setEnabled(false);
+                    Log.d("debug", g.getIPAddress());
                     validateAccessCode();
                 }else{
                     Toast.makeText(getBaseContext(), "App error. Please restart the application.", Toast.LENGTH_SHORT).show();
@@ -204,7 +208,6 @@ public class StudentMainActivity extends AppCompatActivity {
                         }
 
                         btnJoinRoom.setEnabled(true);
-//
 
                     }
 
