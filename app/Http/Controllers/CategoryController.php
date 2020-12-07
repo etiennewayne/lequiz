@@ -52,7 +52,7 @@ class CategoryController extends Controller
 
         $data = Category::create([
             'user_id' => $user_id,
-            'academic_year_id' => $req->$ay,
+            'academic_year_id' => $req->ay,
             'category' => strtoupper($req->category),
             'category_desc' => strtoupper($req->category_desc)
         ]);
