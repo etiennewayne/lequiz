@@ -86,6 +86,8 @@
 
     <hr>
 
+    <a href="/quiz/question/uploader/{{ $quizid }}" class="btn btn-warning mb-2">Uploader</a>
+
 
 
 </div> <!-- close container div-->

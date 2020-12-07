@@ -48,7 +48,7 @@
 <div class="container mt-5">
     <div class="row mb-2">
 
-        <form enctype="multipart/form-data">
+        <form enctype="multipart/form-data" method="post" action="/quiz/question/uploader/39/store">
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -62,21 +62,29 @@
             </div>
 
 
+            @csrf
 
+            <input type="hidden" name="_quiz_id" value="{{ $quizid }}">
             <div class="form-group">
                 
             </div>
+
+            <textarea readonly class="form-control" name="question_json" rows=20 cols=120 id="xlx_json"></textarea>
+
            
+           <div class="row mt-2" style="float: right;">
+              <button class="btn btn-primary">Upload</button>
+          </div>
+
+
         </form>
 
-        <textarea class="form-control" rows=20 cols=120 id="xlx_json"></textarea>
+        
 
     </div>
 
 
-    <div class="row mt-2" style="float: right;">
-        <button class="btn btn-primary">Upload</button>
-    </div>
+    
 
     <div class="clearfix"></div>
 

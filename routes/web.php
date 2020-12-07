@@ -65,7 +65,7 @@ Route::get('/quiz/ajax/quizzes','QuizController@quizzes');
 
 Route::resource('/quiz/{quizid}/question', 'QuestionController');
 Route::get('/quiz/question/uploader/{quizid}', 'QuestionController@uploader')->name('question.uploader');
-
+Route::post('/quiz/question/uploader/39/store', 'QuestionController@storeUpload');
 
 
 Route::get('/quiz/question/ajax/{quizid}', 'QuestionController@questions');

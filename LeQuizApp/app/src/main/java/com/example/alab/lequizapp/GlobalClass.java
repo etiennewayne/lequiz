@@ -34,6 +34,7 @@ public class GlobalClass extends Application{
     private int roomId;
 
     public void setSetting(){
+
         if(getIPAddress() != null){
             this.tempIPAddress = getIPAddress();
             this.IPAddress = protocol + "//" + tempIPAddress;

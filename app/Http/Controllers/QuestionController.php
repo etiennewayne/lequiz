@@ -138,9 +138,40 @@ class QuestionController extends Controller
 
 
 
+  
+
    public function uploader($quizid){
        
-        return view('questions.question-uploader');
+        return view('questions.question-uploader')
+        ->with('quizid', $quizid);
+    }
+
+    public function storeUpload(Request $req){
+
+        //return $req;
+       
+
+        $arr = json_decode($req->question_json);
+        //return $arr;
+        //echo json_decode($req->question_json);
+
+        foreach($arr as $item) { //foreach element in $arr
+            //echo $item->question; //etc
+            Question::create([
+                'question' => $item->question,
+                'opt_a' => $item->option_a,
+                'opt_b' => $item->option_b,
+                'opt_c' => $item->option_c,
+                'opt_d' => $item->option_d,
+                'ans' => $item->answer,
+                'quiz_id' => $req->_quiz_id,
+                'set_time' => $item->set_time,
+                'equiv_score' => $item->equivalent_score
+
+            ]);          
+        }
+        
+        return redirect('/quiz/'. $req->_quiz_id .'/question');
 
     }
  

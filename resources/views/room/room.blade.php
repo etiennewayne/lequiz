@@ -93,7 +93,7 @@
                     { data: 'quiz_id', visible : false, searchable : false },
                     { data: 'quiz_title' },
                     {
-                        defaultContent: '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button></button><button class="btn btn-primary btn-sm" style="margin:2px;" id="startquiz">Start Quiz</button>'
+                        defaultContent: '<button class="btn btn-danger btn-sm" id="delete">Delete</button></button><button class="btn btn-primary btn-sm" style="margin:2px;" id="startquiz">Start Quiz</button>'
                     },
 
                 ],
