@@ -67,8 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         txtuser.setText("");
         txtpwd.setText("");
 
-
-
         gclass = (GlobalClass) getApplicationContext();
         //gclass.setIPAddress("");
 
@@ -179,7 +177,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void clickLogin(View v){
 
-        gclass.setSetting();
+        //gclass.setSetting();
         ServerIP = gclass.getIPAddress();
 
         //Toast.makeText(this, gclass.getIPAddress(), Toast.LENGTH_SHORT).show();

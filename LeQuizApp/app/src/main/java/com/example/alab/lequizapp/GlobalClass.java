@@ -21,8 +21,8 @@ public class GlobalClass extends Application{
 
 //ws://
 
-    String protocol = "http:";
-    String protocolWs = "ws:";
+    String protocol = "http://";
+    String protocolWs = "ws://";
 
     private String IPAddress ;
 
@@ -33,14 +33,14 @@ public class GlobalClass extends Application{
 
     private int roomId;
 
-    public void setSetting(){
-
-        if(getIPAddress() != null){
-            this.tempIPAddress = getIPAddress();
-            this.IPAddress = protocol + "//" + tempIPAddress;
-            this.WebSocketAddress = protocolWs+ "//" + tempIPAddress + ":8080";
-        }
-    }
+//    public void setSetting(){
+//
+//        if(getIPAddress() != null){
+//            this.tempIPAddress = getIPAddress();
+//            this.IPAddress = protocol + "//" + tempIPAddress;
+//            this.WebSocketAddress = protocolWs+ "//" + tempIPAddress + ":8080";
+//        }
+//    }
 
     public int getId(){
         return id;
@@ -62,7 +62,6 @@ public class GlobalClass extends Application{
     public void setLname(String lname){
         this.lname = lname;
     }
-
     public String getFname(){
         return fname;
     }
@@ -91,17 +90,21 @@ public class GlobalClass extends Application{
     }
 
 
+
+
+
     //IPAddress of the Server
     public String getIPAddress(){
-        return IPAddress;
+        return  protocol + IPAddress;
     }
     public  void setIPAddress(String IPAddress){
         this.IPAddress = IPAddress;
     }
 
+
     //IP Address WebSocket
     public String getWebSocketAddress(){
-        return WebSocketAddress;
+        return protocolWs + WebSocketAddress;
     }
     public  void setWebSocketAddress(String webSocketAddress){
         this.WebSocketAddress = webSocketAddress;
