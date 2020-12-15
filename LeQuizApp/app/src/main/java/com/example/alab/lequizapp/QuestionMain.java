@@ -48,7 +48,6 @@ public class QuestionMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_question_main);
 
-
         g = (GlobalClass) getApplicationContext();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycleView_questions);
@@ -56,6 +55,7 @@ public class QuestionMain extends AppCompatActivity {
         Intent intent = getIntent();
         quiz_id = intent.getIntExtra("quiz_id", 0);
 
+        //loadData();
 
     }
 
@@ -78,6 +78,7 @@ public class QuestionMain extends AppCompatActivity {
 
     private void loadData(){
         try{
+           // Toast.makeText(getApplicationContext(), g.getId() + " - " + quiz_id, Toast.LENGTH_SHORT).show();
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = g.getIPAddress() + "/android/question?user_id=" + g.getId()+"&quiz_id="+quiz_id;
 
@@ -92,8 +93,12 @@ public class QuestionMain extends AppCompatActivity {
                             JSONObject obj;
 
                             if(jsonArray.length() > 0){
+
+//                                Toast.makeText(getApplicationContext(),  String.valueOf(jsonArray.length()) , Toast.LENGTH_SHORT).show();
+
                                 for(int i=0;i < jsonArray.length(); i++){
                                     obj  = jsonArray.getJSONObject(i);
+                                    Log.d("question", obj.getString("question"));
 
                                     questionList.add(new Question(obj.getInt("question_id"),
                                         obj.getInt("quiz_id"),
@@ -165,8 +170,8 @@ public class QuestionMain extends AppCompatActivity {
 
     void alertDelete(final int id){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle("DELETE CATEGORY?");
-        alert.setMessage("Are you sure you want to delete this category?");
+        alert.setTitle("DELETE QUESTION?");
+        alert.setMessage("Are you sure you want to delete this question?");
         alert.setPositiveButton("YES", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

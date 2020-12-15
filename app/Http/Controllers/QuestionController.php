@@ -40,7 +40,7 @@ class QuestionController extends Controller
     public function store(Request $request){
 
         $validator = $request->validate([
-            'question' => ['string', 'required', 'unique:questions'],
+            'question' => ['string', 'required'],
             'opt_a' => ['string', 'required'],
             'opt_b' => ['string', 'required'],
             'opt_c' => ['string', 'required'],

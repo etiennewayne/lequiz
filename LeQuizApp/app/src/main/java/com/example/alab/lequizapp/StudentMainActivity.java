@@ -38,8 +38,8 @@ import java.util.Map;
 public class StudentMainActivity extends AppCompatActivity {
 
     TextView lblStudent, output;
-    EditText txtRoomName;
-    Button btnJoinRoom;
+    EditText txtAccessCode;
+    Button btnJoinQuiz;
 
 
     GlobalClass g;
@@ -58,9 +58,9 @@ public class StudentMainActivity extends AppCompatActivity {
 
         try {
             lblStudent = findViewById(R.id.lblStudent);
-            txtRoomName = findViewById(R.id.txtAccessCode);
+            txtAccessCode = findViewById(R.id.txtAccessCode);
 
-            btnJoinRoom = findViewById(R.id.btnjoinroom);
+            btnJoinQuiz = findViewById(R.id.btnJoinQuiz);
 
             Intent intent = getIntent();
             user = intent.getStringExtra("user");
@@ -68,11 +68,13 @@ public class StudentMainActivity extends AppCompatActivity {
             position = intent.getStringExtra("position");
 
             //for debugging purpose only==============
-            //txtRoomName.setText("c1acc0");
+            txtAccessCode.setText("ec1d17");
             //=============================
-            txtRoomName.setText("");
+            //txtAccessCode.setText("");
 
-            g.setAccessCode(txtRoomName.getText().toString());
+
+
+            g.setAccessCode(txtAccessCode.getText().toString());
 
           //  lblStudent.setText("Enter ACCESS CODE to join the room.");
            // instantiateWebSocket();
@@ -81,16 +83,16 @@ public class StudentMainActivity extends AppCompatActivity {
             Log.e("errstudent", e.getMessage());
         }
 
-        btnJoinRoom.setOnClickListener(new View.OnClickListener() {
+        btnJoinQuiz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtRoomName.getText().toString() == ""){
+                if(txtAccessCode.getText().toString() == ""){
                     Toast.makeText(getBaseContext(), "Access code is required.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if(g.getUsername() != null){
-                    btnJoinRoom.setEnabled(false);
+                    btnJoinQuiz.setEnabled(false);
                     Log.d("debug", g.getIPAddress());
                     validateAccessCode();
                 }else{
@@ -163,37 +165,37 @@ public class StudentMainActivity extends AppCompatActivity {
     }
 
     void validateAccessCode(){
-        btnJoinRoom.setEnabled(false);
+        btnJoinQuiz.setEnabled(false);
         try {
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = g.getIPAddress() + "/android/validate/code";
             //String url = "";
 
             JSONObject jsonBody = new JSONObject();
-            jsonBody.put("access_code", txtRoomName.getText().toString());
+            jsonBody.put("access_code", txtAccessCode.getText().toString());
 
 
             StringRequest jsonObjectRequest = new StringRequest(Request.Method.POST, url,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        btnJoinRoom.setEnabled(true);
+                        btnJoinQuiz.setEnabled(true);
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(response);
                             if(jsonArray.length() > 0){
                                 JSONObject obj = jsonArray.getJSONObject(0);
 
-                                if(obj.has("room_id")){
-                                    int roomid = obj.getInt("room_id");
-                                    g.setRoomId(roomid);
-                                    Log.d("responseroom", String.valueOf(obj.getInt("room_id")));
-                                    Intent intent = new Intent(getApplicationContext(), QuizGameActivity.class);
+                                if(obj.has("quiz_id")){
+                                    int quiz_id = obj.getInt("quiz_id");
+                                    //g.setQui(roomid);
 
+                                    Log.d("responseroom", String.valueOf(obj.getInt("quiz_id")));
+                                    Intent intent = new Intent(getApplicationContext(), QuizGameActivity.class);
                                     intent.putExtra("position", position);
                                     intent.putExtra("user", user);
                                     intent.putExtra("user_id", user_id);
-                                    intent.putExtra("access_code", txtRoomName.getText().toString());
+                                    intent.putExtra("access_code", txtAccessCode.getText().toString());
                                     startActivity(intent);
                                 }else{
                                     Toast.makeText(getApplicationContext(), "Can't connect to the server.", Toast.LENGTH_SHORT).show();
@@ -203,11 +205,11 @@ public class StudentMainActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
-                            btnJoinRoom.setEnabled(true);
+                            btnJoinQuiz.setEnabled(true);
                             Log.d("sma_josnresponse", e.getMessage());
                         }
 
-                        btnJoinRoom.setEnabled(true);
+                        btnJoinQuiz.setEnabled(true);
 
                     }
 
@@ -215,13 +217,13 @@ public class StudentMainActivity extends AppCompatActivity {
                 @Override
                 public void onErrorResponse(VolleyError error){
                     Log.d("resultRoomVolleyError", error.getMessage());
-                    btnJoinRoom.setEnabled(true);
+                    btnJoinQuiz.setEnabled(true);
                 }
             }){
                 @Override
                 protected Map<String, String> getParams(){
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("access_code", txtRoomName.getText().toString());
+                    params.put("access_code", txtAccessCode.getText().toString());
                     return params;
                 }
             };
@@ -229,7 +231,7 @@ public class StudentMainActivity extends AppCompatActivity {
             queue.add(jsonObjectRequest);
         } catch (Exception e) {
             Log.d("submitRoomResult", e.getMessage());
-            btnJoinRoom.setEnabled(true);
+            btnJoinQuiz.setEnabled(true);
         }
 
 

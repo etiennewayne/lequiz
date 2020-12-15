@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<br><br>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -25,6 +26,25 @@
                                     
                                 </select>
                              </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="access_code" class="col-md-4 col-form-label text-md-right">{{ __('Access Code') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="access_code" type="text" class="form-control @error('access_code') is-invalid @enderror" name="access_code" value="{{ old('access_code') }}" autocomplete="off" readonly autofocus>
+                                @error('access_code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+
+                                <button id="btnMD5" class="btn btn-info btn-sm mt-2">
+                                    {{ __('Generate Access Code') }}
+                                </button>
+
+
+                            </div>
                         </div>
 
 
@@ -71,5 +91,10 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript" src="{{ asset('js/myjs.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/roomcreate.js') }}"></script>
+
+
 </div>
 @endsection

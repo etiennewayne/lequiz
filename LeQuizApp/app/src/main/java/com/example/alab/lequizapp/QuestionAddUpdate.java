@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,8 +29,11 @@ import java.util.Map;
 public class QuestionAddUpdate extends AppCompatActivity {
 
 
-    EditText txtquestion, txtopta, txtoptb, txtoptc, txtoptd, txtans, txtsetTime, txtsetEquivSCore;
+    EditText txtquestion, txtopta, txtoptb, txtoptc, txtoptd,  txtsetTime, txtsetEquivSCore;
     Button btnSave;
+    Spinner spinnerAns;
+
+    String[] choices = { "A", "B", "C", "D" };
 
     GlobalClass g;
 
@@ -45,10 +50,12 @@ public class QuestionAddUpdate extends AppCompatActivity {
         txtoptb = findViewById(R.id.txt_optb);
         txtoptc = findViewById(R.id.txt_optc);
         txtoptd = findViewById(R.id.txt_optd);
-        txtans = findViewById(R.id.txt_ans);
+        spinnerAns = findViewById(R.id.spinner_ans);
         txtsetTime = findViewById(R.id.txt_settime);
         txtsetEquivSCore = findViewById(R.id.txt_equivscore);
         btnSave = findViewById(R.id.btnQuestionSave);
+
+        setSpinner();
 
         g = (GlobalClass) getApplicationContext();
 
@@ -68,8 +75,40 @@ public class QuestionAddUpdate extends AppCompatActivity {
     }
 
 
+     void setSpinner(){
+         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,choices);
+         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+         //Setting the ArrayAdapter data on the Spinner
+         spinnerAns.setAdapter(aa);
+     }
 
     public void clickQuestionSave(View v){
+
+        if(txtquestion.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(), "Please input question", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(txtopta.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(), "Please input OPTION A", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(txtoptb.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(), "Please input OPTION B", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(txtoptc.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(), "Please input OPTION C", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(txtoptd.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(getApplicationContext(), "Please input OPTION D", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         btnSave.setEnabled(false);
         save();
     }
@@ -93,7 +132,7 @@ public class QuestionAddUpdate extends AppCompatActivity {
                         txtoptb.setText(obj.getString("opt_b"));
                         txtoptc.setText(obj.getString("opt_c"));
                         txtoptd.setText(obj.getString("opt_d"));
-                        txtans.setText(obj.getString("ans"));
+                        //txtans.setText(obj.getString("ans"));
                         txtsetTime.setText(String.valueOf(obj.getInt("set_time")));
                         txtsetEquivSCore.setText(String.valueOf(obj.getInt("equiv_score")));
 
@@ -140,7 +179,7 @@ public class QuestionAddUpdate extends AppCompatActivity {
                                 txtoptb.setText("");
                                 txtoptc.setText("");
                                 txtoptd.setText("");
-                                txtans.setText("");
+                                //txtans.setText("");
                                 txtsetTime.setText("");
                                 txtsetEquivSCore.setText("");
                                 Toast.makeText(getApplicationContext(), "Successfully saved. ", Toast.LENGTH_SHORT).show();
@@ -177,10 +216,45 @@ public class QuestionAddUpdate extends AppCompatActivity {
                 params.put("opt_b", txtoptb.getText().toString());
                 params.put("opt_c", txtoptc.getText().toString());
                 params.put("opt_d", txtoptd.getText().toString());
-                params.put("ans", txtans.getText().toString());
+                params.put("ans", spinnerAns.getSelectedItem().toString());
                 params.put("quiz_id", String.valueOf(quiz_id));
-                params.put("set_time", txtsetTime.getText().toString());
-                params.put("equiv_score", txtsetEquivSCore.getText().toString());
+
+
+                String settime = txtsetTime.getText().toString();
+                if(!settime.equalsIgnoreCase("")){
+                    try {
+                        int setTime = Integer.parseInt(settime);
+                        if(setTime > 0){
+                            params.put("set_time", settime);
+                        }else{
+                            params.put("set_time", "10");
+                        }
+                    }catch (NumberFormatException nfe){
+                        //Toast.makeText(getApplicationContext(), nfe.getMessage(), Toast.LENGTH_SHORT).show();
+                        params.put("set_time", "10");
+                    }
+                }else{
+                    params.put("set_time", "10");
+                }
+
+                String equivscore = txtsetEquivSCore.getText().toString();
+                if(!equivscore.equalsIgnoreCase("")){
+                    try {
+                        int equivScore = Integer.parseInt(equivscore);
+                        if(equivScore > 0){
+                            params.put("equiv_score", equivscore);
+                        }else{
+                            params.put("equiv_score", "1");
+                        }
+                    }catch (NumberFormatException nfe){
+                        //Toast.makeText(getApplicationContext(), nfe.getMessage(), Toast.LENGTH_SHORT).show();
+                        params.put("equiv_score", "1");
+                    }
+                }else{
+                    params.put("equiv_score", "1");
+                }
+
+
                 return params;
             }
         };

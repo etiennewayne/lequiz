@@ -16,7 +16,7 @@ public class GlobalClass extends Application{
 
     private String accessCode = "";
 
-    //String ip = "192.168.0.10";
+    String ip = "192.168.0.10";
 
 
 //ws://

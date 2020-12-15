@@ -54,6 +54,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Category</th>
+                        <th>Access Code</th>
                         <th>Quiz Title</th>
                         <th>Quiz Description</th>
                         <th>Action</th>
@@ -66,6 +67,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Category</th>
+                        <th>Access Code</th>
                         <th>Quiz Title</th>
                         <th>Quiz Description</th>
                         <th>Action</th>
@@ -91,7 +93,7 @@
 @section('extrascript')
 
     <script type="text/javascript">
-        var btnString = '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button><button class="btn btn-primary btn-sm" style="margin:2px;" id="btnquestion">Question</button></div>';
+        var btnString = '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button><button class="btn btn-primary btn-sm" style="margin:2px;" id="btnquestion">Question</button><button class="btn btn-primary btn-sm" style="margin:2px;" id="btnstartquiz">Start Quiz</button></div>';
         $(document).ready(function() {
             var table = $('#quizzes').DataTable({
                 processing:true,
@@ -102,6 +104,7 @@
                 columns:[
                     { data : 'quiz_id' },
                     { data : 'category' },
+                    { data : 'access_code' },
                     { data : 'quiz_title' },
                     { data : 'quiz_desc' },
                     {
@@ -118,10 +121,19 @@
 
             });//criteria click edit
 
+            
+
             $('#quizzes tbody').on( 'click', '#btnquestion', function () {
                 var data = table.row( $(this).parents('tr') ).data();
                 var id = data['quiz_id'];
                 window.location = '/quiz/'+id+'/question';
+                // console.log('test');
+            });
+
+            $('#quizzes tbody').on( 'click', '#btnstartquiz', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                var id = data['access_code'];
+                window.location = '/quiz/start/'+id;
                 // console.log('test');
             });
 

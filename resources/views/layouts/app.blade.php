@@ -117,9 +117,9 @@
                                     <a class="nav-link" href="{{ url('/quiz') }}">Quiz</a>
                                 </li>
 
-                                <li>
+                                {{-- <li>
                                     <a class="nav-link" href="{{ url('/room') }}">Room</a>
-                                </li>
+                                </li> --}}
                             @endif
 
                             @if(Auth::user()->classification == 'ADMINISTRATOR')

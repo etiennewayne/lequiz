@@ -60,6 +60,7 @@ class QuizController extends Controller
     {
         //
         $validator = $request->validate([
+            'access_code' => ['required', 'string', 'max:8'],
             'quiz_title' => ['required', 'string', 'max:100', 'unique:quizzes'],
             'quiz_desc' => ['required', 'string', 'max:255'],
         ]);
@@ -69,6 +70,7 @@ class QuizController extends Controller
            // 'courseID' => $request->courseid,
             'user_id' => \Auth::user()->user_id,
             'category_id' => $request->category_id,
+            'access_code' => $request->access_code,
             'quiz_title' => strtoupper($request->quiz_title),
             'quiz_desc' => strtoupper($request->quiz_desc),
 
@@ -151,13 +153,18 @@ class QuizController extends Controller
     	//return redirect('/quizes')->with('deleted','Successfully deleted.');
     }
 
+    public function startQuiz($acode){
+        return view('quizzes.quiz-start')
+        ->with('accesscode', $acode);
+    }
+
     public function quizzes(){
 
         $data = \DB::table('quizzes as a')
         ->join('users as b', 'a.user_id','b.user_id')
         ->join('categories as c', 'a.category_id', 'c.category_id')
             ->where('a.user_id', \Auth::user()->user_id)
-        ->select('a.quiz_id', 'a.user_id', 'a.category_id', 'a.quiz_title', 'a.quiz_desc', 'c.category',
+        ->select('a.quiz_id', 'a.user_id', 'a.category_id', 'a.access_code', 'a.quiz_title', 'a.quiz_desc', 'c.category',
             'c.category_desc', 'b.username', 'b.lname', 'b.fname', 'b.mname')
         ->get();
         //return Quiz::with(['user', 'category'])->get();

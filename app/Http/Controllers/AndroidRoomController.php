@@ -11,7 +11,7 @@ class AndroidRoomController extends Controller
     //
 
     public function validateCode(Request $req){
-        $data = \DB::table('rooms')
+        $data = \DB::table('quizzes')
         ->where('access_code', $req->access_code)
         ->get()
         ->take(1);
@@ -22,8 +22,7 @@ class AndroidRoomController extends Controller
 
     public function joinRoom($access_code, $user_id){
 
-
-    	$data = \DB::table('rooms')
+    	$data = \DB::table('quizzes')
     	->where('access_code', $access_code)
     	->first();
 

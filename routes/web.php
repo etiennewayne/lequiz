@@ -71,7 +71,8 @@ Route::post('/quiz/question/uploader/39/store', 'QuestionController@storeUpload'
 Route::get('/quiz/question/ajax/{quizid}', 'QuestionController@questions');
 Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionController@questionsByAccessCode');
 
-
+//START QUIZ
+Route::get('/quiz/start/{acode}', 'QuizController@startQuiz');
 
 Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionController@questionsByAccessCode');
 

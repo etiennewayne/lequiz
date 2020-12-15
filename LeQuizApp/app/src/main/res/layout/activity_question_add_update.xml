@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_optd"
         android:orientation="horizontal"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,10 +129,12 @@
             android:textStyle="bold"
             android:text="ANSWER: "/>
 
-        <EditText
-            android:id="@+id/txt_ans"
+        <Spinner
+            android:id="@+id/spinner_ans"
             android:layout_width="140dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAlignment="center"/>
+
 
     </LinearLayout>
 
@@ -163,6 +165,7 @@
             <EditText
                 android:id="@+id/txt_settime"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/lbl_settime"/>
         </LinearLayout>
@@ -187,6 +190,7 @@
             <EditText
                 android:id="@+id/txt_equivscore"
                 android:layout_width="match_parent"
+                android:inputType="number"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/lbl_settime"/>
         </LinearLayout>

@@ -60,6 +60,7 @@ public class SocketListener extends WebSocketListener {
                 try {
                     JSONObject connectionJSONObject = new JSONObject();
                     connectionJSONObject.put("key", "joining");
+
                     connectionJSONObject.put("access_code", activity.access_code);
                     connectionJSONObject.put("player", activity.user);
 
