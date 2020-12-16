@@ -125,13 +125,12 @@ class QuestionController extends Controller
 
 
     public function questionsByAccessCode($acode){
-         $data = \DB::table('rooms as a')
-        ->join('quizzes as b', 'a.quiz_id','b.quiz_id')
-        ->join('questions as c', 'c.quiz_id','b.quiz_id')
+         $data = \DB::table('quizzes as a')
+        ->join('questions as b', 'a.quiz_id','b.quiz_id')
         ->where('a.access_code', $acode)
-        ->select('a.room_id', 'a.room', 'a.room_desc', 'a.access_code', 'a.quiz_id', 'b.quiz_title', 'b.quiz_desc', 
-        'c.question_id', 'c.question', 'c.opt_a', 'c.opt_b', 'c.opt_c', 'c.opt_d', 'c.ans', 'c.set_time', 'c.equiv_score')
-        ->get();
+        ->select('a.quiz_id', 'a.quiz_title', 'a.quiz_desc',
+            'b.question_id', 'b.question', 'b.opt_a', 'b.opt_b', 'b.opt_c', 'b.opt_d', 'b.ans', 'b.set_time', 'b.equiv_score')
+            ->get();
         //return Quiz::with(['user', 'category'])->get();
         return $data;
     }
