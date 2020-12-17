@@ -75,6 +75,17 @@ class AccountPageController extends Controller
 
     public function update(Request $request, $id){
     //return $request;
+        $validator = $request->validate([
+            'username' => ['required', 'string', 'max:20', 'unique:users'],
+            'lname' => ['required', 'string', 'max:100'],
+            'fname' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
+            'classification' => ['required', 'string', 'max:100']
+            //'apwd' => ['required', 'string', 'max:100'],
+
+        ]);
+
+
     	$user = User::find($id);
     	$user->username = $request->username;
     	$user->lname = $request->lname;
