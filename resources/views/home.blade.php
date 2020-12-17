@@ -13,7 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    Welcome to Lequiz CPANEL,
+                    Hi {{ Auth::user()->username }}, Welcome to Lequiz CPANEL,
                     You are logged in!
                 </div>
             </div>

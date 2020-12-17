@@ -8,7 +8,7 @@
        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h3>Category Information</h3>
+                    <h3>Course Information</h3>
                 </div>
                 <form action="/category" method="post">
                     @csrf
@@ -26,8 +26,8 @@
                         </div>
         
                         <div class="form-group">
-                            <label for="category">Category</label>
-                            <input id="category" class="form-control @error('category') is-invalid @enderror" type="text" name="category" value="{{ old('category') }}" placeholder="Category" required autocomplete="off">
+                            <label for="category">Course</label>
+                            <input id="category" class="form-control @error('category') is-invalid @enderror" type="text" name="category" value="{{ old('category') }}" placeholder="Course" required autocomplete="off">
                                 @error('category')
                                
                                     <span class="invalid-feedback" role="alert">
@@ -37,7 +37,7 @@
                         </div>
     
                         <div class="form-group">
-                            <label for="category_desc">Category Description</label>
+                            <label for="category_desc">Course Description</label>
                             <textarea class="form-control" id="category_desc" rows="3" name="category_desc" placeholder="Description"></textarea>
                         </div>
                         <button class="btn btn-success btn-block">SAVE</button>

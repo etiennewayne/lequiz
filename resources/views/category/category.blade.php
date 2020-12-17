@@ -42,17 +42,17 @@
         <div class="row justify-content-center">
 
             <div class="col-md-8">
-                <h3>Categories</h3>
+                <h3>Courses</h3>
                 <hr>
-                <a href="/category/create" class="btn btn-success" style="margin-bottom: 20px;">New Category</a>
+                <a href="/category/create" class="btn btn-success" style="margin-bottom: 20px;">New Course</a>
 
                 <table id="categories" class="table table-striped table-bordered" style="width:100%;">
                     <thead>
                     <tr>
                         <th>ID</th>
                         <th>AY</th>
-                        <th>Category</th>
-                        <th>Category Description</th>
+                        <th>Course</th>
+                        <th>Course Description</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -60,8 +60,8 @@
                     <tr>
                         <th>ID</th>
                         <th>AY</th>
-                        <th>Category</th>
-                        <th>Category Description</th>
+                        <th>Course</th>
+                        <th>Course Description</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>

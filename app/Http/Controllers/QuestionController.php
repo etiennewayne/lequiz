@@ -146,10 +146,8 @@ class QuestionController extends Controller
     }
 
     public function storeUpload(Request $req){
-
         //return $req;
        
-
         $arr = json_decode($req->question_json);
         //return $arr;
         //echo json_decode($req->question_json);

@@ -110,7 +110,7 @@
                                 </li>
 
                                 <li>
-                                    <a class="nav-link" href="{{ url('/category') }}">Category</a>
+                                    <a class="nav-link" href="{{ url('/category') }}">Courses</a>
                                 </li>
 
                                 <li>
