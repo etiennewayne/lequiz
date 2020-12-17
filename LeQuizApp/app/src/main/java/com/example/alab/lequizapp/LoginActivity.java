@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
 //        txtpwd.setText("");
 
         gclass = (GlobalClass) getApplicationContext();
-        gclass.setIPAddress("192.168.0.10");
+        gclass.setIPAddress("192.168.10.10");
 
 
     }

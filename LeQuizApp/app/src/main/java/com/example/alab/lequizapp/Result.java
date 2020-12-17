@@ -102,7 +102,6 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
 
     public void btnBackLobby(View v){
-//
         btn_BackLobby.setEnabled(false);
         SubmitResult();
     }
@@ -118,16 +117,13 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
 
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("user_id", g.getId());
-            jsonBody.put("room_id", g.getRoomId());
+            jsonBody.put("quiz_id", g.getQuizId());
             jsonBody.put("total_score", totalScore);
-
-
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         //Log.d("responvolley", response.toString());
                         try {
                             String status = response.getString("status");

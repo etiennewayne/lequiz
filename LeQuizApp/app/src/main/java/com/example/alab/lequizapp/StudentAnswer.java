@@ -19,12 +19,16 @@ public class StudentAnswer implements Parcelable {
 
     private String user_ans;
 
+    private String user_ans_desc;
+
     private String ans;
+
+    private String ans_desc;
 
     private int equiv_score;
 
 
-    public StudentAnswer(int question_id, String question, String opt_a, String opt_b, String opt_c, String opt_d, String user_ans, String ans, int equiv_score) {
+    public StudentAnswer(int question_id, String question, String opt_a, String opt_b, String opt_c, String opt_d, String user_ans, String user_ans_desc, String ans, String ans_desc, int equiv_score) {
         this.question_id = question_id;
         this.question = question;
         this.opt_a = opt_a;
@@ -32,7 +36,9 @@ public class StudentAnswer implements Parcelable {
         this.opt_c = opt_c;
         this.opt_d = opt_d;
         this.user_ans = user_ans;
+        this.user_ans_desc = user_ans_desc;
         this.ans = ans;
+        this.ans_desc = ans_desc;
         this.equiv_score = equiv_score;
     }
 
@@ -49,7 +55,9 @@ public class StudentAnswer implements Parcelable {
         opt_c = in.readString();
         opt_d = in.readString();
         user_ans = in.readString();
+        user_ans_desc = in.readString();
         ans = in.readString();
+        ans_desc = in.readString();
         equiv_score = in.readInt();
     }
 
@@ -111,8 +119,22 @@ public class StudentAnswer implements Parcelable {
         this.user_ans = user_ans;
     }
 
+    public String getUser_ans_desc(){
+        return user_ans_desc   ;
+    }
+    public void setUser_ans_desc(String user_ans_desc){
+        this.user_ans_desc = user_ans_desc;
+    }
+
     public String getAns() {
         return ans;
+    }
+
+    public String getAns_desc(){
+        return ans_desc;
+    }
+    public void setAns_desc(String ans_desc){
+        this.ans_desc = ans_desc;
     }
 
     public void setAns(String ans) {
@@ -156,7 +178,9 @@ public class StudentAnswer implements Parcelable {
         parcel.writeString(opt_c);
         parcel.writeString(opt_d);
         parcel.writeString(user_ans);
+        parcel.writeString(user_ans_desc);
         parcel.writeString(ans);
+        parcel.writeString(ans_desc);
         parcel.writeInt(equiv_score);
 
     }

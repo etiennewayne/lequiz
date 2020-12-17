@@ -55,8 +55,7 @@ public class SocketListener extends WebSocketListener {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(activity, "Connection established", Toast.LENGTH_LONG).show();
-
+               // Toast.makeText(activity, "Connection established", Toast.LENGTH_LONG).show();
                 try {
                     JSONObject connectionJSONObject = new JSONObject();
                     connectionJSONObject.put("key", "joining");

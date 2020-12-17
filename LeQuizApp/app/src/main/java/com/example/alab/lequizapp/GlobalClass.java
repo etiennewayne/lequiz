@@ -33,6 +33,9 @@ public class GlobalClass extends Application{
 
     private int roomId;
 
+    public int quizId;
+
+
 //    public void setSetting(){
 //
 //        if(getIPAddress() != null){
@@ -90,7 +93,12 @@ public class GlobalClass extends Application{
     }
 
 
-
+    public int getQuizId(){
+        return quizId;
+    }
+    public void setQuizId(int quizId){
+        this.quizId = quizId;
+    }
 
 
     //IPAddress of the Server
@@ -104,7 +112,7 @@ public class GlobalClass extends Application{
 
     //IP Address WebSocket
     public String getWebSocketAddress(){
-        return protocolWs + WebSocketAddress;
+        return protocolWs + IPAddress + ":8080";
     }
     public  void setWebSocketAddress(String webSocketAddress){
         this.WebSocketAddress = webSocketAddress;

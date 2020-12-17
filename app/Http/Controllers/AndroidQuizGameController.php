@@ -12,7 +12,7 @@ class AndroidQuizGameController extends Controller
     	\DB::table('student_quizzes')
     	->insert([
     		'user_id' => $req->user_id,
-    		'room_id' => $req->room_id,
+    		'quiz_id' => $req->quiz_id,
     		'total_score' => $req->total_score
     	]);
         return ['status' => 'saved'];

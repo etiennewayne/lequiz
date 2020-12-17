@@ -92,9 +92,10 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
         TextView txtvwUserAns = viewHolder.txtUserAnswer;
         String userans = stdans.getUser_ans();
+        String userans_desc = stdans.getUser_ans_desc();
         String ans = stdans.getAns();
 
-        txtvwUserAns.setText("YOUR ANSWER : " + userans);
+        txtvwUserAns.setText("YOUR ANSWER : " + userans + " - " + userans_desc);
         if(userans.equalsIgnoreCase(ans)){
             txtvwUserAns.setBackgroundColor(Color.rgb(138, 235, 146));
         }else{
@@ -105,7 +106,7 @@ public class ResultAdapter extends RecyclerView.Adapter<ResultAdapter.ViewHolder
 
 
         TextView txtvwAns = viewHolder.txtCorrectAns;
-        txtvwAns.setText("ANSWER : " + ans);
+        txtvwAns.setText("ANSWER : " + ans + " - " + stdans.getAns_desc());
         txtvwAns.setBackgroundColor(Color.rgb(88, 245, 135));
 
 

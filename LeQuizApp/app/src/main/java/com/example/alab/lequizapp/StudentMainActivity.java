@@ -148,7 +148,6 @@ public class StudentMainActivity extends AppCompatActivity {
 
                 dialog.dismiss();
                 StudentMainActivity.this.finish();
-
             }
         });
 
@@ -195,6 +194,7 @@ public class StudentMainActivity extends AppCompatActivity {
                                     intent.putExtra("position", position);
                                     intent.putExtra("user", user);
                                     intent.putExtra("user_id", user_id);
+                                    g.setQuizId(obj.getInt("quiz_id"));
                                     intent.putExtra("access_code", txtAccessCode.getText().toString());
                                     startActivity(intent);
                                 }else{

@@ -34,7 +34,7 @@ public class QuizGameActivity extends AppCompatActivity {
 
 
     //public declaration
-    public String user_answer="", ans="";
+    public String user_answer="", user_answer_desc = "", ans="", ans_desc="";
     public int question_id, totalScore=0, equiv_score;
 
 
@@ -92,6 +92,7 @@ public class QuizGameActivity extends AppCompatActivity {
 
         webSocketAddress = g.getWebSocketAddress();
 
+        //Toast.makeText(getApplicationContext(), g.getWebSocketAddress(), Toast.LENGTH_SHORT).show();
         instantiateWebSocket();
 
     }
@@ -112,7 +113,9 @@ public class QuizGameActivity extends AppCompatActivity {
             btnC.getText().toString(),
             btnD.getText().toString(),
             "",
+            "",
             ans,
+            ans_desc,
             equiv_score);
 
         list.add(stdans);
@@ -156,30 +159,54 @@ public class QuizGameActivity extends AppCompatActivity {
 
     public void clickBtnA(View v){
         user_answer= "";
+        ans_desc = "";
         socketListener.evaluatAnswer("A");
         stdans.setUser_ans("A");
+        stdans.setUser_ans_desc(btnA.getText().toString());
+       passCorrectAns();
         //list.add(stdans);
     }
 
     public void clickBtnB(View v){
         user_answer= "";
+        ans_desc = "";
         socketListener.evaluatAnswer("B");
         stdans.setUser_ans("B");
+        stdans.setUser_ans_desc(btnB.getText().toString());
+        passCorrectAns();
         //list.add(stdans);
     }
 
     public void clickBtnC(View v){
         user_answer= "";
+        ans_desc = "";
         socketListener.evaluatAnswer("C");
         stdans.setUser_ans("C");
+        stdans.setUser_ans_desc(btnC.getText().toString());
+        passCorrectAns();
         //list.add(stdans);
     }
 
     public void clickBtnD(View v){
         user_answer= "";
+        ans_desc = "";
         socketListener.evaluatAnswer("D");
         stdans.setUser_ans("D");
+        stdans.setUser_ans_desc(btnD.getText().toString());
+        passCorrectAns();
         //list.add(stdans);
+    }
+
+    void passCorrectAns(){
+        if(ans.equalsIgnoreCase("A")){
+            stdans.setAns_desc(btnA.getText().toString());
+        }else if(ans.equalsIgnoreCase("B")){
+            stdans.setAns_desc(btnB.getText().toString());
+        }else if(ans.equalsIgnoreCase("C")){
+            stdans.setAns_desc(btnC.getText().toString());
+        }else if(ans.equalsIgnoreCase("D")) {
+            stdans.setAns_desc(btnD.getText().toString());
+        }
     }
 
 
