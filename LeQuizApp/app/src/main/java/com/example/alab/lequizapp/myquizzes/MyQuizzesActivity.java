@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -29,13 +32,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyQuizzesActivity extends AppCompatActivity {
+public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     GlobalClass g;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     List<MyQuizzes> quizList = new ArrayList<MyQuizzes>();
 
+    String course = "";
+
+    Spinner spinnerCategories;
+
+
+    ArrayAdapter<String> catAdapter;
+
+
+    List<String> arr;
 
 
     @Override
@@ -43,14 +55,26 @@ public class MyQuizzesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_quizzes);
 
-        g = (GlobalClass) getApplicationContext();
+        spinnerCategories = findViewById(R.id.spinnerCategory);
+        spinnerCategories.setOnItemSelectedListener(this);
 
+        g = (GlobalClass) getApplicationContext();
         recyclerView = findViewById(R.id.recycleView_myquizzes);
 
-
-
-        LoadData();
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        getCategories();
+
+        //LoadData();
+    }
+
+
+
 
     void bindRecyclerView(){
         MyQuizzesAdapter adapter = new MyQuizzesAdapter(quizList);
@@ -64,13 +88,14 @@ public class MyQuizzesActivity extends AppCompatActivity {
     private void LoadData(){
         try{
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = g.getIPAddress() + "/android/room/my-quizzes/" + g.getId();
+            String url = g.getIPAddress() + "/android/quiz/my-quizzes/?userid=" + g.getId()+ "&course=" + course;
+
 
             StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("category", response);
+                        Log.d("myquizzes", response);
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(response);
@@ -83,26 +108,28 @@ public class MyQuizzesActivity extends AppCompatActivity {
                                     quizList.add(new MyQuizzes(obj.getString("quiz_title"),
                                         obj.getString("quiz_desc"),
                                         obj.getString("access_code"),
-                                        obj.getInt("room_id"),
+                                        obj.getString("category"),
                                         obj.getInt("quiz_id"),
-                                        obj.getInt("total_score")));
+                                        obj.getInt("total_score"),
+                                        obj.getString("created_at"),
+                                        obj.getInt("total_points")));
                                 }
-
                                 bindRecyclerView();
 
                             }else{
-                                Toast.makeText(getApplicationContext(), "No categories found.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getBaseContext(), "No quizzes found.", Toast.LENGTH_SHORT).show();
+                                recyclerView.setLayoutManager(null);
                             }
 
                         } catch (JSONException e) {
-                            Log.d("sma_josnresponse", e.getMessage());
+                            Log.d("err", e.getMessage());
                         }
                     }
 
                 }, new Response.ErrorListener(){
                 @Override
                 public void onErrorResponse(VolleyError error){
-                    Log.d("resultRoomVolleyError", error.getMessage());
+                    Log.d("err", error.getMessage());
                 }
             });
 
@@ -114,10 +141,71 @@ public class MyQuizzesActivity extends AppCompatActivity {
     }
 
 
+    private void getCategories(){
+        try{
 
 
+            RequestQueue queue = Volley.newRequestQueue(this);
+            //String url = g.getIPAddress() + "/android/category/" + g.getId();
+            String url = g.getIPAddress() + "/android/myquizzes-category/" + g.getId();
+
+            StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(response);
+                            JSONObject obj;
+
+                            arr = new ArrayList<String>();
+
+                            if(jsonArray.length() > 0){
+                                for(int i=0;i < jsonArray.length(); i++){
+
+                                    obj  = jsonArray.getJSONObject(i);
+                                    arr.add(obj.getString("course"));
+                                }
+
+                                catAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arr);
+                                spinnerCategories.setAdapter(catAdapter);
+
+                                bindRecyclerView();
+
+                            }else{
+                                Toast.makeText(getApplicationContext(), "No categories found.", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } catch (JSONException e) {
+                            Log.d("err_category", e.getMessage());
+                        }
+                    }
+
+                }, new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error){
+                    Log.d("err", error.getMessage());
+                }
+            });
+
+            queue.add(jsonObjectRequest);
+
+        }catch (Exception e){
+            Log.d("error", e.getMessage());
+        }
+    }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        //Toast.makeText(getApplicationContext(), spinnerCategories.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+        course = spinnerCategories.getSelectedItem().toString();
+        LoadData();
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
 }

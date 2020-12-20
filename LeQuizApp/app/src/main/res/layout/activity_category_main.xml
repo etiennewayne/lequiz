@@ -17,7 +17,7 @@
         android:gravity="center"
         android:textStyle="bold"
         android:padding="5dp"
-        android:text="CATEGORY LIST"
+        android:text="COURSE LIST"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="0dp" />
 
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="1dp"
-        android:text="New Category"
+        android:text="New Course"
         android:onClick="clickNewUpdate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -74,9 +74,10 @@ public class QuestionAddUpdate extends AppCompatActivity {
 
     }
 
+    ArrayAdapter aa;
 
      void setSpinner(){
-         ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,choices);
+         aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,choices);
          aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
          //Setting the ArrayAdapter data on the Spinner
          spinnerAns.setAdapter(aa);
@@ -132,6 +133,10 @@ public class QuestionAddUpdate extends AppCompatActivity {
                         txtoptb.setText(obj.getString("opt_b"));
                         txtoptc.setText(obj.getString("opt_c"));
                         txtoptd.setText(obj.getString("opt_d"));
+
+                        int spinnerPosition = aa.getPosition(obj.getString("ans"));
+                        spinnerAns.setSelection(spinnerPosition);
+
                         //txtans.setText(obj.getString("ans"));
                         txtsetTime.setText(String.valueOf(obj.getInt("set_time")));
                         txtsetEquivSCore.setText(String.valueOf(obj.getInt("equiv_score")));

@@ -59,13 +59,20 @@ Route::get('/category/ajax/categories','CategoryController@categories');
 
 
 
-
+//QUIZ HERE!!
 Route::resource('/quiz','QuizController');
 Route::get('/quiz/ajax/quizzes','QuizController@quizzes');
 
 Route::resource('/quiz/{quizid}/question', 'QuestionController');
 Route::get('/quiz/question/uploader/{quizid}', 'QuestionController@uploader')->name('question.uploader');
 Route::post('/quiz/question/uploader/39/store', 'QuestionController@storeUpload');
+
+Route::get('/quiz/student-quizzes/{quizid}', 'QuizController@studentQuizzes');
+Route::get('/quiz/student-quizzes/ajax/studentquiz/{quizid}', 'QuizController@studentQuizzesAjax');
+
+
+
+
 
 
 Route::get('/quiz/question/ajax/{quizid}', 'QuestionController@questions');
@@ -75,7 +82,8 @@ Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionContr
 Route::get('/quiz/start/{acode}', 'QuizController@startQuiz');
 
 Route::get('/quiz/question/ajax/question-by-access-code/{acode}', 'QuestionController@questionsByAccessCode');
-
+Route::get('/android/quiz/my-quizzes/','AndroidQuizController@myQuizzes'); //my quizzes in android
+Route::get('/android/student-list/', 'AndroidStudentListController@teacherQuizzes');
 
 
 
@@ -98,12 +106,15 @@ Route::get('/room/create/ajax/quizzes/cid/{cid}','RoomController@ajaxQuizzes');
 
 Route::post('/android/login','AndroidLoginController@androidLogin');
 
-Route::post('/android/validate/code', 'AndroidRoomController@validateCode');
+
+//VALIDATION OF THE GIVEN ACCESS CODE
+Route::post('/android/validate/code', 'AndroidQuizController@validateCode');
+
+
 
 Route::get('/android/room/join/{accesscode}/{userid}','AndroidRoomController@joinRoom');
 Route::get('/android/room/getroom-ay','AndroidRoomController@rooms');
-Route::get('/android/room/student-list/{roomid}','AndroidRoomController@studentList');
-Route::get('/android/room/my-quizzes/{userid}','AndroidRoomController@myQuizzes');
+
 
 
 
@@ -123,6 +134,8 @@ Route::post('/android/quiz/store','AndroidQuizController@store');
 Route::post('/android/quiz/delete','AndroidQuizController@delete');
 Route::get('/android/quiz/{quiz_id}/edit','AndroidQuizController@edit');
 Route::post('/android/quiz/update','AndroidQuizController@update');
+Route::get('/android/quiz/student-list/{quizid}','AndroidQuizController@studentList');
+
 
 
 
@@ -135,4 +148,12 @@ Route::post('/android/question/delete','AndroidQuestionController@delete');
 
 
 Route::post('/android/quizgame/store','AndroidQuizGameController@store');
+
+
+
+//RESULT
+//get categories in QUIZ RESULT
+Route::get('/android/myquizzes-category/{userid}','AndroidCategoryController@getCategoriesQuizzes');
+
+
 

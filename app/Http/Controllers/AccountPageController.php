@@ -36,6 +36,7 @@ class AccountPageController extends Controller
     public function store(Request $request){
 
     	$validator = $request->validate([
+            'idno' => ['required', 'string', 'max:10', 'unique:users'],
             'username' => ['required', 'string', 'max:20', 'unique:users'],
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
@@ -47,6 +48,7 @@ class AccountPageController extends Controller
         ]);
 
     	$data = User::create([
+            'idno' => $request->idno,
             'username' => $request->username,
             'lname' => $request->lname,
             'fname' => $request->fname,
@@ -76,6 +78,7 @@ class AccountPageController extends Controller
     public function update(Request $request, $id){
     //return $request;
         $validator = $request->validate([
+            'idno' => ['required', 'string', 'max:10', 'unique:users'],
             'username' => ['required', 'string', 'max:20', 'unique:users'],
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
@@ -86,7 +89,8 @@ class AccountPageController extends Controller
         ]);
 
 
-    	$user = User::find($id);
+        $user = User::find($id);
+        $user->idno = $request->idno;
     	$user->username = $request->username;
     	$user->lname = $request->lname;
     	$user->fname = $request->fname;

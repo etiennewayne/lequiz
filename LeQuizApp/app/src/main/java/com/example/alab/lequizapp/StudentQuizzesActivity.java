@@ -34,7 +34,7 @@ public class StudentQuizzesActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     List<StudentQuizzes> stdQuizList = new ArrayList<StudentQuizzes>();
 
-    int room_id;
+    int quiz_id;
 
 
     @Override
@@ -46,7 +46,9 @@ public class StudentQuizzesActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycleView_studentQuizzes);
         Intent intent = getIntent();
-        room_id = intent.getIntExtra("room_id", 0);
+        quiz_id = intent.getIntExtra("quiz_id", 0);
+
+        //Toast.makeText(getApplicationContext(), String.valueOf(quiz_id), Toast.LENGTH_SHORT).show();
 
         LoadData();
     }
@@ -66,7 +68,7 @@ public class StudentQuizzesActivity extends AppCompatActivity {
         try{
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = g.getIPAddress() + "/android/room/student-list/" + room_id;
+            String url = g.getIPAddress() + "/android/quiz/student-list/" + quiz_id;
 
             StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new com.android.volley.Response.Listener<String>() {
@@ -89,13 +91,12 @@ public class StudentQuizzesActivity extends AppCompatActivity {
                                         obj.getString("mname"),
                                         obj.getString("quiz_title"),
                                         obj.getString("quiz_desc"),
-                                        obj.getString("room"),
-                                        obj.getString("room_desc"),
                                         obj.getString("access_code"),
                                         obj.getInt("user_id"),
-                                        obj.getInt("room_id"),
                                         obj.getInt("quiz_id"),
-                                        obj.getInt("total_score")));
+                                        obj.getInt("total_score"),
+                                        obj.getInt("total_points"),
+                                        obj.getString("created_at")));
                                 }
 
                                 bindRecyclerViewer();

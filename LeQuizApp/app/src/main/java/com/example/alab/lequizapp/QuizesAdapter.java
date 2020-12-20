@@ -23,6 +23,8 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
         void deleteClick(View v, int position);
 
         void questionClick(View v, int position);
+
+        void studentQuizzesClick(View v, int position);
     }
 
 
@@ -32,8 +34,8 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txtvwQuizTitle, txtvwCategory, txtvwQuizDesc;
-        public Button btnEdit, btnDelete, btnQuestion;
+        public TextView txtvwQuizTitle, txtvwCategory, txtvwQuizDesc, txtAccessCode;
+        public Button btnEdit, btnDelete, btnQuestion, btnStudentList;
 
 
 
@@ -46,10 +48,13 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
             txtvwQuizTitle = (TextView)itemView.findViewById(R.id.item_quiz_lbltitle);
             txtvwCategory = (TextView)itemView.findViewById(R.id.item_quiz_lblcategory);
             txtvwQuizDesc = (TextView)itemView.findViewById(R.id.item_quiz_lbldesc);
+            txtAccessCode = itemView.findViewById(R.id.item_quiz_lblaccesscode);
+
 
             btnEdit = (Button)itemView.findViewById((R.id.btn_quiz_edit));
             btnDelete = (Button)itemView.findViewById(R.id.btn_quiz_delete);
             btnQuestion = (Button)itemView.findViewById(R.id.btn_quiz_question);
+            btnStudentList = itemView.findViewById(R.id.btn_studentlist);
 
             btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -71,6 +76,14 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
                     mOnClickListener.questionClick(view, getAdapterPosition());
                 }
             });
+
+            btnStudentList.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mOnClickListener.studentQuizzesClick(view, getAdapterPosition());
+                }
+            });
+
 
         }
 
@@ -101,10 +114,12 @@ public class QuizesAdapter extends  RecyclerView.Adapter<QuizesAdapter.ViewHolde
         TextView vwTitle = viewHolder.txtvwQuizTitle;
         TextView vwCategory = viewHolder.txtvwCategory;
         TextView vwDesc = viewHolder.txtvwQuizDesc;
+        TextView vwAccessCode = viewHolder.txtAccessCode;
 
         vwTitle.setText("QUIZ TITLE : " + quizzes.getQuizTitle());
-        vwCategory.setText("CATEGORY : " + quizzes.getCategory());
+        vwCategory.setText("COURSE : " + quizzes.getCategory());
         vwDesc.setText(quizzes.getQuizDesc());
+        vwAccessCode.setText("ACCESS CODE : " + quizzes.getAccessCode());
 
     }
 

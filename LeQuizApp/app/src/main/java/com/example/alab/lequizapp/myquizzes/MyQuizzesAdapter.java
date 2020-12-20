@@ -20,7 +20,7 @@ public class MyQuizzesAdapter extends RecyclerView.Adapter<MyQuizzesAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtVwQuizTitle,txtVwAccessCode, txtVwTotalScore;
+        TextView txtVwQuizTitle,txtVwAccessCode, txtVwTotalScore, txtQuizDate, txtTotalPoints, txtCourseTitle;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -28,6 +28,9 @@ public class MyQuizzesAdapter extends RecyclerView.Adapter<MyQuizzesAdapter.View
             txtVwQuizTitle = (TextView)itemView.findViewById(R.id.item_myquiz_quiztitle);
             txtVwAccessCode = (TextView)itemView.findViewById(R.id.item_myquiz_accesscode);
             txtVwTotalScore = (TextView)itemView.findViewById(R.id.item_myquiz_viewscore);
+            txtQuizDate = (TextView)itemView.findViewById(R.id.item_myquiz_txtquizdate);
+            txtTotalPoints = (TextView)itemView.findViewById(R.id.item_myquiz_txttotalpointse);
+            txtCourseTitle = itemView.findViewById(R.id.item_myquiz_txtcoursetitle);
 
         }
     }
@@ -59,8 +62,24 @@ public class MyQuizzesAdapter extends RecyclerView.Adapter<MyQuizzesAdapter.View
         TextView vwAccessCode = holder.txtVwAccessCode;
         vwAccessCode.setText("ACCESS CODE: " + myQuiz.getAccessCode());
 
+        //COURSE TITLE
+        TextView txtVwCourseTitle = holder.txtCourseTitle;
+        txtVwCourseTitle.setText(String.valueOf(myQuiz.getCourseTitle()));
+
+        //TOTAL SCORE
         TextView txtvwDesc = holder.txtVwTotalScore;
         txtvwDesc.setText(String.valueOf(myQuiz.getTotalScore()));
+
+        //QUIZ DATE
+        TextView txtVwQuizDate = holder.txtQuizDate;
+        txtVwQuizDate.setText(myQuiz.getQuizDate());
+
+        TextView txtVwTotalPoints = holder.txtTotalPoints;
+        txtVwTotalPoints.setText(String.valueOf(myQuiz.getTotalPoints()));
+
+
+
+
     }
 
     @Override

@@ -118,6 +118,8 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
             JSONObject jsonBody = new JSONObject();
             jsonBody.put("user_id", g.getId());
             jsonBody.put("quiz_id", g.getQuizId());
+            jsonBody.put("ay_code", g.getAyCode());
+            jsonBody.put("course", g.getCategory());
             jsonBody.put("total_score", totalScore);
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonBody,

@@ -158,7 +158,7 @@
                 android:id="@+id/lbl_settime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SET TIME: "
+                android:text="TIME LIMIT: "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -183,7 +183,7 @@
                 android:id="@+id/lbl_equivscore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EQUIV SCORE: "
+                android:text="POINTS : "
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

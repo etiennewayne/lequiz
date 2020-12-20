@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="clickCategory"
-            android:text="MANAGE CATEGORY"
+            android:text="MANAGE COURSE"
             android:layout_marginTop="50dp"/>
 
         <Button
@@ -37,13 +37,7 @@
         android:layout_below="@+id/btnCategory"/>
 
 
-        <Button
-            android:id="@+id/btnStudentQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="clickStudentQuiz"
-            android:text="STUDENT QUIZ"
-            android:layout_below="@+id/btnQuiz"/>
+
 
     </RelativeLayout>
 

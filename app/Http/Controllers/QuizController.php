@@ -60,6 +60,7 @@ class QuizController extends Controller
     {
         //
         $validator = $request->validate([
+            'schedule_code' => ['required', 'string', 'max:10', 'unique:quizzes'],
             'access_code' => ['required', 'string', 'max:8'],
             'quiz_title' => ['required', 'string', 'max:100', 'unique:quizzes'],
             'quiz_desc' => ['required', 'string', 'max:255'],
@@ -69,6 +70,7 @@ class QuizController extends Controller
         $data = Quiz::create([
            // 'courseID' => $request->courseid,
             'user_id' => \Auth::user()->user_id,
+            'schedule_code' => $request->schedule_code,
             'category_id' => $request->category_id,
             'access_code' => $request->access_code,
             'quiz_title' => strtoupper($request->quiz_title),
@@ -99,6 +101,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
+       
         //
         $categories = \DB::table('categories')
             ->where('user_id', \Auth::user()->user_id)
@@ -128,10 +131,20 @@ class QuizController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+     
+        $validator = $request->validate([
+            'schedule_code' => ['required', 'string', 'max:10', 'unique:quizzes'],
+            'access_code' => ['required', 'string', 'max:8'],
+            'quiz_title' => ['required', 'string', 'max:100', 'unique:quizzes'],
+            'quiz_desc' => ['required', 'string', 'max:255'],
+        ]);
+
+        
+
         $quiz = Quiz::find($id);
 
         $quiz->user_id = \Auth::user()->user_id;
+        $quiz->schedule_code = $request->schedule_code;
         $quiz->category_id = $request->category_id;
     	$quiz->quiz_title = strtoupper($request->quiz_title);
         $quiz->quiz_desc = strtoupper($request->quiz_desc);
@@ -163,11 +176,36 @@ class QuizController extends Controller
         $data = \DB::table('quizzes as a')
         ->join('users as b', 'a.user_id','b.user_id')
         ->join('categories as c', 'a.category_id', 'c.category_id')
-            ->where('a.user_id', \Auth::user()->user_id)
-        ->select('a.quiz_id', 'a.user_id', 'a.category_id', 'a.access_code', 'a.quiz_title', 'a.quiz_desc', 'c.category',
-            'c.category_desc', 'b.username', 'b.lname', 'b.fname', 'b.mname')
+        ->where('a.user_id', \Auth::user()->user_id)
+        ->select('a.quiz_id', 'a.schedule_code', 'a.user_id', 'a.category_id', 'a.access_code', 'a.quiz_title', 'a.quiz_desc', 'c.category',
+            'c.category_desc', 'b.username', 'b.lname', 'b.fname', 'b.mname',
+            \DB::raw('(select sum(equiv_score) from questions where questions.quiz_id = a.quiz_id) as total_points')
+            )
         ->get();
         //return Quiz::with(['user', 'category'])->get();
+        return $data;
+    }
+
+    public function studentQuizzes($quizid){
+
+        return view('quizzes.student-quizzes')
+        ->with('quizid', $quizid);
+    }
+
+    public function studentQuizzesAjax($quizid){
+        $facultyid = \Auth::user()->user_id;
+        
+        $data = DB::table('student_quizzes as a')
+        ->join('quizzes as b', 'a.quiz_id', 'b.quiz_id')
+        ->join('users as c', 'a.user_id', 'c.user_id')
+        ->join('categories as d', 'b.category_id', 'd.category_id')
+        ->select(
+            'a.quiz_id', 'c.idno', 'c.lname', 'c.fname', 'c.mname', 'a.total_score', 'd.category',
+            'b.quiz_title', 'b.quiz_desc', 'b.access_code',
+            \DB::raw('concat(date_format(a.created_at, "%b-%d-%Y"), " ", time_format(a.created_at, "%h:%i %p")) as created_at'),
+            \DB::raw('(select sum(equiv_score) from questions where questions.quiz_id = a.quiz_id) as total_points')
+        )
+        ->get();
         return $data;
     }
 }

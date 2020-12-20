@@ -19,7 +19,7 @@ public class StudentQuizzesAdapter extends RecyclerView.Adapter<StudentQuizzesAd
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView lblQuizTitle, lblViewFullname, lblViewScore;
+        TextView lblQuizTitle, lblViewFullname, lblViewScore, txtDateTaken;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -27,6 +27,7 @@ public class StudentQuizzesAdapter extends RecyclerView.Adapter<StudentQuizzesAd
             lblQuizTitle = itemView.findViewById(R.id.item_stdquiz_quiztitle);
             lblViewFullname = itemView.findViewById(R.id.item_stdquiz_fullName);
             lblViewScore = itemView.findViewById(R.id.item_stdquiz_viewscore);
+            txtDateTaken = itemView.findViewById(R.id.item_stdquiz_txtDateTaken);
 
         }
     }
@@ -63,7 +64,10 @@ public class StudentQuizzesAdapter extends RecyclerView.Adapter<StudentQuizzesAd
         vwFullnamne.setText(lname + ", " +fname+ " " + mna  );
 
         TextView vwTotalScore = holder.lblViewScore;
-        vwTotalScore.setText(String.valueOf(stdQuiz.getTotalScore()));
+        vwTotalScore.setText(String.valueOf(stdQuiz.getTotalScore()) + "/" + stdQuiz.getTotalPoints());
+
+        TextView vwDateTaken = holder.txtDateTaken;
+        vwDateTaken.setText(stdQuiz.getCreated_at());
 
     }
 

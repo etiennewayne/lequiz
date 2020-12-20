@@ -1,12 +1,17 @@
 package com.example.alab.lequizapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,7 +28,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,14 +45,19 @@ public class QuizAddUpdate extends AppCompatActivity {
 
 
     TextView lblQuizTitle, lblQuizDesc;
-    EditText txtQuizTitle, txtQuizDEsc;
+    EditText txtQuizTitle, txtQuizDEsc, txtAccessCode;
     Spinner spinnerCategory;
 
+
+    Button btnSave;
     GlobalClass g;
 
     ArrayAdapter<String> listCategory;
 
 
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +66,8 @@ public class QuizAddUpdate extends AppCompatActivity {
 
         txtQuizTitle = findViewById(R.id.txtquiz_quiztitle);
         txtQuizDEsc = findViewById(R.id.txtquiz_quizdesc);
+        txtAccessCode = findViewById(R.id.txtquiz_accesscode);
+        btnSave = findViewById(R.id.btnCategorySave);
 
         spinnerCategory = findViewById(R.id.spinner_quizCategory);
 
@@ -60,15 +77,28 @@ public class QuizAddUpdate extends AppCompatActivity {
 
         getCategory();
 
+
+
         if(id > 0){
             getData();
+        }else{
+            makeMD5();
         }
     }
 
 
 
     public void clickSaveQuiz(View v){
+        btnSave.setEnabled(false);
         save();
+    }
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    void makeMD5(){
+        Date currentTime = Calendar.getInstance().getTime();
+        //Toast.makeText(this, getMd5(currentTime.toString()).substring(0,6), Toast.LENGTH_SHORT).show();
+        txtAccessCode.setText(getMd5(currentTime.toString()).substring(0,6));
     }
 
 
@@ -76,6 +106,11 @@ public class QuizAddUpdate extends AppCompatActivity {
 
         if(txtQuizTitle.getText().toString().equalsIgnoreCase("")){
             Toast.makeText(this, "Please input quiz title..", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(spinnerCategory.getSelectedItem().toString().equalsIgnoreCase("")){
+            Toast.makeText(this, "Please select a course.", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -100,6 +135,7 @@ public class QuizAddUpdate extends AppCompatActivity {
                                 txtQuizTitle.setText("");
                                 txtQuizDEsc.setText("");
                                 Toast.makeText(getApplicationContext(), "Successfully saved. ", Toast.LENGTH_SHORT).show();
+                                finish();
                             }else if(obj.getString("status").equalsIgnoreCase("updated")){
                                 Toast.makeText(getApplicationContext(), "Successfully updated.", Toast.LENGTH_SHORT).show();
                                 finish();
@@ -129,6 +165,7 @@ public class QuizAddUpdate extends AppCompatActivity {
                 }
                 params.put("user_id", String.valueOf(g.getId()));
                 params.put("category", spinnerCategory.getSelectedItem().toString());
+                params.put("access_code", txtAccessCode.getText().toString());
                 params.put("quiz_title", txtQuizTitle.getText().toString());
                 params.put("quiz_desc", txtQuizDEsc.getText().toString());
                 return params;
@@ -153,6 +190,7 @@ public class QuizAddUpdate extends AppCompatActivity {
 
                         txtQuizTitle.setText(obj.getString("quiz_title"));
                         txtQuizDEsc.setText(obj.getString("quiz_desc"));
+                        txtAccessCode.setText(obj.getString("access_code"));
 
                         if(listCategory != null){
                             String value = obj.getString("category");
@@ -213,5 +251,36 @@ public class QuizAddUpdate extends AppCompatActivity {
         });
         queue.add(stringRequest);
     }
+
+
+    public String getMd5(String input)
+    {
+        try {
+
+            // Static getInstance method is called with hashing MD5
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger no = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            String hashtext = no.toString(16);
+            while (hashtext.length() < 32) {
+                hashtext = "0" + hashtext;
+            }
+            return hashtext;
+        }
+
+        // For specifying wrong message digest algorithms
+        catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
 }

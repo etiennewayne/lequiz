@@ -84,12 +84,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="set_time" class="col-md-4 col-form-label text-md-right">{{ __('Set Time') }}</label>
+                            <label for="time_limit" class="col-md-4 col-form-label text-md-right">{{ __('Time Limit') }}</label>
 
                             <div class="col-md-6">
-                                <input id="set_time" type="number" class="form-control @error('set_time') is-invalid @enderror" name="set_time" value="{{ $question->set_time }}" required autocomplete="off" autofocus>
+                                <input id="points" type="number" class="form-control @error('set_time') is-invalid @enderror" name="time_limit" value="{{ $question->time_limit }}" required autocomplete="off" autofocus>
 
-                                @error('set_time')
+                                @error('time_limit')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -99,12 +99,12 @@
 
 
                     <div class="form-group row">
-                        <label for="equiv_score" class="col-md-4 col-form-label text-md-right">{{ __('Set Score') }}</label>
+                        <label for="points" class="col-md-4 col-form-label text-md-right">{{ __('Point(s)') }}</label>
 
                         <div class="col-md-6">
-                            <input id="equiv_score" type="number" class="form-control @error('equiv_score') is-invalid @enderror" name="equiv_score" value="{{ $question->equiv_score }}" required autocomplete="off" autofocus>
+                            <input id="points" type="number" class="form-control @error('points') is-invalid @enderror" name="points" value="{{ $question->points }}" required autocomplete="off" autofocus>
 
-                            @error('equiv_score')
+                            @error('points')
                             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

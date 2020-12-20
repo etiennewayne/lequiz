@@ -23,7 +23,7 @@
             android:id="@+id/lblquiz_add_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SELECT CATEGORY : "
+            android:text="SELECT COURSE : "
             android:textStyle="bold" />
 
         <Spinner
@@ -63,6 +63,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/lblquiz_adddesc"
+            />
+
+
+        <TextView
+            android:id="@+id/lblquiz_accesscode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ACCESS CODE : "
+            android:layout_below="@+id/txtquiz_quizdesc"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/txtquiz_accesscode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblquiz_accesscode"
+            android:enabled="false"
             />
 
 

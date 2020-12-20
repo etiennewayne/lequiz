@@ -6,6 +6,8 @@
 
     <div class="container mt-5">
 
+        <h3>Access Code : {{ $accesscode }}</h3><br>
+
         <div class="row">
             <div class="col-md-4">
                 <div class="card">

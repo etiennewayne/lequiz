@@ -155,14 +155,14 @@ public class CategoryMain extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
-                            Log.d("sma_josnresponse", e.getMessage());
+                            Log.d("err", e.getMessage());
                         }
                     }
 
                 }, new Response.ErrorListener(){
                 @Override
                 public void onErrorResponse(VolleyError error){
-                    Log.d("resultRoomVolleyError", error.getMessage());
+                    Log.d("err", error.getMessage());
                 }
             });
 

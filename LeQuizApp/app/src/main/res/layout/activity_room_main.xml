@@ -23,7 +23,7 @@
             android:gravity="center"
             android:textStyle="bold"
             android:padding="5dp"
-            android:text="ROOMS" />
+            android:text="QUIZZES" />
 
 
         <LinearLayout

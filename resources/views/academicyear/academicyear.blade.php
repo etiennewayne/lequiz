@@ -96,7 +96,7 @@
                     { data : 'semester' },
                     { data : 'active' },
                     {
-                        defaultContent: '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button>'
+                        defaultContent: '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button><button class="btn btn-warning btn-sm" id="markactive">Set Active</button>'
                     },
                 ],
             });
@@ -108,6 +108,15 @@
                 let data = table.row( $(this).parents('tr') ).data();
                 let id = data['academic_year_id'];
                 window.location = '/academicyear/'+id+'/edit' ;
+
+            });//criteria click edit
+
+            
+            
+            $('#academicyears tbody').on( 'click', '#markactive', function () {
+                let data = table.row( $(this).parents('tr') ).data();
+                let id = data['academic_year_id'];
+                window.location = '/academicyear/'+id+'/markactive' ;
 
             });//criteria click edit
 

@@ -60,16 +60,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //for debugging purpose
-        txtuser.setText("halgadipe");
-        //txtuser.setText("jrey");
+       // txtuser.setText("halgadipe");
+        txtuser.setText("jrey");
         txtpwd.setText("1234");
 
 
-//        txtuser.setText("");
-//        txtpwd.setText("");
+       // txtuser.setText("");
+       // txtpwd.setText("");
 
         gclass = (GlobalClass) getApplicationContext();
-        gclass.setIPAddress("192.168.10.10");
+        gclass.setIPAddress("192.168.0.10");
 
 
     }
@@ -123,6 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("position", position);
                                     intent.putExtra("user", obj.getString("username"));
                                     intent.putExtra("user_id", obj.getInt("user_id"));
+
+                                    //Toast.makeText(getApplicationContext(), String.valueOf(gclass.getId()), Toast.LENGTH_SHORT).show();
                                     startActivity(intent);
                                     finish();
                                 }
@@ -177,8 +179,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void clickLogin(View v){
-
-        //gclass.setSetting();
         ServerIP = gclass.getIPAddress();
 
         //Toast.makeText(this, gclass.getIPAddress(), Toast.LENGTH_SHORT).show();

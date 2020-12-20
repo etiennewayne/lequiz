@@ -195,6 +195,11 @@ public class StudentMainActivity extends AppCompatActivity {
                                     intent.putExtra("user", user);
                                     intent.putExtra("user_id", user_id);
                                     g.setQuizId(obj.getInt("quiz_id"));
+
+                                    g.setCategory(obj.getString("category"));
+                                    g.setAyCode(obj.getString("ay_code"));
+                                    g.setAy(obj.getString("ay"));
+
                                     intent.putExtra("access_code", txtAccessCode.getText().toString());
                                     startActivity(intent);
                                 }else{

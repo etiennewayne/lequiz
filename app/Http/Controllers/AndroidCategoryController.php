@@ -58,6 +58,13 @@ class AndroidCategoryController extends Controller
     	->where('user_id', $userid)
     	->orderBy('category', 'asc')
     	->get();
+	}
+	
+	public function getCategoriesQuizzes($userid){
+		return \DB::table('student_quizzes')
+		->where('user_id', $userid)
+		->distinct()
+    	->get("course");
     }
 
 

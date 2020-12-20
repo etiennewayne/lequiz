@@ -125,7 +125,6 @@ public class QuizGameActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-
         disconnectWebSocket();
     }
 
@@ -153,7 +152,6 @@ public class QuizGameActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d("error", e.getMessage());
         }
-
     }
 
 

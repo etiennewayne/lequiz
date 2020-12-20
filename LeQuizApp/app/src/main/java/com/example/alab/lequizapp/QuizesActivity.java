@@ -95,12 +95,19 @@ public class QuizesActivity extends AppCompatActivity {
                 intent.putExtra("quiz_id", quiz_id);
                 startActivity(intent);
             }
+
+            @Override
+            public void studentQuizzesClick(View v, int position) {
+                Intent intent = new Intent(getBaseContext(), StudentQuizzesActivity.class);
+                int quiz_id = listQuizzes.get(position).getQuizID();
+                intent.putExtra("quiz_id", quiz_id);
+                startActivity(intent);
+            }
         });
 
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
-
 
     }
 
@@ -134,7 +141,8 @@ public class QuizesActivity extends AppCompatActivity {
                                         obj.getInt("category_id"),
                                         obj.getString("category"),
                                         obj.getString("quiz_title"),
-                                        obj.getString("quiz_desc")));
+                                        obj.getString("quiz_desc"),
+                                        obj.getString("access_code")));
                                 }
 
                                 bindRecyclerView();

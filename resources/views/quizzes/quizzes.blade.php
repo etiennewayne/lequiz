@@ -49,14 +49,17 @@
                 <h3>Quizzes</h3>
                 <hr>
                 <a href="/quiz/create" class="btn btn-success mb-3">Add Quiz</a>
+               
                 <table id="quizzes" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Category</th>
+                        <th>Schedule Code</th>
+                        <th>Course</th>
                         <th>Access Code</th>
                         <th>Quiz Title</th>
                         <th>Quiz Description</th>
+                        <th>Total Points</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -66,10 +69,12 @@
                     <tfoot>
                     <tr>
                         <th>ID</th>
-                        <th>Category</th>
+                        <th>Schedule Code</th>
+                        <th>Course</th>
                         <th>Access Code</th>
                         <th>Quiz Title</th>
                         <th>Quiz Description</th>
+                        <th>Total Points</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -93,7 +98,14 @@
 @section('extrascript')
 
     <script type="text/javascript">
-        var btnString = '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button><button class="btn btn-primary btn-sm" style="margin:2px;" id="btnquestion">Question</button><button class="btn btn-primary btn-sm" style="margin:2px;" id="btnstartquiz">Start Quiz</button></div>';
+        var btnString = '<button class="btn btn-warning btn-sm" id="edit">Edit</button>\
+        <button class="btn btn-danger btn-sm" id="delete">Delete</button>\
+        <button class="btn btn-primary btn-sm" style="margin:2px;" id="btnquestion">Question</button>\
+        <button class="btn btn-primary btn-sm" style="margin:2px;" id="btnstartquiz">Start Quiz</button>\
+        <button class="btn btn-primary btn-sm" style="margin:2px;" id="btnstudent_quizzes">Student Quizzes</button>\
+        ';
+
+
         $(document).ready(function() {
             var table = $('#quizzes').DataTable({
                 processing:true,
@@ -103,10 +115,12 @@
                 },
                 columns:[
                     { data : 'quiz_id' },
+                    { data : 'schedule_code' },
                     { data : 'category' },
                     { data : 'access_code' },
                     { data : 'quiz_title' },
                     { data : 'quiz_desc' },
+                    { data : 'total_points' },
                     {
                         defaultContent: btnString
                     },
@@ -136,6 +150,17 @@
                 window.location = '/quiz/start/'+id;
                 // console.log('test');
             });
+
+            $('#quizzes tbody').on( 'click', '#btnstudent_quizzes', function () {
+                var data = table.row( $(this).parents('tr') ).data();
+                var id = data['quiz_id'];
+                var accesscode = data['access_code'];
+                window.location = '/quiz/student-quizzes/'+id;
+                // console.log('test');
+            });
+
+
+            
 
             $('#quizzes tbody').on( 'click', '#delete', function () {
                 var data = table.row( $(this).parents('tr') ).data();

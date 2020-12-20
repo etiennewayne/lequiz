@@ -22,12 +22,7 @@ public class IPAddressActivity extends AppCompatActivity {
 
         txtIPAddress = findViewById(R.id.txtIPAddress);
 
-        if(g.getIPAddress() != null){
-            txtIPAddress.setText(g.getIPAddress());
-        }else{
-            txtIPAddress.setText("192.168.0.10");
-        }
-
+        txtIPAddress.setText("192.168.0.10");
 
     }
 

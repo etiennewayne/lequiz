@@ -92,7 +92,7 @@ class AcademicYearController extends Controller
 
     public function markactive($id){
         DB::update('update academicyears set active = 0');
-        DB::update('update academicyears set active = 1 where academicyearID=?', [$id]);
+        DB::update('update academicyears set active = 1 where academic_year_id=?', [$id]);
 
         return redirect('/academicyear')
          ->with('active', 'Set successfully.');

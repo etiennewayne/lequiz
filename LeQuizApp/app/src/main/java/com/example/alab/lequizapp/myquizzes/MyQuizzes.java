@@ -3,16 +3,19 @@ package com.example.alab.lequizapp.myquizzes;
 public class MyQuizzes {
 
     String quizTitle, quizDesc, accessCode;
-    int room_id, quiz_id, totalScore;
+    int  quiz_id, totalScore, totalPoints;
+    String quizDate, courseTitle;
 
 
-    public MyQuizzes(String quizTitle, String quizDesc, String accessCode, int room_id, int quiz_id, int totalScore) {
+    public MyQuizzes(String quizTitle, String quizDesc, String accessCode, String courseTitle, int quiz_id, int totalScore, String quizDate, int totalPoints) {
         this.quizTitle = quizTitle;
         this.quizDesc = quizDesc;
         this.accessCode = accessCode;
-        this.room_id = room_id;
+        this.courseTitle = courseTitle;
         this.quiz_id = quiz_id;
         this.totalScore = totalScore;
+        this.quizDate = quizDate;
+        this.totalPoints = totalPoints;
     }
 
 
@@ -40,13 +43,6 @@ public class MyQuizzes {
         this.accessCode = accessCode;
     }
 
-    public int getRoom_id() {
-        return room_id;
-    }
-
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
-    }
 
     public int getQuiz_id() {
         return quiz_id;
@@ -62,5 +58,29 @@ public class MyQuizzes {
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public int getTotalPoints() {
+        return totalPoints;
+    }
+
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+    public String getQuizDate() {
+        return quizDate;
+    }
+
+    public void setQuizDate(String quizDate) {
+        this.quizDate = quizDate;
+    }
+
+    public String getCourseTitle() {
+        return courseTitle;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
     }
 }

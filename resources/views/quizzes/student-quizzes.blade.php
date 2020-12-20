@@ -5,7 +5,7 @@
 
 
 <div class="container">
-    <h1>Questions</h1>
+    <h1>Student Quizzes</h1>
     <hr>
 
     @if(session('success'))
@@ -45,22 +45,22 @@
     @endif
 
 
-    <a href="/quiz/{{ $quizid }}/question/create" class="btn btn-success mb-2">Add Question</a>
+    {{-- <a href="/quiz/{{ $quizid }}/question/create" class="btn btn-success mb-2">Add Question</a> --}}
 
         <div class="row justify-content-center">
             <table id="questions" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Question</th>
-                        <th>Option A</th>
-                        <th>Option B</th>
-                        <th>Option C</th>
-                        <th>Option D</th>
-                        <th>Answer</th>
-                        <th>Time</th>
-                        <th>Points</th>
-                        <th>Action</th>
+                        <th>Access Code</th>
+                        <th>Quiz Title</th>
+                        <th>ID No</th>
+                        <th>Lastname</th>
+                        <th>Firstname</th>
+                        <th>Middlename</th>
+                        <th>Score</th>
+                        <th>Total Quiz Points</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -69,15 +69,14 @@
                   <tfoot>
                       <tr>
                         <th>ID</th>
-                          <th>Question</th>
-                          <th>Option A</th>
-                          <th>Option B</th>
-                          <th>Option C</th>
-                          <th>Option D</th>
-                          <th>Answer</th>
-                          <th>Time</th>
-                          <th>Points</th>
-                          <th width="140px">Action</th>
+                        <th>Access Code</th>
+                        <th>Quiz Title</th>
+                        <th>ID No</th>
+                        <th>Lastname</th>
+                        <th>Firstname</th>
+                        <th>Middlename</th>
+                        <th>Score</th>
+                        <th>Total Quiz Points</th>
                       </tr>
                   </tfoot>
               </table>
@@ -86,7 +85,7 @@
 
     <hr>
 
-    <a href="/quiz/question/uploader/{{ $quizid }}" class="btn btn-warning mb-2">Uploader</a>
+    <a href="" class="btn btn-warning mb-2">Export</a>
 
 
 
@@ -102,22 +101,20 @@
             var table = $('#questions').DataTable({
                 processing: true,
                 ajax: {
-                    url: '/quiz/question/ajax/{{ $quizid }}',
+                    url: '/quiz/student-quizzes/ajax/studentquiz/{{ $quizid }}',
                     dataSrc: ''
                 },
                 columns: [
-                    { data: 'question_id', 'visible' : false },
-                    { data: 'question' },
-                    { data: 'opt_a' },
-                    { data: 'opt_b' },
-                    { data: 'opt_c' },
-                    { data: 'opt_d' },
-                    { data: 'ans' },
-                    { data: 'set_time' },
-                    { data: 'equiv_score' },
-                    {
-                        defaultContent: '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button>'
-                    }
+                    { data: 'quiz_id' },
+                    { data: 'access_code' },
+                    { data: 'quiz_title' },
+                    { data: 'idno' },
+                    { data: 'lname' },
+                    { data: 'fname' },
+                    { data: 'mname' },
+                    { data: 'total_score' },
+                    { data: 'total_points' },
+                    
                 ]
             });
 

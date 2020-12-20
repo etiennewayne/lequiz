@@ -46,9 +46,11 @@ class QuestionController extends Controller
             'opt_c' => ['string', 'required'],
             'opt_d' => ['string', 'required'],
             'ans' => ['string', 'required'],
-            'set_time' => ['int', 'required'],
-            'equiv_score' => ['int', 'required'],
+            'time_limit' => ['int', 'required', 'numeric', 'gt:0'],
+            'points' => ['int', 'required', 'numeric', 'gt:0'],
         ]);
+
+    
 
         $data = Question::create([
             'question' => $request->question,
@@ -58,8 +60,8 @@ class QuestionController extends Controller
             'opt_d' => $request->opt_d,
             'ans' => $request->ans,
             'quiz_id' => $request->quiz_id,
-            'set_time' => $request->set_time,
-            'equiv_score' => $request->equiv_score,
+            'set_time' => $request->time_limit,
+            'equiv_score' => $request->points,
         ]);
 
         $qid = $request->quizid;
@@ -97,8 +99,8 @@ class QuestionController extends Controller
         $question->opt_c = $request->opt_c;
         $question->opt_d = $request->opt_d;
         $question->ans = $request->ans;
-        $question->set_time = $request->set_time;
-        $question->equiv_score = $request->equiv_score;
+        $question->set_time = $request->time_limit;
+        $question->equiv_score = $request->points;
         $question->save();
 
 

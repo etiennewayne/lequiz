@@ -13,6 +13,22 @@
                         @method('PUT')
 
                         <div class="form-group row">
+                            <label for="idno" class="col-md-4 col-form-label text-md-right">{{ __('ID No') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="idno" type="text" maxlength="10" class="form-control @error('idno') is-invalid @enderror" name="idno" value="{{ $user->idno }}" required autocomplete="off" autofocus>
+
+                                @error('idno')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
                             <label for="lname" class="col-md-4 col-form-label text-md-right">{{ __('Lastname') }}</label>
 
                             <div class="col-md-6">
@@ -25,6 +41,7 @@
                                 @enderror
                             </div>
                         </div>
+                        
 
                         <div class="form-group row">
                             <label for="fname" class="col-md-4 col-form-label text-md-right">{{ __('Firstname') }}</label>

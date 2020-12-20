@@ -14,6 +14,22 @@
 
 
                         <div class="form-group row">
+                            <label for="schedule_code" class="col-md-4 col-form-label text-md-right">{{ __('Schedule Code') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="schedule_code" type="text" class="form-control @error('schedule_code') is-invalid @enderror" maxlength="10" name="schedule_code" value="{{ old('schedule_code') }}" required autocomplete="off" autofocus>
+
+                                @error('schedule_code')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        
+
+                        <div class="form-group row">
 
                             <label for="courseid" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
                              <div class="col-md-6">

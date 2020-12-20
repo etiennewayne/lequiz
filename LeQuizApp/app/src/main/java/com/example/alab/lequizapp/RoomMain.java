@@ -112,7 +112,7 @@ public class RoomMain extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = g.getIPAddress() + "/android/room/getroom-ay?aycode="+aycode+"&userid="+g.getId();
+            String url = g.getIPAddress() + "/android/student-list/?aycode="+aycode+"&userid="+g.getId();
 
             StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new com.android.volley.Response.Listener<String>() {
@@ -128,12 +128,12 @@ public class RoomMain extends AppCompatActivity {
                                 for(int i=0;i < jsonArray.length(); i++){
                                     obj  = jsonArray.getJSONObject(i);
 
-                                    roomList.add(new Room(obj.getInt("room_id"),
+                                    roomList.add(new Room(obj.getInt(""),
                                         obj.getInt("quiz_id"),
                                         obj.getString("access_code"),
-                                        obj.getString("room"),
-                                        obj.getString("room_desc"),
-                                        obj.getString("category"),
+                                        obj.getString(""),
+                                        obj.getString(""),
+                                        obj.getString("course"),
                                         obj.getString("quiz_title"),
                                         obj.getString("quiz_desc")));
                                 }

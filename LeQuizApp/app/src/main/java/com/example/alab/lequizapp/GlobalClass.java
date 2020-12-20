@@ -16,7 +16,18 @@ public class GlobalClass extends Application{
 
     private String accessCode = "";
 
-    String ip = "192.168.0.10";
+    //for student variable
+
+    private String category;
+
+    private String ayCode;
+
+    private String ay;
+
+
+
+
+    //String ip = "192.168.0.10";
 
 
 //ws://
@@ -126,4 +137,28 @@ public class GlobalClass extends Application{
         return this.roomId;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getAyCode() {
+        return ayCode;
+    }
+
+    public void setAyCode(String ayCode) {
+        this.ayCode = ayCode;
+    }
+
+
+    public String getAy() {
+        return ay;
+    }
+
+    public void setAy(String ay) {
+        this.ay = ay;
+    }
 }

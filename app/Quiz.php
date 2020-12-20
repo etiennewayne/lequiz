@@ -13,7 +13,7 @@ class Quiz extends Model
 
 
     protected $fillable = [
-        'user_id', 'category_id', 'access_code', 'quiz_title', 'quiz_desc'
+        'schedule_code', 'user_id', 'category_id', 'access_code', 'quiz_title', 'quiz_desc'
     ];
 
 

@@ -9,19 +9,21 @@ public class Quizes {
     private int userId;
 
     private int categoryId;
-    private  String quizTitle, quizDesc, category;
+    private  String quizTitle, quizDesc, category, accessCode;
+
 
     public Quizes(){
 
     }
 
-    public Quizes(int quizID, int userId, int categoryId, String category, String quizTitle, String quizDesc) {
+    public Quizes(int quizID, int userId, int categoryId, String category, String quizTitle, String quizDesc, String accessCode) {
         this.quizID = quizID;
         this.userId = userId;
         this.categoryId = categoryId;
         this.category = category;
         this.quizTitle = quizTitle;
         this.quizDesc = quizDesc;
+        this.accessCode = accessCode;
     }
 
     public int getQuizID() {
@@ -75,8 +77,11 @@ public class Quizes {
         this.quizDesc = quizDesc;
     }
 
+    public String getAccessCode() {
+        return accessCode;
+    }
 
-
-
-
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
+    }
 }

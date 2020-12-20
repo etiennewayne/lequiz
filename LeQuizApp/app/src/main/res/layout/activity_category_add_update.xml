@@ -34,7 +34,7 @@
         android:layout_below="@+id/spinnerAY"
         android:textSize="16sp"
         android:id="@+id/lblCategory"
-        android:text="CATEGORY:"
+        android:text="COURSE:"
         android:textStyle="bold"
         android:layout_marginTop="5dp"
         />
