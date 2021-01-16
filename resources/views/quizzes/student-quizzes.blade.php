@@ -60,7 +60,7 @@
                         <th>Middlename</th>
                         <th>Score</th>
                         <th>Total Quiz Points</th>
-                        
+
                     </tr>
                 </thead>
                 <tbody>
@@ -92,15 +92,15 @@
 
 @section('extrascript')
 
-<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js"></script>
+<script src="{{ asset('/js/dataTables.buttons.min.js') }}"></script>
+<script src="{{ asset('/js/buttons.flash.min.js') }}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js"></script>
-  
+<script src="{{ asset('/js/jszip.min.js') }}"></script>
+<script src="{{ asset('/js/pdfmake.min.js') }}"></script>
+<script src="{{ asset('/js/vfs_fonts.min.js') }}"></script>
+<script src="{{ asset('/js/buttons.html5.min.js') }}"></script>
+<script src="{{ asset('/js/buttons.print.min.js') }}"></script>
+
   <script type="text/javascript">
 
 		$(document).ready(function(){
@@ -125,7 +125,7 @@
                     { data: 'mname' },
                     { data: 'total_score' },
                     { data: 'total_points' },
-                    
+
                 ]
             });
 
