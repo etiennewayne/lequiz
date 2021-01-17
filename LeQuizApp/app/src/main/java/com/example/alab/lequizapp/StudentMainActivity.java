@@ -68,9 +68,9 @@ public class StudentMainActivity extends AppCompatActivity {
             position = intent.getStringExtra("position");
 
             //for debugging purpose only==============
-            txtAccessCode.setText("ec1d17");
+            //txtAccessCode.setText("ec1d17");
             //=============================
-            //txtAccessCode.setText("");
+            txtAccessCode.setText("");
 
 
 
@@ -127,8 +127,6 @@ public class StudentMainActivity extends AppCompatActivity {
         }
     }
 //-------MENU ITEMS----------//
-
-
 
 
 
@@ -238,8 +236,6 @@ public class StudentMainActivity extends AppCompatActivity {
             Log.d("submitRoomResult", e.getMessage());
             btnJoinQuiz.setEnabled(true);
         }
-
-
 
     }
 

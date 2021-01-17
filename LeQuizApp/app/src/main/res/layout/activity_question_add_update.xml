@@ -200,8 +200,6 @@
 
 
 
-
-
     <Button
         android:id="@+id/btnQuestionSave"
         android:layout_width="match_parent"
@@ -209,6 +207,5 @@
         android:text="SAVE"
         android:onClick="clickQuestionSave"
         android:layout_alignParentBottom="true"/>
-
 
 </RelativeLayout>
