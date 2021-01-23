@@ -45,7 +45,7 @@ public class QuizAddUpdate extends AppCompatActivity {
 
 
     TextView lblQuizTitle, lblQuizDesc;
-    EditText txtQuizTitle, txtQuizDEsc, txtAccessCode;
+    EditText txtQuizTitle, txtQuizDEsc, txtAccessCode, txtScheduleCode;
     Spinner spinnerCategory;
 
 
@@ -67,6 +67,9 @@ public class QuizAddUpdate extends AppCompatActivity {
         txtQuizTitle = findViewById(R.id.txtquiz_quiztitle);
         txtQuizDEsc = findViewById(R.id.txtquiz_quizdesc);
         txtAccessCode = findViewById(R.id.txtquiz_accesscode);
+        txtScheduleCode = findViewById(R.id.txtschedule_code);
+
+
         btnSave = findViewById(R.id.btnCategorySave);
 
         spinnerCategory = findViewById(R.id.spinner_quizCategory);
@@ -136,9 +139,12 @@ public class QuizAddUpdate extends AppCompatActivity {
                                 txtQuizDEsc.setText("");
                                 Toast.makeText(getApplicationContext(), "Successfully saved. ", Toast.LENGTH_SHORT).show();
                                 finish();
-                            }else if(obj.getString("status").equalsIgnoreCase("updated")){
+                            }else if(obj.getString("status").equalsIgnoreCase("updated")) {
                                 Toast.makeText(getApplicationContext(), "Successfully updated.", Toast.LENGTH_SHORT).show();
                                 finish();
+                            }else if(obj.getString("status").equalsIgnoreCase("exist")){
+                                Toast.makeText(getApplicationContext(), "Schedule code and quiz title already exist.", Toast.LENGTH_SHORT).show();
+                                btnSave.setEnabled(true);
                             }else{
                                 Toast.makeText(getApplicationContext(), "Save failed. Please check your inputs.", Toast.LENGTH_SHORT).show();
                             }
@@ -168,6 +174,7 @@ public class QuizAddUpdate extends AppCompatActivity {
                 params.put("access_code", txtAccessCode.getText().toString());
                 params.put("quiz_title", txtQuizTitle.getText().toString());
                 params.put("quiz_desc", txtQuizDEsc.getText().toString());
+                params.put("schedule_code", txtScheduleCode.getText().toString());
                 return params;
             }
         };
@@ -191,6 +198,7 @@ public class QuizAddUpdate extends AppCompatActivity {
                         txtQuizTitle.setText(obj.getString("quiz_title"));
                         txtQuizDEsc.setText(obj.getString("quiz_desc"));
                         txtAccessCode.setText(obj.getString("access_code"));
+                        txtScheduleCode.setText(obj.getString("schedule_code"));
 
                         if(listCategory != null){
                             String value = obj.getString("category");

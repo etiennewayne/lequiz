@@ -57,5 +57,12 @@
         android:layout_below="@+id/layout_myquiz_coursefilter"
         android:layout_marginTop="1dp" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="186dp"
+        android:layout_height="193dp"
+        android:layout_centerInParent="true"/>
+
 
 </RelativeLayout>

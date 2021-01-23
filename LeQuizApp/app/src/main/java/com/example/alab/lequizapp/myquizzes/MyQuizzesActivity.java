@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
+
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -19,9 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.alab.lequizapp.Category;
-import com.example.alab.lequizapp.CategoryAddUpdate;
-import com.example.alab.lequizapp.CategoryRecyclerAdapter;
+
 import com.example.alab.lequizapp.GlobalClass;
 import com.example.alab.lequizapp.R;
 
@@ -39,6 +39,7 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
     private RecyclerView.LayoutManager layoutManager;
     List<MyQuizzes> quizList = new ArrayList<MyQuizzes>();
 
+
     String course = "";
 
     Spinner spinnerCategories;
@@ -46,6 +47,8 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
 
     ArrayAdapter<String> catAdapter;
 
+    ProgressBar progressSpinner;
+    //this is for loading GUI
 
     List<String> arr;
 
@@ -61,15 +64,18 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
         g = (GlobalClass) getApplicationContext();
         recyclerView = findViewById(R.id.recycleView_myquizzes);
 
+        progressSpinner = findViewById(R.id.progressBar);
+
+
+        progressSpinner.setVisibility(View.GONE);
+        //set progress SPINNER to hide progress spinner
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
         getCategories();
-
         //LoadData();
     }
 
@@ -86,6 +92,10 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
 
 
     private void LoadData(){
+        quizList.clear();
+        progressSpinner.setVisibility(View.VISIBLE);
+        //show progress spinner
+
         try{
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = g.getIPAddress() + "/android/quiz/my-quizzes/?userid=" + g.getId()+ "&course=" + course;
@@ -96,6 +106,10 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
                     @Override
                     public void onResponse(String response) {
                         Log.d("myquizzes", response);
+
+                        progressSpinner.setVisibility(View.GONE);
+                        //hide spinner progress if response received
+
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(response);
@@ -142,9 +156,9 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
 
 
     private void getCategories(){
+        ///COURSES and NEW NAME Aning categories
+
         try{
-
-
             RequestQueue queue = Volley.newRequestQueue(this);
             //String url = g.getIPAddress() + "/android/category/" + g.getId();
             String url = g.getIPAddress() + "/android/myquizzes-category/" + g.getId();

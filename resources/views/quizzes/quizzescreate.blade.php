@@ -31,7 +31,7 @@
 
                         <div class="form-group row">
 
-                            <label for="courseid" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                            <label for="courseid" class="col-md-4 col-form-label text-md-right">{{ __('Course') }}</label>
                              <div class="col-md-6">
                                 <select name="category_id" class="form-control">
 

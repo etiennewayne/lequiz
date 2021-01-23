@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use App\Academicyear;
+
 
 class AndroidCategoryController extends Controller
 {
@@ -61,8 +63,12 @@ class AndroidCategoryController extends Controller
 	}
 	
 	public function getCategoriesQuizzes($userid){
+
+		$ay = Academicyear::where('active', 1)->first();
+
 		return \DB::table('student_quizzes')
 		->where('user_id', $userid)
+		->where('ay_code', $ay->ay_code)
 		->distinct()
     	->get("course");
     }

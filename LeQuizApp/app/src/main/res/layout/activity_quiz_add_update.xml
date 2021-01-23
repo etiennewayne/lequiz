@@ -83,6 +83,22 @@
             android:enabled="false"
             />
 
+        <TextView
+            android:id="@+id/lbl_schedule_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SCHEDULE CODE : "
+            android:layout_below="@+id/txtquiz_accesscode"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+
+        <EditText
+            android:id="@+id/txtschedule_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lbl_schedule_code"
+            />
+
 
         <Button
 

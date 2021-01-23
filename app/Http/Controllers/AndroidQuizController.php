@@ -40,16 +40,28 @@ class AndroidQuizController extends Controller
         //return $req->user_id;
 
 
+        //check if title and schedule code is exist in the current category
+        $isexist = DB::table('quizzes')
+        ->where('schedule_code', $req->schedule_code)
+        ->where('quiz_title',$req->quiz_title)
+        ->where('category_id',$cat_id)->exists();
+
+        if($isexist > 0){
+             return ['status' => 'exist'];
+        }
+
         \DB::table('quizzes')->insert([
             'user_id' => $req->user_id,
             'category_id' => $cat_id,
             'access_code' => $req->access_code,
             'quiz_title' => strtoupper($req->quiz_title),
-            'quiz_desc' => strtoupper($req->quiz_desc)
+            'quiz_desc' => strtoupper($req->quiz_desc),
+            'schedule_code' => strtoupper($req->schedule_code)
         ]);
 
-        return ['status' => 'saved'];
+        //kulang filtering
 
+        return ['status' => 'saved'];
     }
 
 
@@ -59,13 +71,24 @@ class AndroidQuizController extends Controller
         ->where('category', $req->category)
          ->where('user_id', $req->user_id)
         ->first();
+
         $cat_id = $data->category_id;
 
+        //check if title and schedule code is exist in the current category
+        $isexist = \DB::table('quizzes')
+        ->where('schedule_code', $req->schedule_code)
+        ->where('quiz_title',$req->quiz_title)
+        ->where('category_id', $cat_id)->exists();
 
+        if($isexist > 0){
+             return ['status' => 'exist'];
+        }
+      
         $quiz = Quiz::find($req->quiz_id);
         $quiz->category_id = $cat_id;
         $quiz->quiz_title = $req->quiz_title;
         $quiz->quiz_desc = $req->quiz_desc;
+        $quiz->schedule_code = $req->schedule_code;
         $quiz->save();
 
         return ['status' => 'updated'];
@@ -111,7 +134,7 @@ class AndroidQuizController extends Controller
     public function validateCode(Request $req){
         $data = \DB::table('quizzes')
         ->join('categories', 'categories.category_id', 'quizzes.category_id')
-        ->join('academicyears', 'academicyears.academic_year_id', 'categories.')
+        ->join('academicyears', 'academicyears.academic_year_id', 'categories.academic_year_id')
         ->where('access_code', $req->access_code)
         ->get()
         ->take(1);
