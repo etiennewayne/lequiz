@@ -126,7 +126,7 @@ public class StudentMainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-//-------MENU ITEMS----------//
+    //-------MENU ITEMS----------//
 
 
 
