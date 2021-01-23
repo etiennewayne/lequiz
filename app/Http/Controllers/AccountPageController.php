@@ -47,6 +47,8 @@ class AccountPageController extends Controller
 
         ]);
 
+       //return $request;
+
     	$data = User::create([
             'idno' => $request->idno,
             'username' => $request->username,
