@@ -68,9 +68,9 @@ public class StudentMainActivity extends AppCompatActivity {
             position = intent.getStringExtra("position");
 
             //for debugging purpose only==============
-            //txtAccessCode.setText("ec1d17");
+            txtAccessCode.setText("2a5986");
             //=============================
-            txtAccessCode.setText("");
+            //txtAccessCode.setText("");
 
 
 

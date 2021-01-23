@@ -47,13 +47,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:hint="EQUIV SCORE"
+        android:hint="POINT(S)"
         android:textStyle="bold"
         android:layout_below="@id/container1"
        />
-
-
-
 
 
 

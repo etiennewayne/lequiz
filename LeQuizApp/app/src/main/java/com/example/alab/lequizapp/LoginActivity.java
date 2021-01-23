@@ -60,16 +60,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //for debugging purpose
-       // txtuser.setText("halgadipe");
+        txtuser.setText("zauxtero");
         //txtuser.setText("jrey");
-       // txtpwd.setText("1234");
+        txtpwd.setText("1234");
 
 
-        txtuser.setText("");
-        txtpwd.setText("");
+//        txtuser.setText("");
+//        txtpwd.setText("");
 
         gclass = (GlobalClass) getApplicationContext();
-        //gclass.setIPAddress("192.168.0.10");
+        gclass.setIPAddress("192.168.254.10");
 
 
     }

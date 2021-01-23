@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 class AndroidQuizGameController extends Controller
 {
     //
-
     public function store(Request $req){
+
+		//return $req;
     	\DB::table('student_quizzes')
     	->insert([
     		'user_id' => $req->user_id,
@@ -19,5 +20,7 @@ class AndroidQuizGameController extends Controller
     	]);
         return ['status' => 'saved'];
     }
-    
+
+
+
 }

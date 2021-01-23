@@ -126,7 +126,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        //Log.d("responvolley", response.toString());
+                        Log.d("submitresponse", response.toString());
                         try {
                             String status = response.getString("status");
                             if(status.equalsIgnoreCase("saved")){
@@ -135,7 +135,7 @@ public class Result extends AppCompatActivity implements ResultAdapter.ListItemC
                                 finish();
 
                                 Intent i = new Intent(getApplicationContext(), StudentMainActivity.class);
-                                // set the new task and clear flags
+                                 //set the new task and clear flags
                                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(i);
                             }

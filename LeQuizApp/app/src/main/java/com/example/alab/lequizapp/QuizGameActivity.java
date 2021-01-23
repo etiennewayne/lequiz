@@ -91,7 +91,6 @@ public class QuizGameActivity extends AppCompatActivity {
 
 
         webSocketAddress = g.getWebSocketAddress();
-
         //Toast.makeText(getApplicationContext(), g.getWebSocketAddress(), Toast.LENGTH_SHORT).show();
         instantiateWebSocket();
 
