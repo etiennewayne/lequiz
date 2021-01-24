@@ -52,7 +52,6 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
 
     List<String> arr;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +60,11 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
         spinnerCategories = findViewById(R.id.spinnerCategory);
         spinnerCategories.setOnItemSelectedListener(this);
 
+
         g = (GlobalClass) getApplicationContext();
         recyclerView = findViewById(R.id.recycleView_myquizzes);
 
         progressSpinner = findViewById(R.id.progressBar);
-
-
         progressSpinner.setVisibility(View.GONE);
         //set progress SPINNER to hide progress spinner
     }
@@ -157,7 +155,6 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
 
     private void getCategories(){
         ///COURSES and NEW NAME Aning categories
-
         try{
             RequestQueue queue = Volley.newRequestQueue(this);
             //String url = g.getIPAddress() + "/android/category/" + g.getId();
@@ -188,7 +185,11 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
                                 bindRecyclerView();
 
                             }else{
-                                Toast.makeText(getApplicationContext(), "No categories found.", Toast.LENGTH_SHORT).show();
+
+                                String[] myarr = {"NO COURSE(S)"};
+                                Toast.makeText(getApplicationContext(), "No course(s) found.", Toast.LENGTH_SHORT).show();
+                                catAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, myarr);
+                                spinnerCategories.setAdapter(catAdapter);
                             }
 
                         } catch (JSONException e) {
@@ -213,7 +214,8 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        //Toast.makeText(getApplicationContext(), spinnerCategories.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), spinnerCategories.getCount(), Toast.LENGTH_SHORT).show();
+
         course = spinnerCategories.getSelectedItem().toString();
         LoadData();
     }

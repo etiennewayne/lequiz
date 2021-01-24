@@ -60,16 +60,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //for debugging purpose
-        txtuser.setText("zauxtero");
-        //txtuser.setText("jrey");
-        txtpwd.setText("1234");
+        //txtuser.setText("zauxtero");
+//        txtuser.setText("jrey");
+//        txtpwd.setText("1234");
 
 
-//        txtuser.setText("");
-//        txtpwd.setText("");
+        txtuser.setText("");
+        txtpwd.setText("");
 
         gclass = (GlobalClass) getApplicationContext();
-        gclass.setIPAddress("192.168.254.10");
+        //gclass.setIPAddress("192.168.254.10");
 
 
     }
@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //String url = ServerIP+"/android/login?username="+user+"&password="+pwd;
         String url = ServerIP + "/android/login";
-     //  String postURL = "http://192.168.15.242/android/login";
+        //String postURL = "http://192.168.15.242/android/login";
         RequestQueue queue = Volley.newRequestQueue(this);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,

@@ -19,12 +19,12 @@ class AndroidQuizController extends Controller
 
 
 
-    public function quizzes($user_id){
+    public function quizzes($user_id, $aycode){
     	return \DB::table('quizzes as a')
         ->join('categories as b', 'a.category_id', 'b.category_id')
         ->join('academicyears as c', 'b.academic_year_id', 'c.academic_year_id')
         ->where('a.user_id', $user_id)
-        ->where('c.active', 1)
+        ->where('c.ay_code', $aycode)
     	->get();
     }
 

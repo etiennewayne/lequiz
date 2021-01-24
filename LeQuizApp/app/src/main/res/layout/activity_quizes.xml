@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="3dp"
+    android:orientation="vertical"
     tools:context=".QuizesActivity">
 
 
@@ -18,18 +19,54 @@
         android:textStyle="bold"
         android:padding="5dp"
         android:text="QUIZZES LIST"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        />
+
+
+    <LinearLayout
+        android:id="@+id/layout_ay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/lblquizzes_header"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ACADEMIC YEAR: "
+            android:id="@+id/lblAY"
+            android:layout_weight="1"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerAY"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView_Quizzes"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_ay"
         android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_quizzes_new"
-        app:layout_constraintTop_toBottomOf="@+id/lblquizzes_header"
-        app:layout_constraintVertical_bias="1.0"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginBottom="50dp" />
+
+
+    <ProgressBar
+        android:id="@+id/quizzes_spinnerprogress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="186dp"
+        android:layout_height="193dp"
+        android:layout_centerInParent="true"/>
+
 
     <Button
         android:id="@+id/btn_quizzes_new"
@@ -37,12 +74,9 @@
         android:layout_height="50dp"
         android:layout_marginBottom="1dp"
         android:text="New Quiz"
+        android:layout_alignParentBottom="true"
         android:onClick="clickQuizNew"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        />
 
 
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

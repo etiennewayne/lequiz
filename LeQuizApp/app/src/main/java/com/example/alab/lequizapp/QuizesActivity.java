@@ -11,6 +11,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,18 +40,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class QuizesActivity extends AppCompatActivity {
+public class QuizesActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     String user, position;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    Spinner spinnerAY;
+
 
     QuizesAdapter adapter;
     String ServerIP;
     GlobalClass gclass;
+    String ay;
 
 
     List<Quizes> listQuizzes = new ArrayList<Quizes>();
+
+
+    ArrayAdapter<String> ayAdapter;
+    List<String> arrAY;
+
+
+    ProgressBar progressSpinner;
+
 
 
     @Override
@@ -56,9 +72,14 @@ public class QuizesActivity extends AppCompatActivity {
 
         gclass = (GlobalClass) getApplicationContext();
         recyclerView = (RecyclerView) findViewById(R.id.recycleView_Quizzes);
+        spinnerAY = findViewById(R.id.spinnerAY);
 
         ServerIP = gclass.getIPAddress();
 
+        spinnerAY.setOnItemSelectedListener(this);
+
+        progressSpinner = findViewById(R.id.quizzes_spinnerprogress);
+        progressSpinner.setVisibility(View.GONE);
 
     }
 
@@ -67,8 +88,9 @@ public class QuizesActivity extends AppCompatActivity {
     {  // After a pause OR at startup
         super.onResume();
         //Refresh your stuff here
-        listQuizzes.clear();
-        LoadQuizes();
+        //listQuizzes.clear();
+        //LoadQuizes();
+        getAcademicYear();
     }
 
 
@@ -119,15 +141,17 @@ public class QuizesActivity extends AppCompatActivity {
     }
 
     void LoadQuizes(){
-        String url = ServerIP+"/android/quiz/" + gclass.getId();
+        progressSpinner.setVisibility(View.VISIBLE);
+        spinnerAY.setEnabled(false);
 
+        String url = ServerIP+"/android/quiz/" + gclass.getId() + "/" +ay;
         RequestQueue queue = Volley.newRequestQueue(this);
-
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
 
+                        progressSpinner.setVisibility(View.GONE);
                         try {
                             JSONArray jsonArray = new JSONArray(response);
                             JSONObject obj;
@@ -157,11 +181,23 @@ public class QuizesActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d("errorResponse", error.getMessage());
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof AuthFailureError) {
+                    //TODO
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(getApplicationContext(),"No response from the server. Server error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof NetworkError) {
+                    //TODO
+                    Toast.makeText(getApplicationContext(),"No response from the server. Network error.",Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ParseError) {
+                    //TODO
+                }
             }
         });
 
         queue.add(stringRequest);
+        spinnerAY.setEnabled(true);
     }
 
     private void delete(final int itemId){
@@ -239,4 +275,85 @@ public class QuizesActivity extends AppCompatActivity {
     }
 
 
+
+    private void getAcademicYear(){
+        try{
+            RequestQueue queue = Volley.newRequestQueue(this);
+            String url = gclass.getIPAddress() + "/android/ay";
+
+            StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        JSONArray jsonArray = null;
+                        try {
+                            jsonArray = new JSONArray(response);
+                            JSONObject obj;
+
+                            arrAY = new ArrayList<String>();
+
+                            if(jsonArray.length() > 0){
+                                for(int i=0;i < jsonArray.length(); i++){
+                                    obj  = jsonArray.getJSONObject(i);
+                                    arrAY.add(obj.getString("ay_code"));
+                                }
+
+                                ayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arrAY);
+                                spinnerAY.setAdapter(ayAdapter);
+
+                                bindRecyclerView();
+
+                            }else{
+
+                                String[] myarr = {"NO COURSE(S)"};
+                                Toast.makeText(getApplicationContext(), "No course(s) found.", Toast.LENGTH_SHORT).show();
+                                ayAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, arrAY);
+                                spinnerAY.setAdapter(ayAdapter);
+                            }
+
+                        } catch (JSONException e) {
+                            Log.d("err_category", e.getMessage());
+                        }
+                    }
+
+                }, new Response.ErrorListener(){
+                @Override
+                public void onErrorResponse(VolleyError error){
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof AuthFailureError) {
+                        //TODO
+                    } else if (error instanceof ServerError) {
+                        Toast.makeText(getApplicationContext(),"No response from the server. Server error.",Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof NetworkError) {
+                        //TODO
+                        Toast.makeText(getApplicationContext(),"No response from the server. Network error.",Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ParseError) {
+                        //TODO
+                    }
+                }
+            });
+
+            queue.add(jsonObjectRequest);
+
+        }catch (Exception e){
+            Log.d("error", e.getMessage());
+        }
+    }
+
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        ay = spinnerAY.getSelectedItem().toString();
+        listQuizzes.clear();
+        recyclerView.setAdapter(null);
+        LoadQuizes();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

@@ -205,6 +205,7 @@ class QuizController extends Controller
             \DB::raw('concat(date_format(a.created_at, "%b-%d-%Y"), " ", time_format(a.created_at, "%h:%i %p")) as created_at'),
             \DB::raw('(select sum(equiv_score) from questions where questions.quiz_id = a.quiz_id) as total_points')
         )
+        ->where('a.quiz_id', $quizid)
         ->get();
         return $data;
     }

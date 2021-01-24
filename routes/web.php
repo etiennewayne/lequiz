@@ -129,7 +129,7 @@ Route::get('/android/category/{catid}/edit','AndroidCategoryController@edit');
 Route::post('/android/category/update','AndroidCategoryController@update');
 
 
-Route::get('/android/quiz/{uid}','AndroidQuizController@quizzes');
+Route::get('/android/quiz/{uid}/{aycode}','AndroidQuizController@quizzes');
 Route::post('/android/quiz/store','AndroidQuizController@store');
 Route::post('/android/quiz/delete','AndroidQuizController@delete');
 Route::get('/android/quiz/{quiz_id}/edit','AndroidQuizController@edit');

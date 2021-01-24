@@ -12,12 +12,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -41,6 +48,8 @@ public class CategoryMain extends AppCompatActivity {
     List<Category> categoryList = new ArrayList<Category>();
 
 
+    ProgressBar progressSpinner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +60,8 @@ public class CategoryMain extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycleView_category);
 
+        progressSpinner = findViewById(R.id.courses_spinnerprogress);
+        progressSpinner.setVisibility(View.GONE);
 
     }
 
@@ -75,7 +86,6 @@ public class CategoryMain extends AppCompatActivity {
             @Override
             public void editClick(View v, int position) {
                 int id = categoryList.get(position).getCategoryId();
-                //Log.d("categoryid", String.valueOf(id));
                 Intent intent = new Intent(getApplicationContext(), CategoryAddUpdate.class);
                 intent.putExtra("id", id);
                 startActivity(intent);
@@ -122,6 +132,8 @@ public class CategoryMain extends AppCompatActivity {
 
 
     private void getCategories(){
+        progressSpinner.setVisibility(View.VISIBLE);
+
         try{
             RequestQueue queue = Volley.newRequestQueue(this);
             String url = g.getIPAddress() + "/android/category/" + g.getId();
@@ -130,7 +142,8 @@ public class CategoryMain extends AppCompatActivity {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("category", response);
+                        progressSpinner.setVisibility(View.GONE);
+
                         JSONArray jsonArray = null;
                         try {
                             jsonArray = new JSONArray(response);
@@ -162,7 +175,18 @@ public class CategoryMain extends AppCompatActivity {
                 }, new Response.ErrorListener(){
                 @Override
                 public void onErrorResponse(VolleyError error){
-                    Log.d("err", error.getMessage());
+                    if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                        Toast.makeText(getApplicationContext(),"No response from the server. Time out Error.",Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof AuthFailureError) {
+                        //TODO
+                    } else if (error instanceof ServerError) {
+                        Toast.makeText(getApplicationContext(),"No response from the server. Server error.",Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof NetworkError) {
+                        //TODO
+                        Toast.makeText(getApplicationContext(),"No response from the server. Network error.",Toast.LENGTH_SHORT).show();
+                    } else if (error instanceof ParseError) {
+                        //TODO
+                    }
                 }
             });
 
