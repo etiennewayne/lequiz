@@ -46,8 +46,6 @@ Route::get('/academicyear/{academicyear}/markactive','AcademicYearController@mar
 Route::resource('/academicyear','AcademicYearController');
 Route::get('/academicyear/ajax/academicyears','AcademicYearController@data_ay');
 
-//
-
 
 Route::resource('/course','CourseController');
 
@@ -129,12 +127,12 @@ Route::get('/android/category/{catid}/edit','AndroidCategoryController@edit');
 Route::post('/android/category/update','AndroidCategoryController@update');
 
 
-Route::get('/android/quiz/{uid}/{aycode}','AndroidQuizController@quizzes');
+ Route::get('/android/quiz/{uid}/{aycode}','AndroidQuizController@quizzes');
 Route::post('/android/quiz/store','AndroidQuizController@store');
 Route::post('/android/quiz/delete','AndroidQuizController@delete');
-Route::get('/android/quiz/{quiz_id}/edit','AndroidQuizController@edit');
-Route::post('/android/quiz/update','AndroidQuizController@update');
-Route::get('/android/quiz/student-list/{quizid}','AndroidQuizController@studentList');
+ Route::get('/android/quiz/{quiz_id}/edit','AndroidQuizController@edit');
+ Route::post('/android/quiz/update','AndroidQuizController@update');
+Route::get('/android/quiz/ajax/student-list/{quizid}','AndroidQuizController@studentList');
 
 
 

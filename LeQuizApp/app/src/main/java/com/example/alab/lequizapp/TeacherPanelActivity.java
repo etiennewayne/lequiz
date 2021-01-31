@@ -1,8 +1,10 @@
 package com.example.alab.lequizapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.solver.GoalRow;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -48,6 +50,37 @@ public class TeacherPanelActivity extends AppCompatActivity {
         g.setPosition(position);
         //TextView txtvw = findViewById(R.id.textView);
         // txtvw.setText(user);
+    }
+
+    @Override
+    public void onBackPressed(){
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(TeacherPanelActivity.this);
+        alert.setTitle("LOGOUT.");
+        alert.setMessage("You will be logout in the Application. Are you sure you want to logout?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+//                if(webSocket != null)
+//                    webSocket.close(1000, "EXIT!");
+
+                dialog.dismiss();
+                TeacherPanelActivity.this.finish();
+            }
+        });
+
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
+
     }
 
 

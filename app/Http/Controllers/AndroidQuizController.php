@@ -144,6 +144,7 @@ class AndroidQuizController extends Controller
 
 
     public function studentList($quizid){
+
         $data = \DB::table('student_quizzes as a')
         ->join('users as b', 'a.user_id', 'b.user_id')
         ->join('quizzes as c', 'a.quiz_id', 'c.quiz_id')

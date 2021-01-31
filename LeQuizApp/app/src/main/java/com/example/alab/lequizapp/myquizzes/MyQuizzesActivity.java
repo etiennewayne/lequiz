@@ -217,7 +217,10 @@ public class MyQuizzesActivity extends AppCompatActivity implements AdapterView.
         //Toast.makeText(getApplicationContext(), spinnerCategories.getCount(), Toast.LENGTH_SHORT).show();
 
         course = spinnerCategories.getSelectedItem().toString();
-        LoadData();
+        if(!course.equalsIgnoreCase("NO COURSE(S)")){
+            LoadData();
+        }
+
     }
 
     @Override

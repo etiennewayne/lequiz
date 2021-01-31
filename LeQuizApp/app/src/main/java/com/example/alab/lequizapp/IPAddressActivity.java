@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class IPAddressActivity extends AppCompatActivity {
 
@@ -22,14 +23,19 @@ public class IPAddressActivity extends AppCompatActivity {
 
         txtIPAddress = findViewById(R.id.txtIPAddress);
 
-        //txtIPAddress.setText("192.168.0.10");
-
+        txtIPAddress.setText(g.getIPAddressShow());
+        //naa nana siay HTTP://
+        //kai nag return concat protocol na sia.. protocol + IPAddress
     }
 
     public void clickSaveIPAddress(View V){
 
-        g.setIPAddress(txtIPAddress.getText().toString());
-        finish();
+        if(txtIPAddress.getText().toString().equalsIgnoreCase("")){
+            Toast.makeText(this, "Please input IP Address", Toast.LENGTH_SHORT).show();
+        }else{
+            g.setIPAddress(txtIPAddress.getText().toString());
+            finish();
+        }
     }
 
 

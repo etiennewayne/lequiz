@@ -52,6 +52,10 @@
             android:layout_height="wrap_content"
             android:text="SIGN IN"
             android:onClick="clickLogin"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/custom_button"
             android:layout_below="@id/txtPwd"/>
 
 

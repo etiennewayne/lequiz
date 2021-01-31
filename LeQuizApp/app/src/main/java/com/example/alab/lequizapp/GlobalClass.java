@@ -113,8 +113,11 @@ public class GlobalClass extends Application{
 
 
     //IPAddress of the Server
+    public String getIPAddressShow(){
+        return IPAddress;
+    }
     public String getIPAddress(){
-        return  protocol + IPAddress;
+        return protocol + IPAddress;
     }
     public  void setIPAddress(String IPAddress){
         this.IPAddress = IPAddress;

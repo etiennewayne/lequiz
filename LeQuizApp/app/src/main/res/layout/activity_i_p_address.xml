@@ -31,5 +31,7 @@
         android:text="SAVE IP ADDRESS"
         android:layout_below="@id/txtIPAddress"
         android:onClick="clickSaveIPAddress"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:textColor="#ffff"
+        android:background="@drawable/custom_button"/>
 </RelativeLayout>

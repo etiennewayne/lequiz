@@ -68,7 +68,7 @@ public class StudentQuizzesActivity extends AppCompatActivity {
         try{
 
             RequestQueue queue = Volley.newRequestQueue(this);
-            String url = g.getIPAddress() + "/android/quiz/student-list/" + quiz_id;
+            String url = g.getIPAddress() + "/android/quiz/ajax/student-list/" + quiz_id;
 
             StringRequest jsonObjectRequest = new StringRequest(Request.Method.GET, url,
                 new com.android.volley.Response.Listener<String>() {

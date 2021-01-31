@@ -72,8 +72,6 @@ public class StudentMainActivity extends AppCompatActivity {
             //=============================
             txtAccessCode.setText("");
 
-
-
             g.setAccessCode(txtAccessCode.getText().toString());
 
           //  lblStudent.setText("Enter ACCESS CODE to join the room.");
