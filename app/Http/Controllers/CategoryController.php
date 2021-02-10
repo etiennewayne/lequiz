@@ -19,7 +19,7 @@ class CategoryController extends Controller
 
     public function index(){
 
-     
+
         return view('category.category');
     }
 
@@ -35,7 +35,7 @@ class CategoryController extends Controller
     public function create(){
         $ay = Academicyear::orderBy('ay_code', 'desc')
         ->get();
-       
+
 
         return view('category.categorycreate')
         ->with('academicyear', $ay);
@@ -44,17 +44,20 @@ class CategoryController extends Controller
     public function store(Request $req){
         $user_id = \Auth::user()->user_id;
 
+        $ay = Academicyear::where('active', 1)->first();
 
         $validate = $req->validate([
-            'category' => ['required', 'unique:categories,category,null,category_id,user_id,'.$user_id]
+            'category' => ['required', 'unique:categories,category,null,category_id,user_id,'.$user_id],
+             'unit' => ['required', 'integer']
         ]);
 
 
         $data = Category::create([
             'user_id' => $user_id,
-            'academic_year_id' => $req->ay,
+            'academic_year_id' => $ay->academic_year_id,
             'category' => strtoupper($req->category),
-            'category_desc' => strtoupper($req->category_desc)
+            'category_desc' => strtoupper($req->category_desc),
+            'unit' => $req->unit
         ]);
 
         return redirect('/category')->with('success', 'Category successfully added.');
@@ -76,16 +79,21 @@ class CategoryController extends Controller
         $user_id = \Auth::user()->user_id;
         $category = Category::find($id);
 
+
+        $ay = Academicyear::where('active', 1)->first();
+
         if($req->category != $category->category){
             $validate = $req->validate([
-                'category' => ['required', 'unique:categories']
+                'category' => ['required', 'unique:categories'],
+                'unit' => ['required', 'number']
             ]);
         }
 
         $category->user_id = $user_id;
-        $category->academic_year_id = $req->ay;
+        $category->academic_year_id = $ay->academic_year_id;
         $category->category = strtoupper($req->category);
         $category->category_desc = strtoupper($req->category_desc);
+        $category->unit = $req->unit;
         $category->save();
         return redirect('/category')->with('success', 'Category successfully Updated.');
     }

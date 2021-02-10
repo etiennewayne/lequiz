@@ -42,7 +42,7 @@
                     <thead>
                     <tr>
                         <th>User ID</th>
-
+                        <th>ID No</th>
                         <th>Username</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
@@ -58,7 +58,7 @@
                     <tfoot>
                     <tr>
                         <th>User ID</th>
-
+                        <th>ID No</th>
                         <th>Username</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
@@ -93,7 +93,8 @@
                     dataSrc: ''
                 },
                 columns: [
-                    { data: 'user_id' },
+                    { data: 'user_id', visible : false },
+                    { data: 'idno' },
                     { data: 'username' },
                     { data: 'lname' },
                     { data: 'fname' },

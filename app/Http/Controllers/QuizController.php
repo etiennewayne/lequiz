@@ -60,8 +60,8 @@ class QuizController extends Controller
     {
         //
         $validator = $request->validate([
-            'schedule_code' => ['required', 'string', 'max:10', 'unique:quizzes'],
-            'access_code' => ['required', 'string', 'max:8'],
+
+            'access_code' => ['required', 'string', 'max:8', 'unique:quizzes'],
             'quiz_title' => ['required', 'string', 'max:100', 'unique:quizzes'],
             'quiz_desc' => ['required', 'string', 'max:255'],
         ]);
@@ -101,7 +101,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-       
+
         //
         $categories = \DB::table('categories')
             ->where('user_id', \Auth::user()->user_id)
@@ -131,7 +131,7 @@ class QuizController extends Controller
      */
     public function update(Request $request, $id)
     {
-     
+
         $validator = $request->validate([
             'schedule_code' => ['required', 'string', 'max:10', 'unique:quizzes'],
             'access_code' => ['required', 'string', 'max:8'],
@@ -139,7 +139,7 @@ class QuizController extends Controller
             'quiz_desc' => ['required', 'string', 'max:255'],
         ]);
 
-        
+
 
         $quiz = Quiz::find($id);
 
@@ -188,13 +188,27 @@ class QuizController extends Controller
 
     public function studentQuizzes($quizid){
 
+        $quiz = DB::table('quizzes as a')
+            ->join('student_quizzes as b', 'a.quiz_id', 'b.quiz_id')
+            ->select('a.quiz_id', 'a.schedule_code', 'a.access_code', 'a.quiz_title', 'a.quiz_desc',
+            'b.ay_code', 'b.total_score',
+                \DB::raw('concat(date_format(b.created_at, "%b-%d-%Y"), " ", time_format(b.created_at, "%h:%i %p")) as created_at')
+            )
+            ->where('a.quiz_id', $quizid)
+            ->get();
+
+        $countquiz = DB::table('questions')
+            ->where('quiz_id', $quizid)->count();
+
         return view('quizzes.student-quizzes')
-        ->with('quizid', $quizid);
+            ->with('quiz', $quiz)
+            ->with('countquiz', $countquiz)
+            ->with('quizid', $quizid);
     }
 
     public function studentQuizzesAjax($quizid){
         $facultyid = \Auth::user()->user_id;
-        
+
         $data = DB::table('student_quizzes as a')
         ->join('quizzes as b', 'a.quiz_id', 'b.quiz_id')
         ->join('users as c', 'a.user_id', 'c.user_id')

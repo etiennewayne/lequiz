@@ -8,7 +8,7 @@ class Category extends Model
 {
     //
     protected $table = 'categories';
-    protected $fillable = ['user_id', 'academic_year_id','category', 'category_desc'];
+    protected $fillable = ['user_id', 'academic_year_id','category', 'category_desc', 'unit'];
     protected $primaryKey = 'category_id';
 
 }

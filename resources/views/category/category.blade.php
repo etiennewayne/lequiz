@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container mt-5">
-        
+
         <div class="row">
             <div class="col">
                 @if(session('success'))
@@ -53,6 +53,7 @@
                         <th>AY</th>
                         <th>Course</th>
                         <th>Course Description</th>
+                        <th>Unit</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -62,6 +63,7 @@
                         <th>AY</th>
                         <th>Course</th>
                         <th>Course Description</th>
+                        <th>Unit</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>
@@ -85,9 +87,10 @@
                 },
                 columns: [
                     { data: 'category_id' },
-                    { data: 'ay_code' },
+                    { data: 'ay_code', visible:false },
                     { data: 'category' },
                     { data: 'category_desc' },
+                    { data: 'unit' },
                     {
                         defaultContent: '<button class="btn btn-warning btn-sm" id="edit">Edit</button><button class="btn btn-danger btn-sm" id="delete">Delete</button>'
                     },

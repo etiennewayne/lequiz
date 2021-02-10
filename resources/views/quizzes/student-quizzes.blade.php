@@ -44,16 +44,27 @@
         </div>
     @endif
 
-
     {{-- <a href="/quiz/{{ $quizid }}/question/create" class="btn btn-success mb-2">Add Question</a> --}}
 
-        <div class="row justify-content-center">
-            <table id="questions" class="table table-striped table-bordered" style="width:100%">
-                <thead>
+        <div class="row">
+
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item" style="background-color: #25963e; font-weight: bold; color: white;">QUIZ DESCRIPTION</li>
+                    <li class="list-group-item" style="font-weight: bold;">ACCESS CODE: <span style="font-style: italic;">{{ $quiz[0]->access_code }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">TITLE: <span style="font-style: italic;">{{ $quiz[0]->quiz_title  }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">DATE TAKEN: <span style="font-style: italic;">{{ $quiz[0]->created_at  }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">TOTAL POINTS: <span style="font-style: italic;">{{ $countquiz  }}</span></li>
+                </ul>
+            </div>
+
+
+            <div class="col-md-8">
+                <table id="questions" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Access Code</th>
-                        <th>Quiz Title</th>
+
                         <th>ID No</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
@@ -62,25 +73,24 @@
                         <th>Total Quiz Points</th>
 
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
 
-                </tbody>
-                  <tfoot>
-                      <tr>
+                    </tbody>
+                    <tfoot>
+                    <tr>
                         <th>ID</th>
-                        <th>Access Code</th>
-                        <th>Quiz Title</th>
+
                         <th>ID No</th>
                         <th>Lastname</th>
                         <th>Firstname</th>
                         <th>Middlename</th>
                         <th>Score</th>
                         <th>Total Quiz Points</th>
-                      </tr>
-                  </tfoot>
-              </table>
-
+                    </tr>
+                    </tfoot>
+                </table>
+            </div><!--close col-md-8-->
         </div><!--close div table-->
 
     <hr>
@@ -116,15 +126,14 @@
                     dataSrc: ''
                 },
                 columns: [
-                    { data: 'quiz_id' },
-                    { data: 'access_code' },
-                    { data: 'quiz_title' },
+                    { data: 'quiz_id', visible:false },
+
                     { data: 'idno' },
                     { data: 'lname' },
                     { data: 'fname' },
                     { data: 'mname' },
                     { data: 'total_score' },
-                    { data: 'total_points' },
+                    { data: 'total_points', visible:false },
 
                 ]
             });
