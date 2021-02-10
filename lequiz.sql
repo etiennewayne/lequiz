@@ -31,16 +31,17 @@ CREATE TABLE `academicyears` (
   PRIMARY KEY (`academic_year_id`),
   KEY `semesterID` (`semester_id`),
   CONSTRAINT `academicyears_ibfk_1` FOREIGN KEY (`semester_id`) REFERENCES `semesters` (`semester_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 /*Data for the table `academicyears` */
 
 insert  into `academicyears`(`academic_year_id`,`ay_code`,`ay`,`semester_id`,`created_at`,`updated_at`,`active`) values 
 (1,'191','2019-2020',1,'2019-10-11 05:01:26','2019-10-11 02:55:18',0),
-(2,'192','2019-2020',2,'2019-10-11 05:03:01','2019-10-11 02:55:28',1),
+(2,'192','2019-2020',2,'2019-10-11 05:03:01','2019-10-11 02:55:28',0),
 (4,'181','2018-2019',1,'2019-10-11 03:03:46','2019-10-11 03:03:46',0),
 (5,'182','2018-2019',2,'2019-10-11 03:04:04','2019-10-11 03:04:04',0),
-(6,'173','2017-2018',3,'2019-10-11 03:04:04','2020-05-10 14:33:59',0);
+(6,'173','2017-2018',3,'2019-10-11 03:04:04','2020-05-10 14:33:59',0),
+(10,'201','2020-2021',1,'2021-01-23 21:54:46','2021-01-23 21:54:46',1);
 
 /*Table structure for table `categories` */
 
@@ -52,6 +53,7 @@ CREATE TABLE `categories` (
   `academic_year_id` int(11) DEFAULT NULL,
   `category` varchar(100) DEFAULT NULL,
   `category_desc` varchar(255) DEFAULT NULL,
+  `unit` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   PRIMARY KEY (`category_id`),
@@ -59,21 +61,14 @@ CREATE TABLE `categories` (
   KEY `academic_year_id` (`academic_year_id`),
   CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `categories_ibfk_2` FOREIGN KEY (`academic_year_id`) REFERENCES `academicyears` (`academic_year_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=latin1;
 
 /*Data for the table `categories` */
 
-insert  into `categories`(`category_id`,`user_id`,`academic_year_id`,`category`,`category_desc`,`created_at`,`updated_at`) values 
-(9,15,2,'oop','object oriented','2020-10-21 10:54:46','2020-10-21 10:54:46'),
-(10,15,2,'Programming 1','Programming 1 - C++','2020-10-21 10:54:48','2020-10-21 10:54:48'),
-(11,15,2,'test','test','2020-10-21 10:54:48','2020-10-21 10:54:48'),
-(23,19,2,'F1 CATEGORY 1','F1 CATEGORY 1','2020-10-21 10:54:50','2020-10-21 10:54:50'),
-(25,19,2,'F1 CATEGORY 2','F1 CATEGORY 2','2020-10-21 10:54:51','2020-10-21 10:54:51'),
-(26,17,2,'WEB APP','WEB APP','2020-10-21 10:54:51','2020-10-21 10:54:51'),
-(44,17,2,'SAMPLE CATEGORY','HAHAHAHA','2020-10-23 18:31:38',NULL),
-(45,17,2,'OOP','OOP','2020-10-24 18:10:43',NULL),
-(46,22,2,'PROGRAMMING 1','QUIZ NI SA BOGO NGA STUDENT','2020-12-07 11:39:53','2020-12-07 11:39:53'),
-(48,22,2,'SAMPLE COURSE','HAHHAHA','2020-12-19 20:36:44',NULL);
+insert  into `categories`(`category_id`,`user_id`,`academic_year_id`,`category`,`category_desc`,`unit`,`created_at`,`updated_at`) values 
+(52,22,10,'WEB APP','WEB APP',5,'2021-02-10 19:13:33','2021-02-10 11:13:33'),
+(55,22,10,'SSXXX','SSASDAWDA',3,'2021-02-10 19:13:24','2021-02-10 11:13:24'),
+(57,22,10,'TEST','TEST',3,'2021-02-10 11:12:53','2021-02-10 11:12:53');
 
 /*Table structure for table `courses` */
 
@@ -158,28 +153,16 @@ CREATE TABLE `questions` (
   PRIMARY KEY (`question_id`),
   KEY `quiz_id` (`quiz_id`),
   CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=latin1;
 
 /*Data for the table `questions` */
 
 insert  into `questions`(`question_id`,`question`,`opt_a`,`opt_b`,`opt_c`,`opt_d`,`ans`,`quiz_id`,`set_time`,`equiv_score`) values 
-(28,'qustion 1','a','b','c','d','A',25,10,1),
-(29,'question 2','a','b','c','d','B',25,10,1),
-(30,'question 3','a','b','c','d','C',25,10,1),
-(31,'What is CSS?','copra style shit','cascading style shit','cascading style sheet','all of the above','c',27,10,1),
-(32,'How to add external CSS','<style>boday{margin:0}</style>','<p style=\"margin:0px\">I am paragraph</p>','<body><div class=\"container\"></div></body>','<link rel=\"stylesheet\" href=\"mystyle.css\">','d',27,10,1),
-(33,'Document extenson of a css','.css','.js','.php','.html','A',27,10,1),
-(34,'I want to add bottom padding. What could be the best syntax I could use?','padding-top: 50px;','padding-right: 30px;','padding-bottom: 50px;','padding-left: 80px;','c',27,10,1),
-(37,'How many types of constructors are available, in general, in any language?','2','3','4','5','B',38,8,1),
-(39,'Which constructor is called while assigning some object with another?','Default','Parameterized','Copy','Direct assignment is used','C',38,8,1),
-(40,'Which specifier applies only to the constructors?','Public','Protected','Implicit','Explicit','D',38,8,1),
-(41,'Which type of constructor can’t have a return type?','Default','Parameterized','Copy','Constructors don’t have a return type','D',38,8,1),
-(42,'Within a class, only one static constructor can be created.','True','False','trulse','none of the above','A',38,8,1),
-(43,'How can you created rounded corners using CSS3?','border[round]: 30px;','corner-effect: round;','border-radius: 30px;','alpha-effect: round-corner;','c',27,10,1),
-(44,'How do you add shadow to elements in CSS3?','box-shadow: 10px 10px 5px grey;','shadow-right: 10px shadow-bottom: 10px;','shadow-color: grey','alpha-effect[shadow]: 10px 10px 5px grey;','A',27,10,1),
-(71,'What is the attack technique used to exploit web sites by altering backend database queries through inputting manipulated queries?','LDAP Injection','XML Injection','SQL Injection','OS Commanding','A',40,5,5),
-(72,'What happens when an application takes user-inputted data and sends it to a web browser without proper validation and escaping?','Security Misconfiguration','Cross Site Scripting','Insecure Direct Object References','Broken Authentication and Session Management','B',40,5,1),
-(73,'What flaw arises from session tokens having poor randomness across a range of values?','Insecure Direct Object References','Session Replay','Session Fixation','Session Hijacking','C',40,5,1);
+(91,'What is HTML','Hyper Markup Language','Programming Language','Assembly Language','Spoken Language','A',57,5,1),
+(92,'What is PHP','Hypertext preprocessor','A javascript','Assembly Language','None of the above','A',57,5,1),
+(93,'CSS stands for?','Cast style sheets','Copper Style Sheets','Cascading Style Sheets','None of the above','c',57,5,1),
+(94,'what is bla','a','b','c','d','A',58,5,1),
+(95,'what is b','a','b','xc','d','B',58,5,1);
 
 /*Table structure for table `quizzes` */
 
@@ -201,15 +184,14 @@ CREATE TABLE `quizzes` (
   KEY `user_id` (`user_id`),
   CONSTRAINT `quizzes_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1;
 
 /*Data for the table `quizzes` */
 
 insert  into `quizzes`(`quiz_id`,`schedule_code`,`user_id`,`category_id`,`access_code`,`quiz_title`,`quiz_desc`,`created_at`,`updated_at`,`ay_id`) values 
-(25,'',19,23,'','F1 QUIZ TITLE 1','F1 QUIZ TITLE 1','2020-06-24 21:57:44','2020-06-24 13:57:44',NULL),
-(27,'',17,26,'','CSS','CSS','2020-10-04 01:22:56','2020-10-04 01:22:56',NULL),
-(38,'',17,45,'','1ST QUIZ OOP','nnnn','2020-10-24 19:07:45','2020-10-24 11:07:45',NULL),
-(40,'',22,46,'ec1d17','TEST2','TEST2','2020-12-15 22:31:47','2020-12-15 14:31:47',NULL);
+(57,'120111',22,52,'2a5986','1ST QUIZ','1ST QUIZ','2021-01-23 22:09:39','2021-01-23 22:09:39',NULL),
+(58,'120112',22,52,'ae2ae5','2ND QUIZ','2ND QUIZ','2021-01-23 23:15:05','2021-01-23 23:15:05',NULL),
+(59,'120111',22,55,'6215eb','TEST','TEST','2021-02-10 11:03:12','2021-02-10 11:03:12',NULL);
 
 /*Table structure for table `room_students` */
 
@@ -225,10 +207,6 @@ CREATE TABLE `room_students` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `room_students` */
-
-insert  into `room_students`(`room_student_id`,`room_id`,`user_id`,`created_at`,`updated_at`) values 
-(1,7,18,'2020-06-07 07:27:51','2020-06-07 07:27:51'),
-(2,7,18,'2020-06-07 07:28:32','2020-06-07 07:28:32');
 
 /*Table structure for table `rooms` */
 
@@ -249,13 +227,6 @@ CREATE TABLE `rooms` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 /*Data for the table `rooms` */
-
-insert  into `rooms`(`room_id`,`room`,`room_desc`,`access_code`,`quiz_id`,`isStart`,`created_at`,`updated_at`) values 
-(10,'F1 QUIZ 1 ROOM 1','F1 QUIZ 1 ROOM 1','1bbb2a',25,0,'2020-06-24 13:58:34','2020-06-24 13:58:34'),
-(11,'QUIZ CSS 1','QUIZ CSS 1','2e117e',27,0,'2020-10-04 01:31:10','2020-10-04 01:31:10'),
-(12,'ROOM 102','QUIZ BLOCK 1','c24866',38,0,'2020-10-24 11:08:36','2020-10-24 11:08:36'),
-(13,'PROGRAMMING 1 QUIZ','PROGRAMMING 1 QUIZ','c1acc0',39,0,'2020-10-25 12:08:49','2020-10-25 12:08:49'),
-(14,'TEST ROOM','TEST ROOM','643a5f',39,0,'2020-12-07 03:31:29','2020-12-07 03:31:29');
 
 /*Table structure for table `semesters` */
 
@@ -299,6 +270,7 @@ CREATE TABLE `student_quizzes` (
   `user_id` bigint(20) unsigned NOT NULL,
   `quiz_id` bigint(20) NOT NULL,
   `ay_code` varchar(20) DEFAULT '',
+  `academic_year_id` int(20) DEFAULT NULL,
   `course` varchar(100) DEFAULT '',
   `total_score` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -308,16 +280,14 @@ CREATE TABLE `student_quizzes` (
   CONSTRAINT `student_quizzes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_quizzes_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `student_quizzes_ibfk_4` FOREIGN KEY (`quiz_id`) REFERENCES `quizzes` (`quiz_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=latin1;
 
 /*Data for the table `student_quizzes` */
 
-insert  into `student_quizzes`(`student_quiz_id`,`user_id`,`quiz_id`,`ay_code`,`course`,`total_score`,`created_at`) values 
-(41,24,40,'192','PROGRAMMING 1',2,'2020-12-17 09:51:19'),
-(42,24,40,'192','PROGRAMMING 1',0,'2020-12-17 11:32:06'),
-(43,24,40,'192','PROGRAMMING 1',1,'2020-12-19 11:14:40'),
-(44,24,40,'192','PROGRAMMING 1',6,'2020-12-19 15:02:01'),
-(45,24,40,'192','PROGRAMMING 1',6,'2020-12-19 15:04:27');
+insert  into `student_quizzes`(`student_quiz_id`,`user_id`,`quiz_id`,`ay_code`,`academic_year_id`,`course`,`total_score`,`created_at`) values 
+(50,24,57,'201',NULL,'WEB APP',3,'2021-01-24 07:12:07'),
+(51,26,57,'201',NULL,'WEB APP',1,'2021-01-24 07:14:04'),
+(52,26,58,'201',NULL,'WEB APP',2,'2021-01-24 07:16:14');
 
 /*Table structure for table `users` */
 
@@ -341,19 +311,18 @@ CREATE TABLE `users` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `idno` (`idno`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `users` */
 
 insert  into `users`(`user_id`,`idno`,`username`,`lname`,`fname`,`mname`,`email`,`classification`,`email_verified_at`,`password`,`remember_token`,`created_at`,`updated_at`,`apwd`) values 
-(15,'1','admin','Administrator','Administrator','Administrator','admin@yahoo.com','ADMINISTRATOR',NULL,'$2y$10$YjaJIEK15ouZFJCAOONZa.sRBl0jg6w5S9AyX68TInfNsuebCR/Tm',NULL,'2019-10-26 16:41:35','2020-12-20 04:47:07','admin'),
+(15,'812345','admin','Administrator','Administrator','Administrator','admin@yahoo.com','ADMINISTRATOR',NULL,'$2y$10$YjaJIEK15ouZFJCAOONZa.sRBl0jg6w5S9AyX68TInfNsuebCR/Tm',NULL,'2019-10-26 16:41:35','2021-02-10 18:06:14','admin'),
 (17,'2','wayne','Amparado','Etienne',NULL,'et88@yahoo.com','FACULTY',NULL,'$2y$10$wWJB2EsF3o/463.JpOyKtuL0ReSob/Y8.M4iauDNGawgwJtnJyp8O',NULL,'2020-05-03 06:18:11','2020-12-20 04:47:07','a'),
 (19,'3','f1','f1','f1','f1','f1@gmail.com','FACULTY',NULL,'$2y$10$mhSA9WsuhuETFmxwCuCbpOrv4m9Z7tI6u7mc5I2e0.e4CryChPLha',NULL,'2020-06-24 13:07:12','2020-12-20 04:47:09','a'),
-(20,'20','test','test','test','test','test@gmail.com','STUDENT',NULL,'$2y$10$kRO3S72i3ckxUGGhfSha.uer9/lXreubGITJnRfVpbLcUGRCGE9IK',NULL,'2020-06-24 14:03:39','2020-12-20 04:47:12','a'),
 (21,'21','jfloriza','Floriza','Jade Ann','E','jadeann@gmail.com','FACULTY',NULL,'$2y$10$XfB1O4WXX6htCF24n7.ifO0Cpi7dUAkQgZtpGYn1iM7gz7eBW0Spy',NULL,'2020-10-25 05:59:48','2020-12-20 04:47:13','1234'),
 (22,'22','jrey','Santarita','Jun Rey','M','junrey12345@gmail.com','FACULTY',NULL,'$2y$10$Jm9JbUlhK6mh2oIRw6J4nO9GLWCn1XCUVBooey/GnAQmX6T/KS.w2',NULL,'2020-10-25 06:03:02','2020-12-20 04:47:14','1234'),
 (23,'23','jalcala','Alcala','Jacqueline','','jalcala@gadtc.edu.ph','STUDENT',NULL,'$2y$10$z1.Gn2DaagGep.t1zcqghunh0/Fj7mQ3/jtFm4LkcrdH9nL1Gtbhy',NULL,'2020-10-25 06:26:03','2020-12-20 04:47:15','1234'),
-(24,'24','halgadipe','Algadipe','Hezzle','','halgadipe@gadtc.edu.ph','STUDENT',NULL,'$2y$10$ErDELbZlnlCC411mQp60w.xGfwkTIp0aTEaPEgwkCZCKAVgcEDNau',NULL,'2020-10-25 06:26:36','2020-12-20 04:47:16','1234'),
+(24,'2456','halgadipe','Algadipe','Hezzle','','halgadipe@gadtc.edu.ph','STUDENT',NULL,'$2y$10$ErDELbZlnlCC411mQp60w.xGfwkTIp0aTEaPEgwkCZCKAVgcEDNau',NULL,'2020-10-25 06:26:36','2021-02-10 18:19:49','1234'),
 (25,'25','raljas','Aljas','Roselyn','','raljas@gadtc.edu.ph','STUDENT',NULL,'$2y$10$TQqhnVw5hD4qM.xBqUx5q.enqIM5hnAoqII/i/coylRlG8r5bvRsS',NULL,'2020-10-25 06:27:13','2020-12-20 04:47:18','1234'),
 (26,'26','zauxtero','Auxtero','Zyra Jean','','zauxtero@gadtc.edu.ph','STUDENT',NULL,'$2y$10$S2DynBLaXd6ro6hgd4EYv.ZaJPrc/lEBtBS0davVsni.d2T/Xq9Ge',NULL,'2020-10-25 06:28:37','2020-12-20 04:47:19','1234'),
 (27,'27','jbalayong','Balayong','Justine Red','','jbalayong@gadtc.edu.ph','STUDENT',NULL,'$2y$10$Efg4cNUyBxC0LwjQy0epI.nVQedDNihvLDCuaTpPKJWnPYwrD0AwW',NULL,'2020-10-25 06:29:29','2020-12-20 04:47:20','1234'),
@@ -374,7 +343,8 @@ insert  into `users`(`user_id`,`idno`,`username`,`lname`,`fname`,`mname`,`email`
 (42,'42','dsagun','Sagun','Dexter','','dsagun@gadtc.edu.ph','STUDENT',NULL,'$2y$10$2vwiyFITuvsSQomB8qXzXuEQSDzBtrDIHhMU/nm8hAWeavGEYY14q',NULL,'2020-10-25 06:43:41','2020-12-20 04:47:49','1234'),
 (43,'43','bsollano','Sollano','Beverly','','bsollano@gadtc.edu.ph','STUDENT',NULL,'$2y$10$2rMQOdHQNhPgQqEWdtK.iOvWpim1QVwyoSyuH4/r6aJQtKqIxpHRK',NULL,'2020-10-25 06:44:05','2020-12-20 04:47:51','1234'),
 (44,'44','vveloso','Veloso','Virgel','','vveloso@gadtc.edu.ph','STUDENT',NULL,'$2y$10$.rB1Spc.gh8ptyjpQtRnDeTNkgk6HA09EvII357gc0q4DQAuxW3I.',NULL,'2020-10-25 06:44:27','2020-12-20 04:47:52','1234'),
-(45,'45','jvilla','Villa','John Paul','','jvilla@gadtc.edu.ph','STUDENT',NULL,'$2y$10$65/B2PTibU62vsz8jiQrpeKKbiUyBaP7K6wvvxtOEIAIsKgY16ndy',NULL,'2020-10-25 06:45:10','2020-12-20 04:48:39','1234');
+(45,'45','jvilla','Villa','John Paul','','jvilla@gadtc.edu.ph','STUDENT',NULL,'$2y$10$65/B2PTibU62vsz8jiQrpeKKbiUyBaP7K6wvvxtOEIAIsKgY16ndy',NULL,'2020-10-25 06:45:10','2020-12-20 04:48:39','1234'),
+(47,'','ricky','Valdezz','Ricky','Dersd','ricky@gmail.com','STUDENT',NULL,'$2y$10$Uff1hS9AOrcf7TxYpuP3Su8kOuJAxWSNp3u6yMZa59UmtRJQuSvru',NULL,'2021-01-23 11:18:10','2021-01-23 11:18:10','1234');
 
 /* Procedure structure for procedure `proc_room_by_ay` */
 
