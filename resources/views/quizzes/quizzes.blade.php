@@ -49,13 +49,13 @@
                 <h3>Quizzes</h3>
                 <hr>
                 <a href="/quiz/create" class="btn btn-success mb-3">Add Quiz</a>
-               
+
                 <table id="quizzes" class="table table-striped table-bordered" style="width:100%">
                     <thead>
                     <tr>
                         <th>ID</th>
                         <th>Schedule Code</th>
-                        <th>Course</th>
+                        <th>Course Code</th>
                         <th>Access Code</th>
                         <th>Quiz Title</th>
                         <th>Quiz Description</th>
@@ -70,7 +70,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Schedule Code</th>
-                        <th>Course</th>
+                        <th>Course Code</th>
                         <th>Access Code</th>
                         <th>Quiz Title</th>
                         <th>Quiz Description</th>
@@ -135,7 +135,7 @@
 
             });//criteria click edit
 
-            
+
 
             $('#quizzes tbody').on( 'click', '#btnquestion', function () {
                 var data = table.row( $(this).parents('tr') ).data();
@@ -160,7 +160,7 @@
             });
 
 
-            
+
 
             $('#quizzes tbody').on( 'click', '#delete', function () {
                 var data = table.row( $(this).parents('tr') ).data();

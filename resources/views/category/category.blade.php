@@ -51,8 +51,8 @@
                     <tr>
                         <th>ID</th>
                         <th>AY</th>
-                        <th>Course</th>
-                        <th>Course Description</th>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
                         <th>Unit</th>
                         <th>Action</th>
                     </tr>
@@ -61,8 +61,8 @@
                     <tr>
                         <th>ID</th>
                         <th>AY</th>
-                        <th>Course</th>
-                        <th>Course Description</th>
+                        <th>Course Code</th>
+                        <th>Course Title</th>
                         <th>Unit</th>
                         <th>Action</th>
                     </tr>

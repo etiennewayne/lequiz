@@ -195,15 +195,21 @@ class QuizController extends Controller
                 \DB::raw('concat(date_format(b.created_at, "%b-%d-%Y"), " ", time_format(b.created_at, "%h:%i %p")) as created_at')
             )
             ->where('a.quiz_id', $quizid)
-            ->get();
+            ->first();
 
-        $countquiz = DB::table('questions')
-            ->where('quiz_id', $quizid)->count();
+        if($quiz){
+            $countquiz = DB::table('questions')
+                ->where('quiz_id', $quizid)->count();
 
-        return view('quizzes.student-quizzes')
-            ->with('quiz', $quiz)
-            ->with('countquiz', $countquiz)
-            ->with('quizid', $quizid);
+            return view('quizzes.student-quizzes')
+                ->with('quiz', $quiz)
+                ->with('countquiz', $countquiz)
+                ->with('quizid', $quizid);
+        }else{
+            return 'NO QUIZZES FOUND.';
+        }
+
+
     }
 
     public function studentQuizzesAjax($quizid){

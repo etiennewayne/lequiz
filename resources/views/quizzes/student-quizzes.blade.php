@@ -51,10 +51,10 @@
             <div class="col-md-4">
                 <ul class="list-group">
                     <li class="list-group-item" style="background-color: #25963e; font-weight: bold; color: white;">QUIZ DESCRIPTION</li>
-                    <li class="list-group-item" style="font-weight: bold;">ACCESS CODE: <span style="font-style: italic;">{{ $quiz[0]->access_code }}</span></li>
-                    <li class="list-group-item" style="font-weight: bold;">TITLE: <span style="font-style: italic;">{{ $quiz[0]->quiz_title  }}</span></li>
-                    <li class="list-group-item" style="font-weight: bold;">DATE TAKEN: <span style="font-style: italic;">{{ $quiz[0]->created_at  }}</span></li>
-                    <li class="list-group-item" style="font-weight: bold;">TOTAL POINTS: <span style="font-style: italic;">{{ $countquiz  }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">ACCESS CODE: <span style="font-style: italic;">{{ $quiz->access_code ? $quiz->access_code : '' }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">TITLE: <span style="font-style: italic;">{{ $quiz->quiz_title ? $quiz->quiz_title: ''  }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">DATE TAKEN: <span style="font-style: italic;">{{ $quiz->created_at ? $quiz->created_at: ''  }}</span></li>
+                    <li class="list-group-item" style="font-weight: bold;">TOTAL POINTS: <span style="font-style: italic;">{{ $countquiz ? $countquiz: 0 }}</span></li>
                 </ul>
             </div>
 
